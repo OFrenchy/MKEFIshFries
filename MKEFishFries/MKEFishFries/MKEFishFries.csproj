@@ -179,6 +179,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="Migrations\201903132023451_InitialCreate.cs" />
+    <Compile Include="Migrations\201903132023451_InitialCreate.Designer.cs">
+      <DependentUpon>201903132023451_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903132033068_MakingRoles.cs" />
+    <Compile Include="Migrations\201903132033068_MakingRoles.Designer.cs">
+      <DependentUpon>201903132033068_MakingRoles.cs</DependentUpon>
+    </Compile>
+=======
+>>>>>>> 29f0de7fc81ba70e99e132f96bac4d79ef8e5355
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ContactList.cs" />
@@ -262,6 +273,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903132023451_InitialCreate.resx">
+      <DependentUpon>201903132023451_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903132033068_MakingRoles.resx">
+      <DependentUpon>201903132033068_MakingRoles.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

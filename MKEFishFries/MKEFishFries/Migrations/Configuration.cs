@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 29f0de7fc81ba70e99e132f96bac4d79ef8e5355
 namespace MKEFishFries.Migrations
 {
     using System;
@@ -11,6 +14,10 @@ namespace MKEFishFries.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+<<<<<<< HEAD
+            ContextKey = "MKEFishFries.Models.ApplicationDbContext";
+=======
+>>>>>>> 29f0de7fc81ba70e99e132f96bac4d79ef8e5355
         }
 
         protected override void Seed(MKEFishFries.Models.ApplicationDbContext context)
@@ -22,6 +29,8 @@ namespace MKEFishFries.Migrations
         }
     }
 }
+<<<<<<< HEAD
+=======
 =======
 namespace MKEFishFries.Migrations
 {
@@ -47,3 +56,4 @@ namespace MKEFishFries.Migrations
     }
 }
 >>>>>>> bf96a3cd0eea6f93475a7820a465571b8a2a4306
+>>>>>>> 29f0de7fc81ba70e99e132f96bac4d79ef8e5355
