@@ -22,6 +22,8 @@ namespace MKEFishFries.Models
     {
         public DbSet<Event> Events { get; set; }
         public DbSet<Parish> Parishes { get; set; }
+        public DbSet<Donation> Donations { get; set; }
+        public DbSet<ContactList> ContactLists { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
