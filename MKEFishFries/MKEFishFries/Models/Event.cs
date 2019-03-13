@@ -21,8 +21,8 @@ namespace MKEFishFries.Models
         public string FoodDescription { get; set; }
         public string CarryOutOption { get; set; }
 
-        //[ForeignKey("People")]
-        //public int SponserPersonId { get; set; }
-        //public People People { get; set; }
+        [ForeignKey("People")]
+        public int? SponserPersonId { get; set; }
+        public People People { get; set; }
     }
 }
