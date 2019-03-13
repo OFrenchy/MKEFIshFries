@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MKEFishFries.Models
 {
-    public class Parish
+    public class Parishes
     {
         [Key]
         public int ID { get; set; }
@@ -22,7 +22,9 @@ namespace MKEFishFries.Models
         public string WebsiteURL { get; set; }
         public string Phone { get; set; }
 
-
+        [ForeignKey("People")]
+        public int AdminPersonId { get; set; }
+        public People People { get; set; }
 
     }
 }

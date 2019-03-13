@@ -20,7 +20,7 @@ namespace MKEFishFries.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Parish> Parishes { get; set; }
+        public DbSet<Parishes> Parishes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
