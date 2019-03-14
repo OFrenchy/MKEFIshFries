@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201903132033068_MakingRoles.Designer.cs">
       <DependentUpon>201903132033068_MakingRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903141420510_AddFishFryTables.cs" />
+    <Compile Include="Migrations\201903141420510_AddFishFryTables.Designer.cs">
+      <DependentUpon>201903141420510_AddFishFryTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ContactList.cs" />
@@ -278,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903132033068_MakingRoles.resx">
       <DependentUpon>201903132033068_MakingRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903141420510_AddFishFryTables.resx">
+      <DependentUpon>201903141420510_AddFishFryTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
