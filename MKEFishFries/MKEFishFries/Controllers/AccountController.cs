@@ -15,13 +15,12 @@ namespace MKEFishFries.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        ApplicationDbContext context;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        ApplicationDbContext db;
+        ApplicationDbContext context;
         public AccountController()
         {
-            db = new ApplicationDbContext();
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
