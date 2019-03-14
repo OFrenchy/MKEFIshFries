@@ -15,8 +15,8 @@ namespace MKEFishFries.Models
         public DateTime Date { get; set; }
 
 
-        //[ForeignKey("People")]
-        //public int PesonId { get; set; }
-        //public Person Person { get; set; }
+        [ForeignKey("People")]
+        public int PesonId { get; set; }
+        public People People { get; set; }
     }
 }
