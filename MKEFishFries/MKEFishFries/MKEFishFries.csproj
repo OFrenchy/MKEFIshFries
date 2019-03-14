@@ -185,9 +185,11 @@
     <Compile Include="Migrations\201903141433435_CreateDB.Designer.cs">
       <DependentUpon>201903141433435_CreateDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903141420510_AddFishFryTables.cs" />
-    <Compile Include="Migrations\201903141420510_AddFishFryTables.Designer.cs">
-      <DependentUpon>201903141420510_AddFishFryTables.cs</DependentUpon>
+
+    <Compile Include="Migrations\201903141749470_ChangedRoleNames.cs" />
+    <Compile Include="Migrations\201903141749470_ChangedRoleNames.Designer.cs">
+      <DependentUpon>201903141749470_ChangedRoleNames.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -280,8 +282,10 @@
     <EmbeddedResource Include="Migrations\201903141433435_CreateDB.resx">
       <DependentUpon>201903141433435_CreateDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903141420510_AddFishFryTables.resx">
-      <DependentUpon>201903141420510_AddFishFryTables.cs</DependentUpon>
+
+    <EmbeddedResource Include="Migrations\201903141749470_ChangedRoleNames.resx">
+      <DependentUpon>201903141749470_ChangedRoleNames.cs</DependentUpon>
+
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

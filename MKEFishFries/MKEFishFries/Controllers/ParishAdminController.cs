@@ -85,5 +85,27 @@ namespace MKEFishFries.Controllers
                 return View();
             }
         }
+
+        // GET: ParishFishFry/CREATE
+        public ActionResult CreateEvent()
+        {
+            return View();
+        }
+
+        //POST: ParishFishFry/POST
+        [HttpPost]
+        public ActionResult CreateEvent(int parishId)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
