@@ -7,13 +7,13 @@ namespace MKEFishFries.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CreateDB : IMigrationMetadata
+    public sealed partial class ChangedPesonToPersonInDonations : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangedPesonToPersonInDonations));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903141433435_CreateDB"; }
+            get { return "201903142213223_ChangedPesonToPersonInDonations"; }
         }
         
         string IMigrationMetadata.Source

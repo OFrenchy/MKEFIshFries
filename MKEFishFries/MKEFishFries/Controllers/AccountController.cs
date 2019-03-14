@@ -79,20 +79,34 @@ namespace MKEFishFries.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
+                //case SignInStatus.Success:
+                //string thisUsersRole = db.Peoples.Include("AspNetRoles").Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ApplicationUser.UserRole;
+                //int thisUserID = db.Peoples.Include("AspNetRoles").Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
+
+                ////if (model.UserRole == "ParishAdmin")
+                //if (thisUsersRole == "ParishAdmin")
+                //{
+                //        // TODO - handle this if user is not found.  
+                //        //int thisUserID = db.Parishes.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
+                //        return RedirectToAction("Details", "ParishAdmin", new { id = thisUserID });
+                //}
+                ////else if (model.UserRoles == "Visitor")
+                //else if (thisUsersRole == "Visitor")
+                //{
+                //    //int thisUserID = db.Peoples.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
+                //    return RedirectToAction("Index", "Visitor");//, new { id = thisUserID });
+                //}
+                //return RedirectToLocal(returnUrl);
+
                 case SignInStatus.Success:
-                    int thisUserID = db.Peoples.Include("AspNetRoles").Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
-                    //if (model.UserRoles == "ParishAdmin")
-                    //{
-                    //    // TODO - handle this if user is not found.  
-                    //    //int thisUserID = db.Parishes.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
-                    //    return RedirectToAction("Details", "ParishAdmin", new { id = thisUserID });
-                    //}
-                    //else if (model.UserRoles == "Visitor")
-                    //{
-                    //    //int thisUserID = db.Peoples.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
-                    //    return RedirectToAction("Index", "Visitor");//, new { id = thisUserID });
-                    //}
-                    return RedirectToLocal(returnUrl);
+                    //User EMAIL
+                    var user = db.Users.Where(u => u.Email == model.Email);
+                    var userRole = user.Select(u => u.Roles).Single();
+                    var roleId = userRole.Select(r => r.RoleId).Single();
+                    var role = db.Roles.Where(r => r.Id == roleId).Select(r => r.Name).Single();
+                    var roleText = role.ToString();
+                    // TODO - check where we want to go 
+                    return RedirectToAction("Index", roleText);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -152,7 +166,7 @@ namespace MKEFishFries.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Master")).ToList(), "Name", "Name");
+            ViewBag.Name = new SelectList(db.Roles.Where(r => !r.Name.Contains("WebMaster")).ToList() , "Name", "Name");
             return View();
         }
 
@@ -165,7 +179,7 @@ namespace MKEFishFries.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRole };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRole};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -179,11 +193,22 @@ namespace MKEFishFries.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+
+                }
+                // else 
+                // Re-create the viewbag with the roles
+
+                // TODO - prompt the user with the register error - i.e. the password doesn't have a capital letter
+                //a
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("Register", "Account");
+               
+            //return View(model);
         }
 
         //
