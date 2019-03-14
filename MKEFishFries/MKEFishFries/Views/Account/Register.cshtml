@@ -32,7 +32,12 @@
     <div class="form-group">
         @Html.Label("Position", new { @class = "form-control" })
         <div class=":col-md-10">
-            @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, " ")
+            @Html.DropDownList("UserRole", (SelectList)ViewBag.Name, " ")
+
+            @*@Html.DropDownList("UserRole", (IEnumerable<SelectListItem>)ViewBag.UserNames, " ")*@
+            @*@Html.DropDownList("UserRole", (IEnumerable<SelectListItem>)ViewBag.Name, " ")*@
+            @*@Html.DropDownList("UserRoles", (IEnumerable<SelectListItem>)ViewBag.UserNames, " ")*@
+            @*@Html.DropDownList("UserRole", (SelectList)ViewBag.Name, " ")*@
         </div>
     </div>
     <div class="form-group">

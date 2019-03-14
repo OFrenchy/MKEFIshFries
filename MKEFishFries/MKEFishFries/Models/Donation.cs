@@ -16,7 +16,7 @@ namespace MKEFishFries.Models
 
 
         [ForeignKey("People")]
-        public int PesonId { get; set; }
+        public int PersonId { get; set; }
         public People People { get; set; }
     }
 }
