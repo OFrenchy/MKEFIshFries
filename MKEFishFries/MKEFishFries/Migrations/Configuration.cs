@@ -10,7 +10,6 @@ namespace MKEFishFries.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "MKEFishFries.Models.ApplicationDbContext";
         }
 
         protected override void Seed(MKEFishFries.Models.ApplicationDbContext context)
