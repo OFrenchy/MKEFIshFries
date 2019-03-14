@@ -11,11 +11,11 @@ namespace MKEFishFries.Models
     {
         [Key]
         public int Id { get; set; }
-        //[ForeignKey("People")]
-        //public int PeopleId { get; set; }
-        //public People People { get; set; }
-        //[ForeignKey("Parish")]
-        //public int ParishId { get; set; }
-        //public Parishes Parishes { get; set; }
+        [ForeignKey("People")]
+        public int PeopleId { get; set; }
+        public People People { get; set; }
+        [ForeignKey("Parish")]
+        public int ParishId { get; set; }
+        public Parish Parish { get; set; }
     }
 }

@@ -22,9 +22,9 @@ namespace MKEFishFries.Models
         public string WebsiteURL { get; set; }
         public string Phone { get; set; }
 
-        //[ForeignKey("People")]
-        //public int AdminPersonId { get; set; }
-        //public People People { get; set; }
+        [ForeignKey("People")]
+        public int AdminPersonId { get; set; }
+        public People People { get; set; }
 
     }
 }
