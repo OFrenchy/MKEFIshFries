@@ -15,11 +15,13 @@ namespace MKEFishFries.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        ApplicationDbContext context;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -139,6 +141,7 @@ namespace MKEFishFries.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Master")).ToList(), "Name", "Name");
             return View();
         }
 
