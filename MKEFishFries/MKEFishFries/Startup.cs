@@ -25,10 +25,10 @@ namespace MKEFishFries
                 role.Name = "Visitor";
                 roleManager.Create(role);
             }
-            if (!roleManager.RoleExists("Parish Admin"))
+            if (!roleManager.RoleExists("ParishAdmin"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Parish Admin";
+                role.Name = "ParishAdmin";
                 roleManager.Create(role);
             }
             if (!roleManager.RoleExists("Admin"))

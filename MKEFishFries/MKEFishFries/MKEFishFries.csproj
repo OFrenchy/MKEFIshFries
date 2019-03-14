@@ -179,13 +179,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903132023451_InitialCreate.cs" />
-    <Compile Include="Migrations\201903132023451_InitialCreate.Designer.cs">
-      <DependentUpon>201903132023451_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903132033068_MakingRoles.cs" />
-    <Compile Include="Migrations\201903132033068_MakingRoles.Designer.cs">
-      <DependentUpon>201903132033068_MakingRoles.cs</DependentUpon>
+    <Compile Include="Migrations\201903141433435_CreateDB.cs" />
+    <Compile Include="Migrations\201903141433435_CreateDB.Designer.cs">
+      <DependentUpon>201903141433435_CreateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201903141420510_AddFishFryTables.cs" />
     <Compile Include="Migrations\201903141420510_AddFishFryTables.Designer.cs">
@@ -277,11 +273,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903132023451_InitialCreate.resx">
-      <DependentUpon>201903132023451_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903132033068_MakingRoles.resx">
-      <DependentUpon>201903132033068_MakingRoles.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903141433435_CreateDB.resx">
+      <DependentUpon>201903141433435_CreateDB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903141420510_AddFishFryTables.resx">
       <DependentUpon>201903141420510_AddFishFryTables.cs</DependentUpon>
