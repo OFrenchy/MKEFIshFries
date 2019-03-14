@@ -81,8 +81,7 @@ namespace MKEFishFries.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-
-                    //int thisUserID = db.Parishes.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
+                    int thisUserID = db.Peoples.Include("AspNetRoles").Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault(). .ID;
                     //if (model.UserRoles == "ParishAdmin")
                     //{
                     //    // TODO - handle this if user is not found.  
