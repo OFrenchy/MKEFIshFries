@@ -192,9 +192,11 @@
     <Compile Include="Models\ContactList.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\FishSeekerController.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parish.cs" />
+    <Compile Include="Models\ParishAdminController.cs" />
     <Compile Include="Models\People.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -258,6 +260,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\FishSeeker\" />
+    <Folder Include="Views\ParishAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
