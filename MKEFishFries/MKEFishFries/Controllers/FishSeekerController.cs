@@ -4,29 +4,29 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MKEFishFries.Models
+namespace MKEFishFries.Controllers
 {
-    public class ParishAdminController : Controller
+    public class FishSeekerController : Controller
     {
-        // GET: ParishAdmin
+        // GET: FishSeeker
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: ParishAdmin/Details/5
+        // GET: FishSeeker/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ParishAdmin/Create
+        // GET: FishSeeker/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ParishAdmin/Create
+        // POST: FishSeeker/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -42,13 +42,13 @@ namespace MKEFishFries.Models
             }
         }
 
-        // GET: ParishAdmin/Edit/5
+        // GET: FishSeeker/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ParishAdmin/Edit/5
+        // POST: FishSeeker/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -64,13 +64,13 @@ namespace MKEFishFries.Models
             }
         }
 
-        // GET: ParishAdmin/Delete/5
+        // GET: FishSeeker/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ParishAdmin/Delete/5
+        // POST: FishSeeker/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
