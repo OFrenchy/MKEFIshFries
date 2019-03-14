@@ -15,7 +15,6 @@ namespace MKEFishFries.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        ApplicationDbContext context;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ApplicationDbContext db;
@@ -81,8 +80,7 @@ namespace MKEFishFries.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-
-                    //int thisUserID = db.Parishes.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
+                    int thisUserID = db.Peoples.Include("AspNetRoles").Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault(). .ID;
                     //if (model.UserRoles == "ParishAdmin")
                     //{
                     //    // TODO - handle this if user is not found.  
@@ -154,7 +152,7 @@ namespace MKEFishFries.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Master")).ToList(), "Name", "Name");
+            ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Master")).ToList(), "Name", "Name");
             return View();
         }
 
