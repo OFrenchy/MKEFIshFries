@@ -17,9 +17,10 @@ namespace MKEFishFries.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        ApplicationDbContext db;
         public AccountController()
         {
+            db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -79,6 +80,19 @@ namespace MKEFishFries.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+
+                    //int thisUserID = db.Parishes.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
+                    //if (model.UserRoles == "ParishAdmin")
+                    //{
+                    //    // TODO - handle this if user is not found.  
+                    //    //int thisUserID = db.Parishes.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
+                    //    return RedirectToAction("Details", "ParishAdmin", new { id = thisUserID });
+                    //}
+                    //else if (model.UserRoles == "Visitor")
+                    //{
+                    //    //int thisUserID = db.Peoples.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
+                    //    return RedirectToAction("Index", "Visitor");//, new { id = thisUserID });
+                    //}
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
