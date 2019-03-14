@@ -1,13 +1,17 @@
-﻿using System;
+﻿using MKEFishFries.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MKEFishFries.Controllers
 {
+    
     public class ParishAdminController : Controller
     {
+        ApplicationDbContext db;
         // GET: ParishAdmin
         public ActionResult Index()
         {
@@ -86,20 +90,82 @@ namespace MKEFishFries.Controllers
             }
         }
 
-        // GET: ParishFishFry/CREATE
-        public ActionResult CreateEvent()
+        // GET: ParishProfile/CREATE
+        public ActionResult CreateProfile()
         {
             return View();
         }
 
-        //POST: ParishFishFry/POST
+        //POST: ParishProfile/CREATE
         [HttpPost]
-        public ActionResult CreateEvent(int parishId)
+        public ActionResult CreateProfile(Parish parish)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Parishes.Add(parish);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
+        // GET: ParishProfile/Edit
+        public ActionResult EditProfile(int id)
+        {
+            List<Parish> ListofParishes = db.Parishes.ToList();
+            return View();
+        }
+
+        // POST: ParishProfile/Edit
+        [HttpPost]
+        public ActionResult EditProfile(int id, FormCollection collection, Parish parish)
+        {
+            try
+            {
+                Parish thisParish = db.Parishes.Find(id);
+                thisParish.Name = parish.Name;
+                thisParish.Street1 = parish.Street1;
+                thisParish.Street2 = parish.Street2;
+                thisParish.City = parish.City;
+                thisParish.State = parish.State;
+                thisParish.Zip = parish.Zip;
+                thisParish.WebsiteURL = parish.WebsiteURL;
+                thisParish.Phone = parish.Phone;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: ParishProfile/Delete
+        public ActionResult DeleteProfile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Parish parish = db.Parishes.Find(id);
+            if (parish == null)
+            {
+                return HttpNotFound();
+            }
+            return View(parish);
+        }
+
+        // POST: ParishProfile/Delete
+        [HttpPost]
+        public ActionResult DeleteProfile(int id)
+        {
+            try
+            {
+                db.Parishes.Remove(db.Parishes.Find(id));
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -109,3 +175,4 @@ namespace MKEFishFries.Controllers
         }
     }
 }
+
