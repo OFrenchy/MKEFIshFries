@@ -181,13 +181,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903141433435_CreateDB.cs" />
-    <Compile Include="Migrations\201903141433435_CreateDB.Designer.cs">
-      <DependentUpon>201903141433435_CreateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903141749470_ChangedRoleNames.cs" />
-    <Compile Include="Migrations\201903141749470_ChangedRoleNames.Designer.cs">
-      <DependentUpon>201903141749470_ChangedRoleNames.cs</DependentUpon>
+    <Compile Include="Migrations\201903151452265_rebuildDatabase.cs" />
+    <Compile Include="Migrations\201903151452265_rebuildDatabase.Designer.cs">
+      <DependentUpon>201903151452265_rebuildDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -280,11 +276,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903141433435_CreateDB.resx">
-      <DependentUpon>201903141433435_CreateDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903141749470_ChangedRoleNames.resx">
-      <DependentUpon>201903141749470_ChangedRoleNames.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903151452265_rebuildDatabase.resx">
+      <DependentUpon>201903151452265_rebuildDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
