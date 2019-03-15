@@ -186,6 +186,26 @@ namespace MKEFishFries.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
+
+                    // Stjoeadmin1!@abc.com
+
+                    if (model.UserRole == "ParishAdmin")
+                    {
+                        // go to create an ParishAdmin
+                        return RedirectToAction("Create", "ParishAdmin");
+                    }
+                    else if (model.UserRole == "Visitor")
+                    {
+                        // go to create an Visitor
+                        return RedirectToAction("Create", "Visitor");
+                    }
+                    return RedirectToAction("Index", "Users");
+
+
+
+
+
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
