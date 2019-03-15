@@ -10,10 +10,10 @@ using System.Web.Mvc;
 
 namespace MKEFishFries.Controllers
 {
-    public class FishSeekerController : Controller
+    public class VisitorController : Controller
     {
         ApplicationDbContext db;
-        public FishSeekerController()
+        public VisitorController()
         {
             db = new ApplicationDbContext();
         }
