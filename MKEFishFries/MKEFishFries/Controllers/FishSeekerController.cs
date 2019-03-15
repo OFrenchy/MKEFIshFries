@@ -111,17 +111,14 @@ namespace MKEFishFries.Controllers
         // GET: FishSeeker/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: FishSeeker/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
-
+                if (ModelState.IsValid)
+                {
+                    People person = db.Peoples.Find(id);
+                    db.Peoples.Remove(person);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
