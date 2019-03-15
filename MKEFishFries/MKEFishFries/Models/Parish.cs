@@ -21,9 +21,11 @@ namespace MKEFishFries.Models
         public double Long { get; set; }
         public string WebsiteURL { get; set; }
         public string Phone { get; set; }
+        public string Comments { get; set; }
+        public Boolean RecieveComments { get; set; }
 
         [ForeignKey("People")]
-        public int AdminPersonId { get; set; }
+        public int? AdminPersonId { get; set; }
         public People People { get; set; }
 
     }

@@ -23,14 +23,15 @@ namespace MKEFishFries.Controllers
         // GET: ParishAdmin
         public ActionResult Index()
         {
-            //var user = User.Identity.GetUserId();
-            //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
+            var user = User.Identity.GetUserId();
+            People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
             return View();
         }
 
         // GET: ParishAdmin/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -53,22 +54,21 @@ namespace MKEFishFries.Controllers
         [HttpPost]
         public ActionResult Create(People people)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
                 people.ApplicationUserId = User.Identity.GetUserId();
                 db.Peoples.Add(people);
                 db.SaveChanges();
+                // TODO - fix this, there's no model for Index
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(people);
         }
+    
 
         // GET: ParishAdmin/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -98,25 +98,28 @@ namespace MKEFishFries.Controllers
         }    
 
         // GET: ParishAdmin/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            People people = db.Peoples.Find(id);
+            if (people == null)
+            {
+                return HttpNotFound();
+            }
+            return View(people);
         }
 
         // POST: ParishAdmin/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            People people = db.Peoples.Find(id);
+            db.Peoples.Remove(people);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: ParishProfile/CREATE
@@ -142,10 +145,18 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: ParishProfile/Edit
-        public ActionResult EditProfile(int id)
+        public ActionResult EditProfile(int? id)
         {
-            List<Parish> ListofParishes = db.Parishes.ToList();
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Parish parish = db.Parishes.Find(id);
+            if (parish == null)
+            {
+                return HttpNotFound();
+            }
+            return View(parish);
         }
 
         // POST: ParishProfile/Edit
@@ -168,7 +179,7 @@ namespace MKEFishFries.Controllers
             }
             catch
             {
-                return View();
+                return View(parish);
             }
         }
 
@@ -191,20 +202,13 @@ namespace MKEFishFries.Controllers
         [HttpPost]
         public ActionResult DeleteProfile(int id)
         {
-            //try
-            //{
-            //    db.Parishes.Remove(db.Parishes.Find(id));
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-            //    return View(parish);
-            //}
-            return View();
+            Parish parish = db.Parishes.Find(id);
+            db.Parishes.Remove(parish);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        public ActionResult DetailsProfile(int id)
+        public ActionResult DetailsProfile(int? id)
         {
             if (id == null)
             {
@@ -216,6 +220,15 @@ namespace MKEFishFries.Controllers
                 return HttpNotFound();
             }
             return View(parish);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
