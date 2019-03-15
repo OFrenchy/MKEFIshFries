@@ -254,7 +254,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\FishSeeker\Details.cshtml" />
     <Content Include="Views\ParishAdmin\Index.cshtml" />
     <Content Include="Views\ParishAdmin\Details.cshtml" />
     <Content Include="Views\ParishAdmin\Create.cshtml" />
@@ -264,6 +263,11 @@
     <Content Include="Views\ParishAdmin\EditProfile.cshtml" />
     <Content Include="Views\ParishAdmin\DeleteProfile.cshtml" />
     <Content Include="Views\ParishAdmin\DetailsProfile.cshtml" />
+    <Content Include="Views\FishSeeker\Index.cshtml" />
+    <Content Include="Views\FishSeeker\Create.cshtml" />
+    <Content Include="Views\FishSeeker\Details.cshtml" />
+    <Content Include="Views\FishSeeker\Edit.cshtml" />
+    <Content Include="Views\FishSeeker\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
