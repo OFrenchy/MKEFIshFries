@@ -281,8 +281,13 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201903151605185_ReReReCreateDB.resx">
       <DependentUpon>201903151605185_ReReReCreateDB.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Migrations\201903151604560_RebuildingDatabase.resx">
+      <DependentUpon>201903151604560_RebuildingDatabase.cs</DependentUpon>
+>>>>>>> a8d817b871229321048fabb543f926f39fb29b94
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
