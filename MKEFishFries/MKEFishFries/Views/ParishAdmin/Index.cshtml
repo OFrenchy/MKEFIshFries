@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MKEFishFries.Models.People>
+﻿@model IEnumerable<MKEFishFries.Models.PeopleParishViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,17 +12,23 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.people.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.people.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BusinessName)
+            @Html.DisplayNameFor(model => model.people.BusinessName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ApplicationUserId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Parish.Name)
         </th>
+
+
+
         <th></th>
     </tr>
 
@@ -37,13 +43,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.BusinessName)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.ApplicationUserId)
-        </td>
+        </td>*@
+
+        <th>
+            @Html.DisplayFor(model => model.Parish.Name)
+        </th>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>
 }

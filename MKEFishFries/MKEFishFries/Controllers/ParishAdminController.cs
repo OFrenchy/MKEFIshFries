@@ -153,9 +153,22 @@ namespace MKEFishFries.Controllers
         {
             try
             {
+                // TODO - add the Google Maps latitude & longitude lookup, add that info to the fields
+                // parish.Street1
+                // parish.Street2
+                // parish.City
+                // parish.State
+                // parish.Zip
+                // GoogleMapsAPIGetLatAndLongFromAddress(parish.Street1, parish.City, parish.State);
+
+                parish.Lat = 1;
+                parish.Long = 1;
+                var appUserID = User.Identity.GetUserId();
+                var personID = db.Peoples.Where(w => w.ApplicationUserId == appUserID).FirstOrDefault().ID  ;
+                parish.AdminPersonId = personID;
                 db.Parishes.Add(parish);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "ParishAdmin");
             }
             catch
             {
