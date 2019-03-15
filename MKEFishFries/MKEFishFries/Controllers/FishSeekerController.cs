@@ -34,24 +34,41 @@ namespace MKEFishFries.Controllers
         // GET: FishSeeker/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
+                return View(user);
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
         }
 
         // GET: FishSeeker/Create
         public ActionResult Create()
         {
+            ViewBag.ID = new SelectList(db.Peoples, "Id", "Name");
             return View();
         }
 
         // POST: FishSeeker/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(People person)
         {
+            //Creating a Visitor
+            var userId = User.Identity.GetUserId();
+            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Peoples.Add(person);
+                    db.SaveChanges();
+                }
+                    return RedirectToAction("Index");
             }
             catch
             {
@@ -67,8 +84,10 @@ namespace MKEFishFries.Controllers
 
         // POST: FishSeeker/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, People person)
         {
+            var userId = User.Identity.GetUserId();
+            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
             try
             {
                 // TODO: Add update logic here
