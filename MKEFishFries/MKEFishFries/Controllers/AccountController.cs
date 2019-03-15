@@ -189,26 +189,6 @@ namespace MKEFishFries.Controllers
 
                     // Stjoeadmin1!@abc.com
 
-                    //var user = db.Users.Where(u => u.Email == model.Email);
-                    //var userRole = user.Select(u => u.Roles).Single();
-                    //var roleId = userRole.Select(r => r.RoleId).Single();
-                    //var role = db.Roles.Where(r => r.Id == roleId).Select(r => r.Name).Single();
-                    //var roleText = role.ToString();
-
-                    //if (roleText == "ParishAdmin")
-                    //{
-                    //    // go to details of the person to get First & lastname
-                    //    return RedirectToAction("Details", "ParishAdmin");
-                    //}
-                    //else if (roleText == "Visitor")
-                    //{
-                    //    // go to details of the person to get First & lastname
-                    //    //return RedirectToAction("Create", "Customer");
-                    //    return RedirectToAction("Index", roleText);
-                    //}
-                    //// TODO - where to go if we got here
-                    //else return RedirectToAction("Index", roleText);
-
                     if (model.UserRole == "ParishAdmin")
                     {
                         // go to create an ParishAdmin
