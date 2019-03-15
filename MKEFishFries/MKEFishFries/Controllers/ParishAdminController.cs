@@ -1,6 +1,8 @@
-﻿using MKEFishFries.Models;
+﻿using Microsoft.AspNet.Identity;
+using MKEFishFries.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -21,12 +23,23 @@ namespace MKEFishFries.Controllers
         // GET: ParishAdmin
         public ActionResult Index()
         {
+            //var user = User.Identity.GetUserId();
+            //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
             return View();
         }
 
         // GET: ParishAdmin/Details/5
         public ActionResult Details(int id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            People people = db.Peoples.Find(id);
+            if (people == null)
+            {
+                return HttpNotFound();
+            }
             return View();
         }
 
@@ -38,12 +51,14 @@ namespace MKEFishFries.Controllers
 
         // POST: ParishAdmin/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(People people)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                people.ApplicationUserId = User.Identity.GetUserId();
+                db.Peoples.Add(people);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -55,24 +70,32 @@ namespace MKEFishFries.Controllers
         // GET: ParishAdmin/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            People people = db.Peoples.Find(id);
+            if (people == null)
+            {
+                return HttpNotFound();
+            }
+            return View(people);
         }
 
         // POST: ParishAdmin/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(People people)
         {
-            try
+            if (ModelState.IsValid)
             {
                 // TODO: Add update logic here
-
+                db.Entry(people).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
-        }
+
+            return View(people);
+        }    
 
         // GET: ParishAdmin/Delete/5
         public ActionResult Delete(int id)
@@ -168,16 +191,31 @@ namespace MKEFishFries.Controllers
         [HttpPost]
         public ActionResult DeleteProfile(int id)
         {
-            try
+            //try
+            //{
+            //    db.Parishes.Remove(db.Parishes.Find(id));
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View(parish);
+            //}
+            return View();
+        }
+
+        public ActionResult DetailsProfile(int id)
+        {
+            if (id == null)
             {
-                db.Parishes.Remove(db.Parishes.Find(id));
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            catch
+            Parish parish = db.Parishes.Find(id);
+            if (parish == null)
             {
-                return View();
+                return HttpNotFound();
             }
+            return View(parish);
         }
     }
 }

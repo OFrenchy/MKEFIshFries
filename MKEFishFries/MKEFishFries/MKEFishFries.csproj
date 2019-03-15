@@ -255,10 +255,17 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\FishSeeker\Details.cshtml" />
+    <Content Include="Views\ParishAdmin\Index.cshtml" />
+    <Content Include="Views\ParishAdmin\Details.cshtml" />
+    <Content Include="Views\ParishAdmin\Create.cshtml" />
+    <Content Include="Views\ParishAdmin\Edit.cshtml" />
+    <Content Include="Views\ParishAdmin\Delete.cshtml" />
+    <Content Include="Views\ParishAdmin\CreateProfile.cshtml" />
+    <Content Include="Views\ParishAdmin\EditProfile.cshtml" />
+    <Content Include="Views\ParishAdmin\DeleteProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ParishAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
