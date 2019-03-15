@@ -79,25 +79,7 @@ namespace MKEFishFries.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
-                //case SignInStatus.Success:
-                //string thisUsersRole = db.Peoples.Include("AspNetRoles").Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ApplicationUser.UserRole;
-                //int thisUserID = db.Peoples.Include("AspNetRoles").Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
-
-                ////if (model.UserRole == "ParishAdmin")
-                //if (thisUsersRole == "ParishAdmin")
-                //{
-                //        // TODO - handle this if user is not found.  
-                //        //int thisUserID = db.Parishes.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
-                //        return RedirectToAction("Details", "ParishAdmin", new { id = thisUserID });
-                //}
-                ////else if (model.UserRoles == "Visitor")
-                //else if (thisUsersRole == "Visitor")
-                //{
-                //    //int thisUserID = db.Peoples.Where(w => w.ApplicationUser.Email == model.Email).SingleOrDefault().ID;
-                //    return RedirectToAction("Index", "Visitor");//, new { id = thisUserID });
-                //}
-                //return RedirectToLocal(returnUrl);
-
+                // Stjoeadmin1!@abc.com
                 case SignInStatus.Success:
                     //User EMAIL
                     var user = db.Users.Where(u => u.Email == model.Email);
@@ -193,22 +175,12 @@ namespace MKEFishFries.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-
-                }
-                // else 
-                // Re-create the viewbag with the roles
-
-                // TODO - prompt the user with the register error - i.e. the password doesn't have a capital letter
-                //a
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
-            return RedirectToAction("Register", "Account");
-               
-            //return View(model);
+            // re-populate ViewBag, then redisplay form
+            ViewBag.Name = new SelectList(db.Roles.Where(r => !r.Name.Contains("WebMaster")).ToList(), "Name", "Name");
+            return View(model);
         }
 
         //
