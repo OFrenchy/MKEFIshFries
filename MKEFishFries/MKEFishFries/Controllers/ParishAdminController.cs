@@ -122,15 +122,15 @@ namespace MKEFishFries.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: ParishProfile/CREATE
-        public ActionResult CreateProfile()
+        // GET: ParishParish/CREATE
+        public ActionResult CreateParish()
         {
             return View();
         }
 
-        //POST: ParishProfile/CREATE
+        //POST: ParishParish/CREATE
         [HttpPost]
-        public ActionResult CreateProfile(Parish parish)
+        public ActionResult CreateParish(Parish parish)
         {
             try
             {
@@ -144,8 +144,8 @@ namespace MKEFishFries.Controllers
             }
         }
 
-        // GET: ParishProfile/Edit
-        public ActionResult EditProfile(int? id)
+        // GET: ParishParish/Edit
+        public ActionResult EditParish(int? id)
         {
             if (id == null)
             {
@@ -159,9 +159,9 @@ namespace MKEFishFries.Controllers
             return View(parish);
         }
 
-        // POST: ParishProfile/Edit
+        // POST: ParishParish/Edit
         [HttpPost]
-        public ActionResult EditProfile(int id, FormCollection collection, Parish parish)
+        public ActionResult EditParish(int id, FormCollection collection, Parish parish)
         {
             try
             {
@@ -183,8 +183,8 @@ namespace MKEFishFries.Controllers
             }
         }
 
-        // GET: ParishProfile/Delete
-        public ActionResult DeleteProfile(int? id)
+        // GET: ParishParish/Delete
+        public ActionResult DeleteParish(int? id)
         {
             if (id == null)
             {
@@ -198,9 +198,9 @@ namespace MKEFishFries.Controllers
             return View(parish);
         }
 
-        // POST: ParishProfile/Delete
+        // POST: ParishParish/Delete
         [HttpPost]
-        public ActionResult DeleteProfile(int id)
+        public ActionResult DeleteParish(int id)
         {
             Parish parish = db.Parishes.Find(id);
             db.Parishes.Remove(parish);
@@ -208,7 +208,7 @@ namespace MKEFishFries.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult DetailsProfile(int? id)
+        public ActionResult DetailsParish(int? id)
         {
             if (id == null)
             {
