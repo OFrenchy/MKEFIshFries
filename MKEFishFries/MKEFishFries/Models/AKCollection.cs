@@ -5,7 +5,11 @@ using System.Web;
 
 namespace MKEFishFries.Models
 {
-    public class AKCollection
-    {
-    }
+    //public class AKCollection
+    //{
+    //    static void ApiKey();
+    //    apiKey = "AIzaSyCtNSKSrPyuglq7Vo2phwbAeNqdcnjIUKk"
+  
+                
+    //}
 }
