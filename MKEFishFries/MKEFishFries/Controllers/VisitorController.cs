@@ -2,16 +2,18 @@
 using MKEFishFries.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MKEFishFries.Controllers
 {
-    public class FishSeekerController : Controller
+    public class VisitorController : Controller
     {
         ApplicationDbContext db;
-        public FishSeekerController()
+        public VisitorController()
         {
             db = new ApplicationDbContext();
         }
@@ -77,20 +79,26 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: FishSeeker/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View();
         }
 
         // POST: FishSeeker/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, People person)
+        public ActionResult Edit(People person)
         {
+         
             var userId = User.Identity.GetUserId();
             var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
             try
             {
-                // TODO: Add update logic here
+                db.Entry(person).State = EntityState.Modified;
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -103,17 +111,14 @@ namespace MKEFishFries.Controllers
         // GET: FishSeeker/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: FishSeeker/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
-
+                if (ModelState.IsValid)
+                {
+                    People person = db.Peoples.Find(id);
+                    db.Peoples.Remove(person);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
