@@ -14,6 +14,10 @@ namespace MKEFishFries.Controllers
     public class ParishAdminController : Controller
     {
         ApplicationDbContext db;
+        public ParishAdminController()
+        {
+            db = new ApplicationDbContext();
+        }
         // GET: ParishAdmin
         public ActionResult Index()
         {
