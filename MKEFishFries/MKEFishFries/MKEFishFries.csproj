@@ -261,11 +261,11 @@
     <Content Include="Views\ParishAdmin\Create.cshtml" />
     <Content Include="Views\ParishAdmin\Edit.cshtml" />
     <Content Include="Views\ParishAdmin\Delete.cshtml" />
-    <Content Include="Views\FishSeeker\Index.cshtml" />
-    <Content Include="Views\FishSeeker\Create.cshtml" />
-    <Content Include="Views\FishSeeker\Details.cshtml" />
-    <Content Include="Views\FishSeeker\Edit.cshtml" />
-    <Content Include="Views\FishSeeker\Delete.cshtml" />
+    <Content Include="Views\Visitor\Index.cshtml" />
+    <Content Include="Views\Visitor\Create.cshtml" />
+    <Content Include="Views\Visitor\Details.cshtml" />
+    <Content Include="Views\Visitor\Edit.cshtml" />
+    <Content Include="Views\Visitor\Delete.cshtml" />
     <Content Include="Views\Events\Create.cshtml" />
     <Content Include="Views\Events\Delete.cshtml" />
     <Content Include="Views\Events\Details.cshtml" />
