@@ -59,6 +59,7 @@ namespace MKEFishFries.Controllers
                 people.ApplicationUserId = User.Identity.GetUserId();
                 db.Peoples.Add(people);
                 db.SaveChanges();
+                // TODO - fix this, there's no model for Index
                 return RedirectToAction("Index");
             }
             catch

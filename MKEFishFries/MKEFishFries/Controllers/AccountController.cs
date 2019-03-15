@@ -186,6 +186,46 @@ namespace MKEFishFries.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
+
+                    // Stjoeadmin1!@abc.com
+
+                    //var user = db.Users.Where(u => u.Email == model.Email);
+                    //var userRole = user.Select(u => u.Roles).Single();
+                    //var roleId = userRole.Select(r => r.RoleId).Single();
+                    //var role = db.Roles.Where(r => r.Id == roleId).Select(r => r.Name).Single();
+                    //var roleText = role.ToString();
+
+                    //if (roleText == "ParishAdmin")
+                    //{
+                    //    // go to details of the person to get First & lastname
+                    //    return RedirectToAction("Details", "ParishAdmin");
+                    //}
+                    //else if (roleText == "Visitor")
+                    //{
+                    //    // go to details of the person to get First & lastname
+                    //    //return RedirectToAction("Create", "Customer");
+                    //    return RedirectToAction("Index", roleText);
+                    //}
+                    //// TODO - where to go if we got here
+                    //else return RedirectToAction("Index", roleText);
+
+                    if (model.UserRole == "ParishAdmin")
+                    {
+                        // go to create an ParishAdmin
+                        return RedirectToAction("Create", "ParishAdmin");
+                    }
+                    else if (model.UserRole == "Visitor")
+                    {
+                        // go to create an Visitor
+                        return RedirectToAction("Create", "Visitor");
+                    }
+                    return RedirectToAction("Index", "Users");
+
+
+
+
+
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
