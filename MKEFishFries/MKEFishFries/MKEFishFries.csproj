@@ -174,7 +174,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\FishSeekerController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\VisitorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParishAdminController.cs" />
@@ -265,11 +266,15 @@
     <Content Include="Views\FishSeeker\Details.cshtml" />
     <Content Include="Views\FishSeeker\Edit.cshtml" />
     <Content Include="Views\FishSeeker\Delete.cshtml" />
-    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
-    <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
+    <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Delete.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\ParishAdmin\DetailsParish.cshtml" />
     <Content Include="Views\ParishAdmin\EditParish.cshtml" />
-    <Content Include="Views\ParishAdmin\ParishDetails.cshtml" />
+    <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
+    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
