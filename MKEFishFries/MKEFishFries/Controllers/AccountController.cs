@@ -87,8 +87,21 @@ namespace MKEFishFries.Controllers
                     var roleId = userRole.Select(r => r.RoleId).Single();
                     var role = db.Roles.Where(r => r.Id == roleId).Select(r => r.Name).Single();
                     var roleText = role.ToString();
-                    // TODO - check where we want to go 
-                    return RedirectToAction("Index", roleText);
+                    
+                    if (roleText == "ParishAdmin")
+                    {
+                        // go to details of the person to get First & lastname
+                        return RedirectToAction("Details", "ParishAdmin");
+                    }
+                    else if (roleText == "Visitor")
+                    {
+                        // go to details of the person to get First & lastname
+                        //return RedirectToAction("Create", "Customer");
+                        return RedirectToAction("Index", roleText);
+                    }
+                    // TODO - where to go if we got here
+                    else return RedirectToAction("Index", roleText);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
