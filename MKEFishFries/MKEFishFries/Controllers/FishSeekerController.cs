@@ -2,7 +2,9 @@
 using MKEFishFries.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,24 +36,41 @@ namespace MKEFishFries.Controllers
         // GET: FishSeeker/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            try
+            {
+                string userId = User.Identity.GetUserId();
+                var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
+                return View(user);
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+
+            }
         }
 
         // GET: FishSeeker/Create
         public ActionResult Create()
         {
+            ViewBag.ID = new SelectList(db.Peoples, "Id", "Name");
             return View();
         }
 
         // POST: FishSeeker/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(People person)
         {
+            //Creating a Visitor
+            var userId = User.Identity.GetUserId();
+            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Peoples.Add(person);
+                    db.SaveChanges();
+                }
+                    return RedirectToAction("Index");
             }
             catch
             {
@@ -60,18 +79,26 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: FishSeeker/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View();
         }
 
         // POST: FishSeeker/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(People person)
         {
+         
+            var userId = User.Identity.GetUserId();
+            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
             try
             {
-                // TODO: Add update logic here
+                db.Entry(person).State = EntityState.Modified;
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
