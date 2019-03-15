@@ -31,6 +31,7 @@ namespace MKEFishFries.Controllers
         // GET: ParishAdmin/Details/5
         public ActionResult Details(int id)
         {
+
             //if (id == null)
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -41,10 +42,8 @@ namespace MKEFishFries.Controllers
                 return HttpNotFound();
             }
             
-            
-            
             // find out if this person is "attached" to a church
-            int? churchID = db.Parishes.Where(w => w.AdminPersonId == id).Select(s => s.ID).First();
+            int? churchID =   db.Parishes.Where(w => w.AdminPersonId == id).Select(s => s.ID).First();
             // if null, ?? TODO - enable the 'claim a parish' & 'add a parish' function
             if (churchID == null)
             {
@@ -77,7 +76,10 @@ namespace MKEFishFries.Controllers
                 // TODO - fix this, there's no model for Index
                 //return RedirectToAction("Index");
                 //return RedirectToAction("Details",);
-                return RedirectToAction("Details", new { id = people.ID });
+                
+                return RedirectToAction("CreateParish", "ParishAdmin");
+
+                //return RedirectToAction("Details", new { id = people.ID });
             }
 
             return View(people);
