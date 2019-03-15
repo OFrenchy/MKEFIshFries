@@ -1,4 +1,5 @@
-﻿using MKEFishFries.Models;
+﻿using Microsoft.AspNet.Identity;
+using MKEFishFries.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,17 @@ namespace MKEFishFries.Controllers
         // GET: FishSeeker
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                var user = User.Identity.GetUserId();
+                string userFirstName = db.Peoples.Where(c => c.ApplicationUserId == user).Select(c => c.FirstName).Single();
+                ViewBag.Name = userFirstName;
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: FishSeeker/Details/5
