@@ -181,13 +181,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903141935505_ReReCreateDB.cs" />
-    <Compile Include="Migrations\201903141935505_ReReCreateDB.Designer.cs">
-      <DependentUpon>201903141935505_ReReCreateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903142213223_ChangedPesonToPersonInDonations.cs" />
-    <Compile Include="Migrations\201903142213223_ChangedPesonToPersonInDonations.Designer.cs">
-      <DependentUpon>201903142213223_ChangedPesonToPersonInDonations.cs</DependentUpon>
+    <Compile Include="Migrations\201903151420576_RebuiltDatabase.cs" />
+    <Compile Include="Migrations\201903151420576_RebuiltDatabase.Designer.cs">
+      <DependentUpon>201903151420576_RebuiltDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -278,11 +274,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903141935505_ReReCreateDB.resx">
-      <DependentUpon>201903141935505_ReReCreateDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903142213223_ChangedPesonToPersonInDonations.resx">
-      <DependentUpon>201903142213223_ChangedPesonToPersonInDonations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903151420576_RebuiltDatabase.resx">
+      <DependentUpon>201903151420576_RebuiltDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
