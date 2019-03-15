@@ -34,17 +34,20 @@
             @Html.DisplayFor(model => model.BusinessName)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.ApplicationUserId)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ApplicationUserId)
-        </dd>
-
+        </dd>*@
+        
     </dl>
 </div>
 <p>
+    @*@Html.ActionLink("Claim a Parish", "ClaimAParish", "???")
+    @Html.ActionLink("Add a Parish", "AddAParish", "????")*@
+
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

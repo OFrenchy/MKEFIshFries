@@ -29,17 +29,33 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: ParishAdmin/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             People people = db.Peoples.Find(id);
             if (people == null)
             {
                 return HttpNotFound();
             }
+            
+            
+            
+            // find out if this person is "attached" to a church
+            int? churchID = db.Parishes.Where(w => w.AdminPersonId == id).Select(s => s.ID).First();
+            // if null, ?? TODO - enable the 'claim a parish' & 'add a parish' function
+            if (churchID == null)
+            {
+
+            } 
+
+
+
+
+
+           
             return View();
         }
 
@@ -59,7 +75,9 @@ namespace MKEFishFries.Controllers
                 db.Peoples.Add(people);
                 db.SaveChanges();
                 // TODO - fix this, there's no model for Index
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                //return RedirectToAction("Details",);
+                return RedirectToAction("Details", new { id = people.ID });
             }
 
             return View(people);
@@ -67,12 +85,12 @@ namespace MKEFishFries.Controllers
     
 
         // GET: ParishAdmin/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             People people = db.Peoples.Find(id);
             if (people == null)
             {
@@ -97,12 +115,12 @@ namespace MKEFishFries.Controllers
         }    
 
         // GET: ParishAdmin/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             People people = db.Peoples.Find(id);
             if (people == null)
             {
@@ -144,12 +162,12 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: ParishProfile/Edit
-        public ActionResult EditProfile(int? id)
+        public ActionResult EditProfile(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             Parish parish = db.Parishes.Find(id);
             if (parish == null)
             {

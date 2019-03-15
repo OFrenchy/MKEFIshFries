@@ -191,12 +191,12 @@ namespace MKEFishFries.Controllers
 
                     if (model.UserRole == "ParishAdmin")
                     {
-                        // go to create an ParishAdmin
+                        // go to create a ParishAdmin
                         return RedirectToAction("Create", "ParishAdmin");
                     }
                     else if (model.UserRole == "Visitor")
                     {
-                        // go to create an Visitor
+                        // go to create a Visitor
                         return RedirectToAction("Create", "Visitor");
                     }
                     return RedirectToAction("Index", "Users");
