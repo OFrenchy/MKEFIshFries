@@ -181,9 +181,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="Migrations\201903151557388_rebuildDatabase.cs" />
+    <Compile Include="Migrations\201903151557388_rebuildDatabase.Designer.cs">
+      <DependentUpon>201903151557388_rebuildDatabase.cs</DependentUpon>
+=======
     <Compile Include="Migrations\201903151711147_rebuildDatabase.cs" />
     <Compile Include="Migrations\201903151711147_rebuildDatabase.Designer.cs">
       <DependentUpon>201903151711147_rebuildDatabase.cs</DependentUpon>
+>>>>>>> b63566338ebb6fb5c1fc0bf2e3e56caed07c042b
     </Compile>
     <Compile Include="Migrations\201903151911497_updateDatabase.cs" />
     <Compile Include="Migrations\201903151911497_updateDatabase.Designer.cs">
@@ -290,8 +296,13 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <EmbeddedResource Include="Migrations\201903151557388_rebuildDatabase.resx">
+      <DependentUpon>201903151557388_rebuildDatabase.cs</DependentUpon>
+=======
     <EmbeddedResource Include="Migrations\201903151711147_rebuildDatabase.resx">
       <DependentUpon>201903151711147_rebuildDatabase.cs</DependentUpon>
+>>>>>>> b63566338ebb6fb5c1fc0bf2e3e56caed07c042b
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903151911497_updateDatabase.resx">
       <DependentUpon>201903151911497_updateDatabase.cs</DependentUpon>
