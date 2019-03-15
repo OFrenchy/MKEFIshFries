@@ -334,5 +334,6 @@ App.config
 
 app.config
 
+**/migrations/
 
 
