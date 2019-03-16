@@ -1,11 +1,9 @@
 ﻿@model MKEFishFries.Models.People
-
+@*@model MKEFishFries.Models.PeopleParishViewModel*@
 @{
     ViewBag.Title = "Details";
 }
-
 <h2>Details</h2>
-
 <div>
     <h4>People</h4>
     <hr />
@@ -13,41 +11,34 @@
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.LastName)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.BusinessName)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.BusinessName)
         </dd>
-
         @*<dt>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
-        </dt>
+                @Html.DisplayNameFor(model => model.ApplicationUserId)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUserId)
-        </dd>*@
-        
+            <dd>
+                @Html.DisplayFor(model => model.ApplicationUserId)
+            </dd>*@
+
     </dl>
 </div>
 <p>
     @*@Html.ActionLink("Claim a Parish", "ClaimAParish", "???")
-    @Html.ActionLink("Add a Parish", "AddAParish", "????")*@
-
+        @Html.ActionLink("Add a Parish", "AddAParish", "????")*@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
