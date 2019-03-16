@@ -182,7 +182,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-
     <Compile Include="Migrations\201903151711147_rebuildDatabase.cs" />
     <Compile Include="Migrations\201903151711147_rebuildDatabase.Designer.cs">
       <DependentUpon>201903151711147_rebuildDatabase.cs</DependentUpon>
@@ -190,7 +189,6 @@
     <Compile Include="Migrations\201903151911497_updateDatabase.cs" />
     <Compile Include="Migrations\201903151911497_updateDatabase.Designer.cs">
       <DependentUpon>201903151911497_updateDatabase.cs</DependentUpon>
-
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -266,10 +264,6 @@
     <Content Include="Views\ParishAdmin\Create.cshtml" />
     <Content Include="Views\ParishAdmin\Edit.cshtml" />
     <Content Include="Views\ParishAdmin\Delete.cshtml" />
-    <Content Include="Views\ParishAdmin\CreateProfile.cshtml" />
-    <Content Include="Views\ParishAdmin\EditProfile.cshtml" />
-    <Content Include="Views\ParishAdmin\DeleteProfile.cshtml" />
-    <Content Include="Views\ParishAdmin\DetailsProfile.cshtml" />
     <Content Include="Views\FishSeeker\Index.cshtml" />
     <Content Include="Views\FishSeeker\Create.cshtml" />
     <Content Include="Views\FishSeeker\Details.cshtml" />
@@ -280,6 +274,10 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
+    <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
+    <Content Include="Views\ParishAdmin\DetailsParish.cshtml" />
+    <Content Include="Views\ParishAdmin\EditParish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,13 +296,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-
     <EmbeddedResource Include="Migrations\201903151711147_rebuildDatabase.resx">
       <DependentUpon>201903151711147_rebuildDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903151911497_updateDatabase.resx">
       <DependentUpon>201903151911497_updateDatabase.cs</DependentUpon>
-
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
