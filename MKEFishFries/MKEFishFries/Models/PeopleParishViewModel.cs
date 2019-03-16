@@ -7,7 +7,7 @@ namespace MKEFishFries.Models
 {
     public class PeopleParishViewModel
     {
-        People people { get; set; }
-        Parish Parish { get; set; }
+        public People people { get; set; }
+        public Parish Parish { get; set; }
     }
 }
