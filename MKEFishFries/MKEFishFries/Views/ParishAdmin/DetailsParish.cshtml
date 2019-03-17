@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@model MKEFishFries.Models.Parish
 
 @{
@@ -9,6 +10,19 @@
 <div>
     <h4>Parish</h4>
     <hr />
+=======
+﻿@model MKEFishFries.Models.Parish
+
+@{
+    ViewBag.Title = "DetailsParish";
+}
+
+<h2>DetailsParish</h2>
+@*<h3>ParishID = @Html.IdForModel ???</h3>*@   @*@model.ID</h3>*@
+<div>
+    <h4>Parish</h4>
+    <hr />
+>>>>>>> 2e7f408fc174f72d3c172a8fae88ee247ab53b13
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -70,27 +84,38 @@
         <dd>
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.AdminPersonId)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.AdminPersonId)
-        </dd>
+        </dd>*@
         <dt>
-            @Html.DisplayNameFor(model => model.RecieveComments)
+            @Html.DisplayNameFor(model => model.RecieveComments, "false")
         </dt>
         <dd>
-            @Html.CheckBoxFor(model => model.RecieveComments)
+            @Html.CheckBoxFor(model => model.RecieveComments, "false")
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Comments)
         </dt>
         <dd>
-            @Html.TextAreaFor(model => model.Comments)
+            @Html.DisplayFor(model => model.Comments)
         </dd>
+<<<<<<< HEAD
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+=======
+    </dl>
+</div>
+<p>
+    @*public ActionResult EditParish(int id, FormCollection collection, Parish parish)*@
+
+    @Html.ActionLink("Edit", "EditParish", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+>>>>>>> 2e7f408fc174f72d3c172a8fae88ee247ab53b13
