@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-﻿@model MKEFishFries.Models.Parish
-
-@{
-    ViewBag.Title = "DetailsParish";
-}
-
-<h2>DetailsParish</h2>
-
-<div>
-    <h4>Parish</h4>
-    <hr />
-=======
-﻿@model MKEFishFries.Models.Parish
+@model MKEFishFries.Models.Parish
 
 @{
     ViewBag.Title = "DetailsParish";
@@ -91,10 +78,10 @@
             @Html.DisplayFor(model => model.AdminPersonId)
         </dd>*@
         <dt>
-            @Html.DisplayNameFor(model => model.RecieveComments, "false")
+            @Html.DisplayNameFor(model => model.RecieveComments)
         </dt>
         <dd>
-            @Html.CheckBoxFor(model => model.RecieveComments, "false")
+            @Html.DisplayFor(model => model.RecieveComments)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Comments)
@@ -102,14 +89,6 @@
         <dd>
             @Html.DisplayFor(model => model.Comments)
         </dd>
-<<<<<<< HEAD
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-=======
     </dl>
 </div>
 <p>
@@ -118,4 +97,3 @@
     @Html.ActionLink("Edit", "EditParish", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
->>>>>>> 2e7f408fc174f72d3c172a8fae88ee247ab53b13
