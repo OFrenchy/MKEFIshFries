@@ -24,7 +24,7 @@ namespace MKEFishFries.Controllers
         public ActionResult Index()
         {
             // Stjoeadmin1!@abc.com
-
+            
             string thisUserID = User.Identity.GetUserId();
             //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
 
@@ -34,6 +34,8 @@ namespace MKEFishFries.Controllers
             ViewBag.LastName = thisPerson.LastName;
             ViewBag.ParishId = thisParish.ID;
             ViewBag.ParishName = thisParish.Name;
+            // Redirect to EventsController!!!
+            return RedirectToAction("Index", "Events");
 
 
             var events = db.Events.Include(e => e.People);
@@ -199,7 +201,7 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: ParishProfile/Edit
-        public ActionResult EditProfile(int id)
+        public ActionResult EditParish(int id)
         {
             //if (id == null)
             //{
@@ -228,8 +230,9 @@ namespace MKEFishFries.Controllers
                 thisParish.Zip = parish.Zip;
                 thisParish.WebsiteURL = parish.WebsiteURL;
                 thisParish.Phone = parish.Phone;
+                thisParish.RecieveComments = parish.RecieveComments;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Events");
             }
             catch
             {
@@ -264,6 +267,18 @@ namespace MKEFishFries.Controllers
 
         public ActionResult DetailsParish(int? id)
         {
+            string thisUserID = User.Identity.GetUserId();
+
+            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+
+            return View(thisParish);
+            
+            ViewBag.FirstName = thisPerson.FirstName;
+            ViewBag.LastName = thisPerson.LastName;
+            ViewBag.ParishId = thisParish.ID;
+            ViewBag.ParishName = thisParish.Name;
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
