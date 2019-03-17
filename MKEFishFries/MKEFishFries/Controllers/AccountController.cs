@@ -99,7 +99,7 @@ namespace MKEFishFries.Controllers
                         //ViewBag.LastName = thisPerson.LastName;
                         //ViewBag.ParishID = thisParish.ID;
 
-                        // return RedirectToAction("Index", "Events");
+                        return RedirectToAction("Index", "Events");
 
                         // TODO - make sure there's a "My Details" link on the Index page
                         return RedirectToAction("Index", "ParishAdmin");
