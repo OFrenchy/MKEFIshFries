@@ -23,7 +23,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EndTime)
-        </th>
+       </th>
         <th>
             @Html.DisplayNameFor(model => model.EventName)
         </th>
@@ -84,12 +84,12 @@
                 @Html.DisplayFor(model => item.ParishId)
             </td>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", "Events", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", "Events", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", "Events", new { id = item.Id })
-            </td>
-        </tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id}) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id}) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id})
+        </td>
+    </tr>
     }
 
 </table>

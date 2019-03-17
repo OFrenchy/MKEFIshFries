@@ -61,12 +61,11 @@ namespace MKEFishFries.Controllers
         public ActionResult Create(People person)
         {
             //Creating a Visitor
-            var userId = User.Identity.GetUserId();
-            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
             try
             {
                 if (ModelState.IsValid)
                 {
+                    person.ApplicationUserId = User.Identity.GetUserId();
                     db.Peoples.Add(person);
                     db.SaveChanges();
                 }
