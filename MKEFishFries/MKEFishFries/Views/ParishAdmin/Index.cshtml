@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MKEFishFries.Models.EventSponsorViewModel>
+﻿@*@model IEnumerable<MKEFishFries.ModelsponsorViewModel>*@
+@model IEnumerable<MKEFishFries.Models.Event>
+
 
 @{
     ViewBag.Title = "Index Of Events";
@@ -9,43 +11,39 @@
 <h3>ParishId = @ViewBag.ParishId </h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", "Events")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.events.Date)
+            @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.events.StartTime)
+            @Html.DisplayNameFor(model => model.StartTime)
         </th>
         <th>
-<<<<<<< HEAD
-            @Html.DisplayNameFor(model => model.events.EndTime)
+            @Html.DisplayNameFor(model => model.EndTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.events.EventName)
+            @Html.DisplayNameFor(model => model.EventName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.events.EventDescription)
+            @Html.DisplayNameFor(model => model.EventDescription)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.events.FoodDescription)
+            @Html.DisplayNameFor(model => model.FoodDescription)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.events.Price)
+            @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.events.CarryOutOption)
+            @Html.DisplayNameFor(model => model.CarryOutOption)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.events.SponserPersonId)
+            @Html.DisplayNameFor(model => model.SponserPersonId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.events.ParishId)
-=======
-            @Html.DisplayNameFor(model => model.parish.Name)
->>>>>>> b5e355917b7c47afbe2c0e6f3d342b34da757b89
+            @Html.DisplayNameFor(model => model.ParishId)
         </th>
 
 
@@ -54,51 +52,44 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(model => item.events.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.StartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.EndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.EventName)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.EventDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.FoodDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.CarryOutOption)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.SponserPersonId)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.events.ParishId)
-        </td>
-        
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EventDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FoodDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.CarryOutOption)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.SponserPersonId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ParishId)
+            </td>
 
-<<<<<<< HEAD
-=======
-        <th>
-            @Html.DisplayFor(modelItem => item.parish.Name)
-        </th>
->>>>>>> b5e355917b7c47afbe2c0e6f3d342b34da757b89
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.people.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.people.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.people.ID })
-        </td>
-    </tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Events", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", "Events", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", "Events", new { id = item.Id })
+            </td>
+        </tr>
     }
 
 </table>

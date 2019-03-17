@@ -35,15 +35,23 @@ namespace MKEFishFries.Controllers
             ViewBag.ParishId = thisParish.ID;
             ViewBag.ParishName = thisParish.Name;
 
-            // If there are no events for this parish, should we, instead of showing the Index view,
-            // go right to Add an event?  Redirect to 
 
-            if (db.Events.Where(w => w.ParishId == thisParish.ID).Count() == 0)
-            {
-                // if there are no events for this church yet, create an empty list instead of a null collection
-                return View(new List<Event>());
-                //return RedirectToAction("Create", "Events");
-            }
+            var events = db.Events.Include(e => e.People);
+            return View(events.ToList());
+
+            //return View(new EventSponsorViewModel());
+            //return View(db.Events.Include(e => e.People).Where(w => w.ParishId == thisParish.ID).ToList());
+            //return View();
+
+
+            //if (db.Events.Where(w => w.ParishId == thisParish.ID).Count() == 0)
+            //{
+            //    // if there are no events for this church yet, create an empty list instead of a null collection
+
+            //    //return View(events.ToList())
+            //    return View( db.Events.Where(w => w.ParishId == thisParish.ID).ToList());
+            //    //return RedirectToAction("Create", "Events");
+            //}
             return View();
         }
 
@@ -68,12 +76,7 @@ namespace MKEFishFries.Controllers
             {
 
             } 
-
-
-
-
-
-           
+            
             return View();
         }
 

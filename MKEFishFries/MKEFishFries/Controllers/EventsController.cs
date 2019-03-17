@@ -28,7 +28,7 @@ namespace MKEFishFries.Controllers
             ViewBag.ParishId = thisParish.ID;
             ViewBag.ParishName = thisParish.Name;
 
-
+            // Stjoeadmin1!@abc.com
 
 
             var events = db.Events.Include(e => e.People);
@@ -53,6 +53,10 @@ namespace MKEFishFries.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
+
+
+
+
             ViewBag.SponserPersonId = new SelectList(db.Peoples, "ID", "FirstName");
             return View();
         }

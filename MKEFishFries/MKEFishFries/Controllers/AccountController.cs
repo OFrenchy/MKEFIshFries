@@ -89,7 +89,7 @@ namespace MKEFishFries.Controllers
                     var roleText = role.ToString();
                     string thisUserID = user.Single().Id;
 
-                    
+                    // Stjoeadmin1!@abc.com
                     if (roleText == "ParishAdmin")
                     {
                         // moved to Index Get in ParishAdminController
@@ -98,8 +98,11 @@ namespace MKEFishFries.Controllers
                         //ViewBag.FirstName = thisPerson.FirstName;
                         //ViewBag.LastName = thisPerson.LastName;
                         //ViewBag.ParishID = thisParish.ID;
-                        return RedirectToAction("Index", "Events");
-                        //return RedirectToAction("Details", "ParishAdmin");
+
+                        // return RedirectToAction("Index", "Events");
+
+                        // TODO - make sure there's a "My Details" link on the Index page
+                        return RedirectToAction("Index", "ParishAdmin");
                     }
                     else if (roleText == "Visitor")
                     {
