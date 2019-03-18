@@ -167,6 +167,52 @@ namespace MKEFishFries.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public Parish SetLatLong(Parish parish)
+        {
+            // This is the geoDecoderRing 
+            try
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append(parish.Street1.Replace(" ", "+"));
+                stringBuilder.Append(";");
+                stringBuilder.Append(parish.City.Replace(" ", "+"));
+                stringBuilder.Append(";");
+                stringBuilder.Append(parish.State.Replace(" ", "+"));
+                // example: string url = @"https://maps.googleapis.com/maps/api/geocode/json?address={stringBuilder.ToString()}1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY";
+
+                //// TODO - replace key with new class
+                //string key = "AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
+                string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                    stringBuilder.ToString() + "&key=" + Models.Access.apiKey;
+
+                WebRequest request = WebRequest.Create(url);
+                WebResponse response = request.GetResponse();
+                System.IO.Stream data = response.GetResponseStream();
+                StreamReader reader = new StreamReader(data);
+                // json-formatted string from maps api
+                string responseFromServer = reader.ReadToEnd();
+                response.Close();
+
+                var root = JsonConvert.DeserializeObject<ParishMapAPIData>(responseFromServer);
+                var location = root.results[0].geometry.location;
+                //var latitude = location.lat;
+                //var longitude = location.lng;
+                ////foreach (var singleResult in root.results)
+                ////{
+                ////    var location = singleResult.geometry.location;
+                ////    var latitude = location.lat;
+                ////    var longitude = location.lng;
+                ////    // Do whatever you want with them.
+                ////}
+                parish.Lat = location.lat;
+                parish.Long = location.lng;
+                return parish;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         // GET: ParishParish/CREATE
         public ActionResult CreateParish()
@@ -180,48 +226,11 @@ namespace MKEFishFries.Controllers
         {
             try
             {
-                
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.Append(parish.Street1.Replace(" ", "+"));
-                stringBuilder.Append(";");
-                stringBuilder.Append(parish.City.Replace(" ", "+"));
-                stringBuilder.Append(";");
-                stringBuilder.Append(parish.State.Replace(" ", "+"));
-                // example: string url = @"https://maps.googleapis.com/maps/api/geocode/json?address={stringBuilder.ToString()}1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY";
-
-                // TODO - replace key with new class
-                string key = "AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
-                string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                    stringBuilder.ToString() + "&key=" + key;
-
-                WebRequest request = WebRequest.Create(url);
-                WebResponse response = request.GetResponse();
-                System.IO.Stream data = response.GetResponseStream();
-                StreamReader reader = new StreamReader(data);
-                // json-formatted string from maps api
-                string responseFromServer = reader.ReadToEnd();
-                response.Close();
-
-                //JsonResult jsonResult = new JsonResult();// { responseFromServer };
-                //jsonResult.Data = responseFromServer;
-                //jsonResult.Data
-                
-                var root = JsonConvert.DeserializeObject<ParishMapAPIData>(responseFromServer);
-                var location = root.results[0].geometry.location;
-                //var latitude = location.lat;
-                //var longitude = location.lng;
-                ////foreach (var singleResult in root.results)
-                ////{
-                ////    var location = singleResult.geometry.location;
-                ////    var latitude = location.lat;
-                ////    var longitude = location.lng;
-                ////    // Do whatever you want with them.
-                ////}
-
-                parish.Lat = location.lat;
-                parish.Long = location.lng;
+                // set lat & long from geoDecoderRing
+                parish = SetLatLong(parish);
+                // the user that is logged in is the AdminPersonID
                 var appUserID = User.Identity.GetUserId();
-                var personID = db.Peoples.Where(w => w.ApplicationUserId == appUserID).FirstOrDefault().ID  ;
+                var personID = db.Peoples.Where(w => w.ApplicationUserId == appUserID).FirstOrDefault().ID;
                 parish.AdminPersonId = personID;
                 db.Parishes.Add(parish);
                 db.SaveChanges();
@@ -264,6 +273,11 @@ namespace MKEFishFries.Controllers
                 thisParish.WebsiteURL = parish.WebsiteURL;
                 thisParish.Phone = parish.Phone;
                 thisParish.RecieveComments = parish.RecieveComments;
+                // if lat & long is 0, fill them in
+                if (thisParish.Lat == 0)
+                {
+                    thisParish = SetLatLong(thisParish);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index", "Events");
             }
