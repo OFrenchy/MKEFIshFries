@@ -29,8 +29,6 @@ namespace MKEFishFries.Controllers
             // Stjoeadmin1!@abc.com
             
             string thisUserID = User.Identity.GetUserId();
-            //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
-
             People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
             Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
             ViewBag.FirstName = thisPerson.FirstName;
@@ -40,34 +38,11 @@ namespace MKEFishFries.Controllers
             // Redirect to EventsController!!!
             return RedirectToAction("Index", "Events");
 
-
-            var events = db.Events.Include(e => e.People);
-            return View(events.ToList());
-
-            //return View(new EventSponsorViewModel());
-            //return View(db.Events.Include(e => e.People).Where(w => w.ParishId == thisParish.ID).ToList());
-            //return View();
-
-
-            //if (db.Events.Where(w => w.ParishId == thisParish.ID).Count() == 0)
-            //{
-            //    // if there are no events for this church yet, create an empty list instead of a null collection
-
-            //    //return View(events.ToList())
-            //    return View( db.Events.Where(w => w.ParishId == thisParish.ID).ToList());
-            //    //return RedirectToAction("Create", "Events");
-            //}
-            return View();
         }
 
         // GET: ParishAdmin/Details/5
         public ActionResult Details(int id)
         {
-
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
             People people = db.Peoples.Find(id);
             if (people == null)
             {
@@ -81,7 +56,6 @@ namespace MKEFishFries.Controllers
             {
 
             } 
-            
             return View();
         }
 
