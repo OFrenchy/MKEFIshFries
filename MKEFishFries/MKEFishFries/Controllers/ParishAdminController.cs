@@ -14,8 +14,7 @@ using System.Web.Mvc;
 namespace MKEFishFries.Controllers
 {
     //Stjoeadmin1!@abc.com
-
-
+    
     public class ParishAdminController : Controller
     {
         ApplicationDbContext db;
@@ -37,17 +36,13 @@ namespace MKEFishFries.Controllers
             ViewBag.ParishName = thisParish.Name;
             // Redirect to EventsController!!!
             return RedirectToAction("Index", "Events");
-
         }
 
         // GET: ParishAdmin/Details/5
         public ActionResult Details(int id)
         {
             People people = db.Peoples.Find(id);
-            if (people == null)
-            {
-                return HttpNotFound();
-            }
+            if (people == null) return HttpNotFound();
             
             // find out if this person is "attached" to a church
             int? churchID =   db.Parishes.Where(w => w.AdminPersonId == id).Select(s => s.ID).First();
@@ -153,9 +148,6 @@ namespace MKEFishFries.Controllers
                 stringBuilder.Append(";");
                 stringBuilder.Append(parish.State.Replace(" ", "+"));
                 // example: string url = @"https://maps.googleapis.com/maps/api/geocode/json?address={stringBuilder.ToString()}1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY";
-
-                //// TODO - replace key with new class
-             
                 string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
                     stringBuilder.ToString() + "&key=" + Models.Access.apiKey;
 
@@ -288,28 +280,16 @@ namespace MKEFishFries.Controllers
 
         public ActionResult DetailsParish(int? id)
         {
+            Parish thisParish;
             string thisUserID = User.Identity.GetUserId();
-
-            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
-            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
-
-            return View(thisParish);
-            
+                People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
             ViewBag.FirstName = thisPerson.FirstName;
             ViewBag.LastName = thisPerson.LastName;
-            ViewBag.ParishId = thisParish.ID;
+            thisParish = id == null ? db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First() : db.Parishes.Find(id);
+            if (thisParish == null) return HttpNotFound();
             ViewBag.ParishName = thisParish.Name;
-            
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Parish parish = db.Parishes.Find(id);
-            if (parish == null)
-            {
-                return HttpNotFound();
-            }
-            return View(parish);
+            ViewBag.ParishId = thisParish.ID;
+            return View(thisParish);
         }
 
         protected override void Dispose(bool disposing)
