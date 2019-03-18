@@ -182,7 +182,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+
+    <Compile Include="Migrations\201903181217253_Matts.cs" />
+    <Compile Include="Migrations\201903181217253_Matts.Designer.cs">
+      <DependentUpon>201903181217253_Matts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+
     <Compile Include="Models\Access.cs" />
+
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ContactList.cs" />
     <Compile Include="Models\Donation.cs" />
@@ -268,8 +276,11 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
+    <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
     <Content Include="Views\ParishAdmin\DetailsParish.cshtml" />
     <Content Include="Views\ParishAdmin\EditParish.cshtml" />
+
     <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
     <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
     <Content Include="Views\Visitor\Create.cshtml" />
@@ -277,6 +288,7 @@
     <Content Include="Views\Visitor\Details.cshtml" />
     <Content Include="Views\Visitor\Edit.cshtml" />
     <Content Include="Views\Visitor\Index.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -295,6 +307,13 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903181217253_Matts.resx">
+      <DependentUpon>201903181217253_Matts.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
