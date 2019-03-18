@@ -17,20 +17,42 @@ namespace MKEFishFries.Controllers
         {
             db = new ApplicationDbContext();
         }
+        // GET
+        public ActionResult VisitorActions()
+        {
+            VisitorActionsViewModel visitorActionsViewModel = new VisitorActionsViewModel()
+            {
+                Parishes = new Parish(),
+                ContactList = new ContactList(),
+                Donations = new Donation()
+            };
+            return View(visitorActionsViewModel);
+        }
+        [HttpPost]
+        public ActionResult VisitorActions(int parishID)
+        {
+
+            return View();
+        }
         // GET: FishSeeker
+
         public ActionResult Index()
         {
-            try
-            {
-                string thisUserID = User.Identity.GetUserId();
-                People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
-                ViewBag.Name = thisPerson.FirstName + " " + thisPerson.LastName;
-                return RedirectToAction("Index","Home");
-            }
-            catch
-            {
-                return View();
-            }
+            var parishes = db.Parishes;
+            return View(parishes.ToList());
+            //try
+            //{
+            //    string thisUserID = User.Identity.GetUserId();
+            //    People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+            //    ViewBag.Name = thisPerson.FirstName + " " + thisPerson.LastName;
+            //    //return RedirectToAction("Index");
+            //    //return View();
+            //    return View(parishes.ToList());
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: FishSeeker/Details/5
