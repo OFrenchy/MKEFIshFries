@@ -31,7 +31,7 @@ namespace MKEFishFries.Controllers
             //{
             //address: string,
             //}
-
+            ViewBag.Key = Models.Access.apiKey;
             StringBuilder stringBuilder = new StringBuilder();
 
             // TODO - change this query to show parishes with fish fry events in the next 7 days, 
