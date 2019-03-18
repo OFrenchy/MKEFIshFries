@@ -182,9 +182,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903151950040_AddCommentsReceiveCommentsToParishes.cs" />
-    <Compile Include="Migrations\201903151950040_AddCommentsReceiveCommentsToParishes.Designer.cs">
-      <DependentUpon>201903151950040_AddCommentsReceiveCommentsToParishes.cs</DependentUpon>
+    <Compile Include="Migrations\201903152122559_newDb.cs" />
+    <Compile Include="Migrations\201903152122559_newDb.Designer.cs">
+      <DependentUpon>201903152122559_newDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,8 +293,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903151950040_AddCommentsReceiveCommentsToParishes.resx">
-      <DependentUpon>201903151950040_AddCommentsReceiveCommentsToParishes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903152122559_newDb.resx">
+      <DependentUpon>201903152122559_newDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
