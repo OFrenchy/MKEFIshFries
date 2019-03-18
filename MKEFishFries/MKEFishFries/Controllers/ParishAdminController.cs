@@ -23,8 +23,37 @@ namespace MKEFishFries.Controllers
         // GET: ParishAdmin
         public ActionResult Index()
         {
-            var user = User.Identity.GetUserId();
-            People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
+            // Stjoeadmin1!@abc.com
+            
+            string thisUserID = User.Identity.GetUserId();
+            //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
+
+            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+            ViewBag.FirstName = thisPerson.FirstName;
+            ViewBag.LastName = thisPerson.LastName;
+            ViewBag.ParishId = thisParish.ID;
+            ViewBag.ParishName = thisParish.Name;
+            // Redirect to EventsController!!!
+            return RedirectToAction("Index", "Events");
+
+
+            var events = db.Events.Include(e => e.People);
+            return View(events.ToList());
+
+            //return View(new EventSponsorViewModel());
+            //return View(db.Events.Include(e => e.People).Where(w => w.ParishId == thisParish.ID).ToList());
+            //return View();
+
+
+            //if (db.Events.Where(w => w.ParishId == thisParish.ID).Count() == 0)
+            //{
+            //    // if there are no events for this church yet, create an empty list instead of a null collection
+
+            //    //return View(events.ToList())
+            //    return View( db.Events.Where(w => w.ParishId == thisParish.ID).ToList());
+            //    //return RedirectToAction("Create", "Events");
+            //}
             return View();
         }
 
@@ -49,12 +78,7 @@ namespace MKEFishFries.Controllers
             {
 
             } 
-
-
-
-
-
-           
+            
             return View();
         }
 
@@ -153,9 +177,22 @@ namespace MKEFishFries.Controllers
         {
             try
             {
+                // TODO - add the Google Maps latitude & longitude lookup, add that info to the fields
+                // parish.Street1
+                // parish.Street2
+                // parish.City
+                // parish.State
+                // parish.Zip
+                // GoogleMapsAPIGetLatAndLongFromAddress(parish.Street1, parish.City, parish.State);
+
+                parish.Lat = 1;
+                parish.Long = 1;
+                var appUserID = User.Identity.GetUserId();
+                var personID = db.Peoples.Where(w => w.ApplicationUserId == appUserID).FirstOrDefault().ID  ;
+                parish.AdminPersonId = personID;
                 db.Parishes.Add(parish);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "ParishAdmin");
             }
             catch
             {
@@ -164,7 +201,7 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: ParishProfile/Edit
-        public ActionResult EditProfile(int id)
+        public ActionResult EditParish(int id)
         {
             //if (id == null)
             //{
@@ -193,8 +230,9 @@ namespace MKEFishFries.Controllers
                 thisParish.Zip = parish.Zip;
                 thisParish.WebsiteURL = parish.WebsiteURL;
                 thisParish.Phone = parish.Phone;
+                thisParish.RecieveComments = parish.RecieveComments;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Events");
             }
             catch
             {
@@ -229,6 +267,18 @@ namespace MKEFishFries.Controllers
 
         public ActionResult DetailsParish(int? id)
         {
+            string thisUserID = User.Identity.GetUserId();
+
+            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+
+            return View(thisParish);
+            
+            ViewBag.FirstName = thisPerson.FirstName;
+            ViewBag.LastName = thisPerson.LastName;
+            ViewBag.ParishId = thisParish.ID;
+            ViewBag.ParishName = thisParish.Name;
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

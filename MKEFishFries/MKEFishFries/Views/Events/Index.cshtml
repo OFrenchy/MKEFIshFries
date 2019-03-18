@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<MKEFishFries.Models.Event>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
+<h3>@ViewBag.FirstName @ViewBag.LastName  --  @ViewBag.ParishName</h3>
+<h3>ParishId = @ViewBag.ParishId  - On Events-Index view </h3>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.People.FirstName)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.ParishId)
         </th>
@@ -41,14 +41,17 @@
         <th>
             @Html.DisplayNameFor(model => model.CarryOutOption)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SponserPersonId)
+        </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.People.FirstName)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.ParishId)
         </td>
@@ -77,11 +80,17 @@
             @Html.DisplayFor(modelItem => item.CarryOutOption)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.SponserPersonId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
-}
-
+    }
 </table>
+<p>
+    @Html.ActionLink( "View Details of Parish", "DetailsParish", "ParishAdmin")
+    @*@Html.ActionLink("Back to My Profile", "DetailsParish", "ParishAdmin", new { id = @ViewBag.ParishId })*@
+</p>
