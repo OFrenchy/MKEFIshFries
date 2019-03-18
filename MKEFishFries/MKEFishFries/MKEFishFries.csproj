@@ -272,6 +272,11 @@
     <Content Include="Views\ParishAdmin\EditParish.cshtml" />
     <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
     <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
+    <Content Include="Views\Visitor\Create.cshtml" />
+    <Content Include="Views\Visitor\Delete.cshtml" />
+    <Content Include="Views\Visitor\Details.cshtml" />
+    <Content Include="Views\Visitor\Edit.cshtml" />
+    <Content Include="Views\Visitor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
