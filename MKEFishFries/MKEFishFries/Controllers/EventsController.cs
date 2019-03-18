@@ -18,6 +18,7 @@ namespace MKEFishFries.Controllers
         // GET: Events
         public ActionResult Index()
         {
+            // Stjoeadmin1!@abc.com
             string thisUserID = User.Identity.GetUserId();
             //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
 
@@ -27,10 +28,6 @@ namespace MKEFishFries.Controllers
             ViewBag.LastName = thisPerson.LastName;
             ViewBag.ParishId = thisParish.ID;
             ViewBag.ParishName = thisParish.Name;
-
-            // Stjoeadmin1!@abc.com
-
-
             var events = db.Events.Include(e => e.People);
             return View(events.ToList());
         }
