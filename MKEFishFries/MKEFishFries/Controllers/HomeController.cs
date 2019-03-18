@@ -115,8 +115,8 @@ namespace MKEFishFries.Controllers
 
 
                 // TODO - replace key with the new key class
-                //ViewBag.MapURL = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&q=lat:43.0024+long:-87.9191q=Basilica+of+St+Josaphat"
-                //        + "&callback=initMap";
+                string sampleMap = $"www.google.com/maps/embed/v1/place?key={Models.Access.apiKey}=lat:43.0024+long:-87.9191q=Basilica+of+St+Josaphat";
+                ViewBag.MapURL = "https://" + sampleMap + "&callback=initMap";
 
                 // TODO - generate the correct URL with the geocodes of all the churches 
                 //        with fish fries in the next 7 days
