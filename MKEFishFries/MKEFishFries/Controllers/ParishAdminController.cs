@@ -14,8 +14,7 @@ using System.Web.Mvc;
 namespace MKEFishFries.Controllers
 {
     //Stjoeadmin1!@abc.com
-
-
+    
     public class ParishAdminController : Controller
     {
         ApplicationDbContext db;
@@ -29,8 +28,6 @@ namespace MKEFishFries.Controllers
             // Stjoeadmin1!@abc.com
             
             string thisUserID = User.Identity.GetUserId();
-            //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
-
             People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
             Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
             ViewBag.FirstName = thisPerson.FirstName;
@@ -39,40 +36,13 @@ namespace MKEFishFries.Controllers
             ViewBag.ParishName = thisParish.Name;
             // Redirect to EventsController!!!
             return RedirectToAction("Index", "Events");
-
-
-            var events = db.Events.Include(e => e.People);
-            return View(events.ToList());
-
-            //return View(new EventSponsorViewModel());
-            //return View(db.Events.Include(e => e.People).Where(w => w.ParishId == thisParish.ID).ToList());
-            //return View();
-
-
-            //if (db.Events.Where(w => w.ParishId == thisParish.ID).Count() == 0)
-            //{
-            //    // if there are no events for this church yet, create an empty list instead of a null collection
-
-            //    //return View(events.ToList())
-            //    return View( db.Events.Where(w => w.ParishId == thisParish.ID).ToList());
-            //    //return RedirectToAction("Create", "Events");
-            //}
-            return View();
         }
 
         // GET: ParishAdmin/Details/5
         public ActionResult Details(int id)
         {
-
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
             People people = db.Peoples.Find(id);
-            if (people == null)
-            {
-                return HttpNotFound();
-            }
+            if (people == null) return HttpNotFound();
             
             // find out if this person is "attached" to a church
             int? churchID =   db.Parishes.Where(w => w.AdminPersonId == id).Select(s => s.ID).First();
@@ -81,7 +51,6 @@ namespace MKEFishFries.Controllers
             {
 
             } 
-            
             return View();
         }
 
@@ -179,9 +148,6 @@ namespace MKEFishFries.Controllers
                 stringBuilder.Append(";");
                 stringBuilder.Append(parish.State.Replace(" ", "+"));
                 // example: string url = @"https://maps.googleapis.com/maps/api/geocode/json?address={stringBuilder.ToString()}1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY";
-
-                //// TODO - replace key with new class
-                //string key = "AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
                 string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
                     stringBuilder.ToString() + "&key=" + Models.Access.apiKey;
 
@@ -314,28 +280,16 @@ namespace MKEFishFries.Controllers
 
         public ActionResult DetailsParish(int? id)
         {
+            Parish thisParish;
             string thisUserID = User.Identity.GetUserId();
-
-            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
-            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
-
-            return View(thisParish);
-            
+                People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
             ViewBag.FirstName = thisPerson.FirstName;
             ViewBag.LastName = thisPerson.LastName;
-            ViewBag.ParishId = thisParish.ID;
+            thisParish = id == null ? db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First() : db.Parishes.Find(id);
+            if (thisParish == null) return HttpNotFound();
             ViewBag.ParishName = thisParish.Name;
-            
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Parish parish = db.Parishes.Find(id);
-            if (parish == null)
-            {
-                return HttpNotFound();
-            }
-            return View(parish);
+            ViewBag.ParishId = thisParish.ID;
+            return View(thisParish);
         }
 
         protected override void Dispose(bool disposing)

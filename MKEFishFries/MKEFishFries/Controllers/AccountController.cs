@@ -211,9 +211,7 @@ namespace MKEFishFries.Controllers
                         return RedirectToAction("Create", "Visitor");
                     }
                     return RedirectToAction("Index", "Users");
-                    
-
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }

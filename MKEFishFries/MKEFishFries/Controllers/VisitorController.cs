@@ -20,7 +20,6 @@ namespace MKEFishFries.Controllers
         // GET: FishSeeker
         public ActionResult Index()
         {
-
             try
             {
                 string thisUserID = User.Identity.GetUserId();
