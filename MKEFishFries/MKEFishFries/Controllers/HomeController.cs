@@ -31,7 +31,7 @@ namespace MKEFishFries.Controllers
             //{
             //address: string,
             //}
-
+            //ViewBag.Key = Models.Access.apiKey;
             StringBuilder stringBuilder = new StringBuilder();
 
             // TODO - change this query to show parishes with fish fry events in the next 7 days, 
@@ -115,8 +115,8 @@ namespace MKEFishFries.Controllers
 
 
                 // TODO - replace key with the new key class
-                //ViewBag.MapURL = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&q=lat:43.0024+long:-87.9191q=Basilica+of+St+Josaphat"
-                //        + "&callback=initMap";
+                //string sampleMap = $"www.google.com/maps/embed/v1/place?key={Models.Access.apiKey}=lat:43.0024+long:-87.9191q=Basilica+of+St+Josaphat";
+                //ViewBag.MapURL = "https://" + sampleMap + "&callback=initMap";
 
                 // TODO - generate the correct URL with the geocodes of all the churches 
                 //        with fish fries in the next 7 days
@@ -124,7 +124,7 @@ namespace MKEFishFries.Controllers
 
                 //ViewBag.MapURL = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&q=lat:43.0024+long:-87.9191"
                 //        + "&callback=initMap";
-                ViewBag.MapURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap";
+                //ViewBag.MapURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap";
 
 
                 //    < script >
@@ -137,13 +137,12 @@ namespace MKEFishFries.Controllers
                 //    });
 
                 // TODO - replace key with new class
-                string key = "AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
 
                 // from https://developers.google.com/maps/documentation/embed/guide#optional_parameters :
                 // https://www.google.com/maps/embed/v1/MODE?key=YOUR_API_KEY&parameters
                 stringBuilder.Clear();
                 stringBuilder.Append("https://www.google.com/maps/embed/v1/place?key=");
-                stringBuilder.Append(key);
+                stringBuilder.Append(Models.Access.apiKey);
                 stringBuilder.Append("&q=");
                 stringBuilder.Append(thisParish.Name.Replace(" ", "+"));
                 stringBuilder.Append(";");

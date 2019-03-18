@@ -20,7 +20,7 @@ namespace MKEFishFries.Controllers
         // GET: FishSeeker
         public ActionResult Index()
         {
-            ViewBag.Key = Models.Access.apiKey;
+
             try
             {
                 var user = User.Identity.GetUserId();
