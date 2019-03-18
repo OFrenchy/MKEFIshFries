@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MKEFishFries.Models;
 
 namespace MKEFishFries.Controllers
@@ -17,6 +18,19 @@ namespace MKEFishFries.Controllers
         // GET: Events
         public ActionResult Index()
         {
+            string thisUserID = User.Identity.GetUserId();
+            //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
+
+            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+            ViewBag.FirstName = thisPerson.FirstName;
+            ViewBag.LastName = thisPerson.LastName;
+            ViewBag.ParishId = thisParish.ID;
+            ViewBag.ParishName = thisParish.Name;
+
+            // Stjoeadmin1!@abc.com
+
+
             var events = db.Events.Include(e => e.People);
             return View(events.ToList());
         }
@@ -39,6 +53,10 @@ namespace MKEFishFries.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
+
+
+
+
             ViewBag.SponserPersonId = new SelectList(db.Peoples, "ID", "FirstName");
             return View();
         }

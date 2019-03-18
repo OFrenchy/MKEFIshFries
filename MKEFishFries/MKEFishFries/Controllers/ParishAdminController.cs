@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNet.Identity;
 using MKEFishFries.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -23,8 +26,37 @@ namespace MKEFishFries.Controllers
         // GET: ParishAdmin
         public ActionResult Index()
         {
-            var user = User.Identity.GetUserId();
-            People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
+            // Stjoeadmin1!@abc.com
+            
+            string thisUserID = User.Identity.GetUserId();
+            //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
+
+            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+            ViewBag.FirstName = thisPerson.FirstName;
+            ViewBag.LastName = thisPerson.LastName;
+            ViewBag.ParishId = thisParish.ID;
+            ViewBag.ParishName = thisParish.Name;
+            // Redirect to EventsController!!!
+            return RedirectToAction("Index", "Events");
+
+
+            var events = db.Events.Include(e => e.People);
+            return View(events.ToList());
+
+            //return View(new EventSponsorViewModel());
+            //return View(db.Events.Include(e => e.People).Where(w => w.ParishId == thisParish.ID).ToList());
+            //return View();
+
+
+            //if (db.Events.Where(w => w.ParishId == thisParish.ID).Count() == 0)
+            //{
+            //    // if there are no events for this church yet, create an empty list instead of a null collection
+
+            //    //return View(events.ToList())
+            //    return View( db.Events.Where(w => w.ParishId == thisParish.ID).ToList());
+            //    //return RedirectToAction("Create", "Events");
+            //}
             return View();
         }
 
@@ -49,12 +81,7 @@ namespace MKEFishFries.Controllers
             {
 
             } 
-
-
-
-
-
-           
+            
             return View();
         }
 
@@ -153,16 +180,46 @@ namespace MKEFishFries.Controllers
         {
             try
             {
-                // TODO - add the Google Maps latitude & longitude lookup, add that info to the fields
-                // parish.Street1
-                // parish.Street2
-                // parish.City
-                // parish.State
-                // parish.Zip
-                // GoogleMapsAPIGetLatAndLongFromAddress(parish.Street1, parish.City, parish.State);
+                
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append(parish.Street1.Replace(" ", "+"));
+                stringBuilder.Append(";");
+                stringBuilder.Append(parish.City.Replace(" ", "+"));
+                stringBuilder.Append(";");
+                stringBuilder.Append(parish.State.Replace(" ", "+"));
+                // example: string url = @"https://maps.googleapis.com/maps/api/geocode/json?address={stringBuilder.ToString()}1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY";
 
-                parish.Lat = 1;
-                parish.Long = 1;
+                // TODO - replace key with new class
+                string key = "AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
+                string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                    stringBuilder.ToString() + "&key=" + key;
+
+                WebRequest request = WebRequest.Create(url);
+                WebResponse response = request.GetResponse();
+                System.IO.Stream data = response.GetResponseStream();
+                StreamReader reader = new StreamReader(data);
+                // json-formatted string from maps api
+                string responseFromServer = reader.ReadToEnd();
+                response.Close();
+
+                //JsonResult jsonResult = new JsonResult();// { responseFromServer };
+                //jsonResult.Data = responseFromServer;
+                //jsonResult.Data
+                
+                var root = JsonConvert.DeserializeObject<ParishMapAPIData>(responseFromServer);
+                var location = root.results[0].geometry.location;
+                //var latitude = location.lat;
+                //var longitude = location.lng;
+                ////foreach (var singleResult in root.results)
+                ////{
+                ////    var location = singleResult.geometry.location;
+                ////    var latitude = location.lat;
+                ////    var longitude = location.lng;
+                ////    // Do whatever you want with them.
+                ////}
+
+                parish.Lat = location.lat;
+                parish.Long = location.lng;
                 var appUserID = User.Identity.GetUserId();
                 var personID = db.Peoples.Where(w => w.ApplicationUserId == appUserID).FirstOrDefault().ID  ;
                 parish.AdminPersonId = personID;
@@ -177,7 +234,7 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: ParishProfile/Edit
-        public ActionResult EditProfile(int id)
+        public ActionResult EditParish(int id)
         {
             //if (id == null)
             //{
@@ -206,8 +263,9 @@ namespace MKEFishFries.Controllers
                 thisParish.Zip = parish.Zip;
                 thisParish.WebsiteURL = parish.WebsiteURL;
                 thisParish.Phone = parish.Phone;
+                thisParish.RecieveComments = parish.RecieveComments;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Events");
             }
             catch
             {
@@ -242,6 +300,18 @@ namespace MKEFishFries.Controllers
 
         public ActionResult DetailsParish(int? id)
         {
+            string thisUserID = User.Identity.GetUserId();
+
+            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+
+            return View(thisParish);
+            
+            ViewBag.FirstName = thisPerson.FirstName;
+            ViewBag.LastName = thisPerson.LastName;
+            ViewBag.ParishId = thisParish.ID;
+            ViewBag.ParishName = thisParish.Name;
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -263,5 +333,64 @@ namespace MKEFishFries.Controllers
             base.Dispose(disposing);
         }
     }
+
+    // /TODO - move somewhere else - where?
+
+    public class ParishMapAPIData
+    {
+        public Result[] results { get; set; }
+        public string status { get; set; }
+    }
+
+    public class Result
+    {
+        public Address_Components[] address_components { get; set; }
+        public string formatted_address { get; set; }
+        public Geometry geometry { get; set; }
+        public string place_id { get; set; }
+        public string[] types { get; set; }
+    }
+
+    public class Geometry
+    {
+        public Location location { get; set; }
+        public string location_type { get; set; }
+        public Viewport viewport { get; set; }
+    }
+
+    public class Location
+    {
+        public float lat { get; set; }
+        public float lng { get; set; }
+    }
+
+    public class Viewport
+    {
+        public Northeast northeast { get; set; }
+        public Southwest southwest { get; set; }
+    }
+
+    public class Northeast
+    {
+        public float lat { get; set; }
+        public float lng { get; set; }
+    }
+
+    public class Southwest
+    {
+        public float lat { get; set; }
+        public float lng { get; set; }
+    }
+
+    public class Address_Components
+    {
+        public string long_name { get; set; }
+        public string short_name { get; set; }
+        public string[] types { get; set; }
+    }
+
+
+
+
 }
 

@@ -87,11 +87,22 @@ namespace MKEFishFries.Controllers
                     var roleId = userRole.Select(r => r.RoleId).Single();
                     var role = db.Roles.Where(r => r.Id == roleId).Select(r => r.Name).Single();
                     var roleText = role.ToString();
-                    
+                    string thisUserID = user.Single().Id;
+
+                    // Stjoeadmin1!@abc.com
                     if (roleText == "ParishAdmin")
                     {
-                        // go to details of the person to get First & lastname
-                        return RedirectToAction("Details", "ParishAdmin");
+                        // moved to Index Get in ParishAdminController
+                        //People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+                        //Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+                        //ViewBag.FirstName = thisPerson.FirstName;
+                        //ViewBag.LastName = thisPerson.LastName;
+                        //ViewBag.ParishID = thisParish.ID;
+
+                        return RedirectToAction("Index", "Events");
+
+                        // TODO - make sure there's a "My Details" link on the Index page
+                        return RedirectToAction("Index", "ParishAdmin");
                     }
                     else if (roleText == "Visitor")
                     {
@@ -200,11 +211,7 @@ namespace MKEFishFries.Controllers
                         return RedirectToAction("Create", "Visitor");
                     }
                     return RedirectToAction("Index", "Users");
-
-
-
-
-
+                    
 
                     return RedirectToAction("Index", "Home");
                 }

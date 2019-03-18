@@ -334,10 +334,9 @@ App.config
 
 app.config
 
+
+**/migrations/
+
 **/Migrations/
 
-<<<<<<< HEAD
-**/migrations/
-=======
-**/migrations/
->>>>>>> bada8c881bd44b586126aee267c4d91b07c7450f
+

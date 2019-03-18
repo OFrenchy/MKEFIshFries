@@ -5,9 +5,10 @@ using System.Web;
 
 namespace MKEFishFries.Models
 {
-    public class PeopleParishViewModel
+    public class EventSponsorViewModel
     {
+        public Event events { get; set; }
         public People people { get; set; }
-        public Parish parish { get; set; }
+        
     }
 }

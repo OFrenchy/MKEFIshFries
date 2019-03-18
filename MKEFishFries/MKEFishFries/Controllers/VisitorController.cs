@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+//using GoogleMapsApi;
 
 namespace MKEFishFries.Controllers
 {
@@ -20,6 +21,7 @@ namespace MKEFishFries.Controllers
         // GET: FishSeeker
         public ActionResult Index()
         {
+
             try
             {
                 var user = User.Identity.GetUserId();
@@ -61,12 +63,11 @@ namespace MKEFishFries.Controllers
         public ActionResult Create(People person)
         {
             //Creating a Visitor
-            var userId = User.Identity.GetUserId();
-            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
             try
             {
                 if (ModelState.IsValid)
                 {
+                    person.ApplicationUserId = User.Identity.GetUserId();
                     db.Peoples.Add(person);
                     db.SaveChanges();
                 }
