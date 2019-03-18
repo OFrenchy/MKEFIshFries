@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MKEFishFries.Models.People>
+﻿@model IEnumerable<MKEFishFries.Models.PeopleParishViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,38 +12,43 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.people.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.people.LastName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BusinessName)
-        </th>
-        <th>
+      
+        @*<th>
             @Html.DisplayNameFor(model => model.ApplicationUserId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Parish.Name)
         </th>
+
+
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.people.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => item.people.LastName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BusinessName)
-        </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.ApplicationUserId)
-        </td>
+        </td>*@
+
+        <th>
+            @Html.DisplayFor(modelItem => item.Parish.Name)
+        </th>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.people.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.people.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.people.ID })
         </td>
     </tr>
 }

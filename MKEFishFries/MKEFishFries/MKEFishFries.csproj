@@ -175,20 +175,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
-    <Compile Include="Controllers\FishSeekerController.cs" />
+    <Compile Include="Controllers\VisitorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParishAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903151711147_rebuildDatabase.cs" />
-    <Compile Include="Migrations\201903151711147_rebuildDatabase.Designer.cs">
-      <DependentUpon>201903151711147_rebuildDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903151911497_updateDatabase.cs" />
-    <Compile Include="Migrations\201903151911497_updateDatabase.Designer.cs">
-      <DependentUpon>201903151911497_updateDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\201903181217253_Matts.cs" />
+    <Compile Include="Migrations\201903181217253_Matts.Designer.cs">
+      <DependentUpon>201903181217253_Matts.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -199,6 +195,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parish.cs" />
     <Compile Include="Models\People.cs" />
+    <Compile Include="Models\PeopleParishViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -264,11 +261,11 @@
     <Content Include="Views\ParishAdmin\Create.cshtml" />
     <Content Include="Views\ParishAdmin\Edit.cshtml" />
     <Content Include="Views\ParishAdmin\Delete.cshtml" />
-    <Content Include="Views\FishSeeker\Index.cshtml" />
-    <Content Include="Views\FishSeeker\Create.cshtml" />
-    <Content Include="Views\FishSeeker\Details.cshtml" />
-    <Content Include="Views\FishSeeker\Edit.cshtml" />
-    <Content Include="Views\FishSeeker\Delete.cshtml" />
+    <Content Include="Views\Visitor\Index.cshtml" />
+    <Content Include="Views\Visitor\Create.cshtml" />
+    <Content Include="Views\Visitor\Details.cshtml" />
+    <Content Include="Views\Visitor\Edit.cshtml" />
+    <Content Include="Views\Visitor\Delete.cshtml" />
     <Content Include="Views\Events\Create.cshtml" />
     <Content Include="Views\Events\Delete.cshtml" />
     <Content Include="Views\Events\Details.cshtml" />
@@ -296,11 +293,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903151711147_rebuildDatabase.resx">
-      <DependentUpon>201903151711147_rebuildDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903151911497_updateDatabase.resx">
-      <DependentUpon>201903151911497_updateDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903181217253_Matts.resx">
+      <DependentUpon>201903181217253_Matts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
