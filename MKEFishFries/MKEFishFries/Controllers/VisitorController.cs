@@ -24,10 +24,10 @@ namespace MKEFishFries.Controllers
 
             try
             {
-                var user = User.Identity.GetUserId();
-                string userFirstName = db.Peoples.Where(c => c.ApplicationUserId == user).Select(c => c.FirstName).Single();
-                ViewBag.Name = userFirstName;
-                return View();
+                string thisUserID = User.Identity.GetUserId();
+                People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+                ViewBag.Name = thisPerson.FirstName + " " + thisPerson.LastName;
+                return RedirectToAction("Index","Home");
             }
             catch
             {
@@ -71,7 +71,7 @@ namespace MKEFishFries.Controllers
                     db.Peoples.Add(person);
                     db.SaveChanges();
                 }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
             }
             catch
             {
