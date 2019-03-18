@@ -136,8 +136,7 @@ namespace MKEFishFries.Controllers
                 //        zoom: 6
                 //    });
 
-                // TODO - replace key with new class
-
+                
                 // from https://developers.google.com/maps/documentation/embed/guide#optional_parameters :
                 // https://www.google.com/maps/embed/v1/MODE?key=YOUR_API_KEY&parameters
                 stringBuilder.Clear();
@@ -151,9 +150,7 @@ namespace MKEFishFries.Controllers
                 stringBuilder.Append(thisParish.City.Replace(" ", "+"));
                 stringBuilder.Append(";");
                 stringBuilder.Append(thisParish.State.Replace(" ", "+"));
-
             }
-
             ViewBag.Map2URL = stringBuilder.ToString();
             return View();
         }

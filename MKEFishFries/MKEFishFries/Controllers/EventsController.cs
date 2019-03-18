@@ -50,9 +50,11 @@ namespace MKEFishFries.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
-
-
-
+            // Stjoeadmin1!@abc.com
+            string thisUserID = User.Identity.GetUserId();
+            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+            ViewBag.ParishId = thisParish.ID;
 
             ViewBag.SponserPersonId = new SelectList(db.Peoples, "ID", "FirstName");
             return View();
@@ -67,6 +69,7 @@ namespace MKEFishFries.Controllers
         {
             if (ModelState.IsValid)
             {
+                @event.ParishId = 1;
                 db.Events.Add(@event);
                 db.SaveChanges();
                 return RedirectToAction("Index");
