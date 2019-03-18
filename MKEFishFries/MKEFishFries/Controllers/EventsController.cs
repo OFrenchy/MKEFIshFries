@@ -19,16 +19,27 @@ namespace MKEFishFries.Controllers
         public ActionResult Index()
         {
             // Stjoeadmin1!@abc.com
+            Parish thisParish;
+            var events = db.Events.Include(e => e.People);
             string thisUserID = User.Identity.GetUserId();
-            //People people = db.Peoples.Where(p => p.ApplicationUserId == user).Single();
-
+            string userRole = db.Users.Where(u => u.Id == thisUserID).First().UserRole;
             People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
-            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+            
+            // If the user is a ParishAdmin, filter the view for that parish only
+            if (userRole == "ParishAdmin" )
+            {
+                thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+                ViewBag.ParishId = thisParish.ID;
+                ViewBag.ParishName = thisParish.Name;
+                events = events.Where(e => e.ParishId == thisParish.ID).Include(e => e.People);
+            }
+            else
+            {
+                ViewBag.ParishId = 0;
+                ViewBag.ParishName = "";
+            }
             ViewBag.FirstName = thisPerson.FirstName;
             ViewBag.LastName = thisPerson.LastName;
-            ViewBag.ParishId = thisParish.ID;
-            ViewBag.ParishName = thisParish.Name;
-            var events = db.Events.Include(e => e.People);
             return View(events.ToList());
         }
 
