@@ -155,7 +155,7 @@ namespace MKEFishFries.Controllers
                 // example: string url = @"https://maps.googleapis.com/maps/api/geocode/json?address={stringBuilder.ToString()}1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY";
 
                 //// TODO - replace key with new class
-                //string key = "AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
+             
                 string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
                     stringBuilder.ToString() + "&key=" + Models.Access.apiKey;
 
