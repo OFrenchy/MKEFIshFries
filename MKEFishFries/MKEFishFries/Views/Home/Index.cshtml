@@ -21,7 +21,7 @@
         function initMap() {
             var milwaukee = {lat: 43.038, lng: -87.906}
             var map = new google.maps.Map(document.getElementById('map'), { zoom: 12, center: milwaukee });
-            for (i = 0; i < 3; i++)
+            for (i = 0; i < names.length; i++)
             {
 
                 var coord = {lat: latitudes[i], lng: longitudes[i]};
@@ -31,7 +31,12 @@
                         map: map,
                         title: names[i]
                     });
-                var contentString = "This is a test";
+                var contentString = '<div id="content"><h1>Church</h1><p>Church is a' +
+                    ' church, with a specific size and has a specific date erected in the' +
+                    'area it is located. The church is located in this specific area,' +
+                    'and is a place of worship for many people in this place.' +
+                    'Learn More.</p><p>Attribution: Church <a href="https://en.wikipedia.org/wiki/Church">' +
+                    'https://en.wikipedia.org/wiki/Church</a></p></div>';
                 var infowindow = new google.maps.InfoWindow(
                     {
                         content: contentString
