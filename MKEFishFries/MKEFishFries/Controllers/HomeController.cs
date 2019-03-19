@@ -165,7 +165,7 @@ namespace MKEFishFries.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(string thingTextBoxName)
         {
             ViewBag.Message = "Your contact page.";
 
