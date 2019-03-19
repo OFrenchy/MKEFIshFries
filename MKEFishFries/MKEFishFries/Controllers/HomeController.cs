@@ -48,7 +48,8 @@ namespace MKEFishFries.Controllers
                 {
                     if (id == parishId)
                     {
-                        if(db.Events.Where(e => e.ParishId == id).Select(e=>e.Date).First() >= DateTime.Today && db.Events.Where(e => e.ParishId == id).Select(e => e.Date).First() <= nextSevenDays)
+                        if(db.Events.Where(e => e.ParishId == id).Select(e=>e.Date).First() >= DateTime.Today 
+                            && db.Events.Where(e => e.ParishId == id).Select(e => e.Date).First() <= nextSevenDays)
                         {
                             parishesWithEvents.Add(parishes.Where(p => p.ID == id).Select(p => p).SingleOrDefault());
                         }
