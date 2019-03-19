@@ -9,7 +9,9 @@
         
         var longitudes = @Html.Raw(Json.Encode(@ViewBag.Longitudes));
 
-        var names = @Html.Raw(Json.Encode(@ViewBag.Names))
+        var names = @Html.Raw(Json.Encode(@ViewBag.Names));
+
+        var events = @Html.Raw(Json.Encode(ViewBag.Events));
 
         var markers = [];
 
@@ -41,7 +43,7 @@
                         title: names[i]
                     });
                 markers[i].index = i;
-                contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>'+ names[i] + '</h1><p>' + names[i] +' is a' +
+                contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>'+ names[i] + events[i] +'</h1><p>' + names[i] +' is a' +
                     ' church, with a specific size and has a specific date erected in the' +
                     ' area it is located. The church is located in this specific area,' +
                     ' and is a place of worship for many people in this place.' +
