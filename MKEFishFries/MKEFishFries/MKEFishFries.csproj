@@ -206,6 +206,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventSponsorViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IEmailConfiguration.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parish.cs" />
     <Compile Include="Models\People.cs" />
