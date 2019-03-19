@@ -1,48 +1,55 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@*<style>
-    /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-    #map {
-        height: 400px;
-        width: 1500px;
-    }
-</style>*@
-@*<br/>*@    
-<div class="row">
-    <div id="map"></div>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Google Maps Multiple Markers</title>
     <script>
-        var map;
+        var latitudes = @Html.Raw(Json.Encode(@ViewBag.Latitudes));
+        
+        var longitudes = @Html.Raw(Json.Encode(@ViewBag.Longitudes));
+     
+        
+    </script>
+</head>
+<body>
+    <div id="map" style="width: 500px; height: 400px;"></div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap"></script>
+    <script>
         function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 43.038902, lng: -88.0697 },
-                zoom: 11
-            });
+            var milwaukee = {lat: 43.038, lng: -87.906}
+            var map = new google.maps.Map(document.getElementById('map'), { zoom: 20, center: milwaukee });
+            for (i = 0; i < 3; i++)
+            {
+
+                var coord = {lat: latitudes[i], lng: longitudes[i]};
+                marker = new google.maps.Marker({
+                    position: /*new google.maps.LatLng*/ coord, map: map
+                });
+            }
         }
     </script>
-    <script src=@ViewBag.MapURL async defer></script>
-</div>
+   
+    @*<div class="row">
+        <div id="map"></div>*@
+    @*<script>
+            var map;
+            function initMap()
+            {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 43.038902, lng: -88.0697 },
+                    zoom: 11,
+                });
+                var infowindow = new google.maps.InfoWindow();
+                var marker, i;
 
-
-<div class="row">
-    <div id="map"></div>
-    <iframe
-            height="400"
-            width="800"
-            @*frameborder="0" style="border:0"*@
-            src=@ViewBag.Map2URL>
-        
-    </iframe>
-</div>
-
-
-    <script src=@ViewBag.MapURL async defer></script>
-    @*<script src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&q=lat:43.0024+long:-87.9191"
-            async defer></script>*@
-
-    @*<script src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&q=lat:43.0024+long:-87.9191"
-        async defer></script>*@
-
-    @*"https://www.google.com/maps/embed/v1/place?q=43.038902%2C%20-87.906471&key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap"
-        async defer></script>*@
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infowindow.setContent(locations[i]);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+            }
+        </script>*@
+    @*</div>*@
+</body>
