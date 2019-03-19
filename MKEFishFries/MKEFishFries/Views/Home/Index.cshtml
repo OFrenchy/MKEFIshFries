@@ -26,15 +26,7 @@
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap"></script>
     <script>
-<<<<<<< HEAD
-        function initMap() {
-            var milwaukee = { lat: 43.038, lng: -87.906 }
-            var map = new google.maps.Map(document.getElementById('map'), { zoom: 12, center: milwaukee });
-            for (i = 0; i < names.length; i++) {
 
-                var coord = { lat: latitudes[i], lng: longitudes[i] };
-                marker = new google.maps.Marker(
-=======
         function initMap()
         {
             var milwaukee = {lat: 43.038, lng: -87.906}
@@ -46,7 +38,6 @@
                 
                 var coord = {lat: latitudes[i], lng: longitudes[i]};
                 markers[i] = new google.maps.Marker(
->>>>>>> 740856fb984681b29688793ae9bd0579d38e76f3
                     {
                         position: coord,
                         map: map,
@@ -65,12 +56,7 @@
                         content: contentStrings[i],
                         maxWidth: 300
                     });
-<<<<<<< HEAD
-                marker.addListener('click', function EventDetails() {
-                    infowindow.open(map, marker);
-                });
 
-=======
                 infoWindow[i].index = i;
                 google.maps.event.addListener(markers[i], 'click', function EventDetails()
                 {
@@ -79,9 +65,6 @@
                     infoWindow[this.index].open(map, markers[this.index]);
                     map.panTo(markers[this.index].getPosition()); 
                 });
-               
-               
->>>>>>> 740856fb984681b29688793ae9bd0579d38e76f3
             }
         }
     </script>
