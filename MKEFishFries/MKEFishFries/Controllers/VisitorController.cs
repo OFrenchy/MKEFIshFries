@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 ﻿using Microsoft.AspNet.Identity;
 using MKEFishFries.Models;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -82,140 +82,9 @@ namespace MKEFishFries.Controllers
             }
             return RedirectToAction("Index");
         }
-        
-        // GET: FishSeeker
-        public ActionResult Index()
-        {
-            var parishes = db.Parishes;
-            return View(parishes.ToList());
-        }
-        // GET: FishSeeker/Details/5
-        public ActionResult Details(int id)
-        {
-            try
-            {
-                string userId = User.Identity.GetUserId();
-                var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
-                return View(user);
-            }
-            catch
-            {
-                return RedirectToAction("Index");
-            }
-        }
 
-        // GET: FishSeeker/Create
-        public ActionResult Create()
-        {
-            ViewBag.ID = new SelectList(db.Peoples, "Id", "Name");
-            return View();
-        }
-
-        // POST: FishSeeker/Create
         [HttpPost]
-        public ActionResult Create(People person)
-        {
-            //Creating a Visitor
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    person.ApplicationUserId = User.Identity.GetUserId();
-                    db.Peoples.Add(person);
-                    db.SaveChanges();
-                }
-                    return RedirectToAction("Index","Home");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: FishSeeker/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            return View();
-        }
-
-        // POST: FishSeeker/Edit/5
-        [HttpPost]
-        public ActionResult Edit(People person)
-        {
-         
-            var userId = User.Identity.GetUserId();
-            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
-            try
-            {
-                db.Entry(person).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: FishSeeker/Delete/5
-        public ActionResult Delete(int id)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    People person = db.Peoples.Find(id);
-                    db.Peoples.Remove(person);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-    }
-}
-=======
-﻿using Microsoft.AspNet.Identity;
-using MKEFishFries.Models;
-using Stripe;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-
-namespace MKEFishFries.Controllers
-{
-    public class VisitorController : Controller
-    {
-        ApplicationDbContext db;
-        
-
-        public VisitorController()
-        {
-            db = new ApplicationDbContext();
-        }
-        // GET
-        public ActionResult VisitorActions()
-        {
-            VisitorActionsViewModel visitorActionsViewModel = new VisitorActionsViewModel()
-            {
-                Parishes = new Parish(),
-                ContactList = new ContactList(),
-                Donations = new Donation()
-            };
-            return View(visitorActionsViewModel);
-        }
-        [HttpPost]
+        //public ActionResult VisitorActions(string stripeToken, string DollarAmount)
         public ActionResult VisitorActions(string stripeToken)
         {
             StripeConfiguration.SetApiKey("sk_test_mdDGBM56VRabusYFI96kpuGh00PrprigoK");
@@ -223,10 +92,11 @@ namespace MKEFishFries.Controllers
             var options = new ChargeCreateOptions
             {
                 Amount = 2500,
+                //Amount = int.Parse( DollarAmount),
                 Currency = "usd",
                 Description = "Charge for jenny.rosen@example.com",
                 SourceId = "tok_mastercard" // obtained with Stripe.js,
-               
+
             };
             var service = new ChargeService();
             Charge charge = service.Create(options);
@@ -235,27 +105,13 @@ namespace MKEFishFries.Controllers
             //return View("VisitorActions", model);
             return View();
         }
-        // GET: FishSeeker
 
+        // GET: FishSeeker
         public ActionResult Index()
         {
             var parishes = db.Parishes;
             return View(parishes.ToList());
-            //try
-            //{
-            //    string thisUserID = User.Identity.GetUserId();
-            //    People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
-            //    ViewBag.Name = thisPerson.FirstName + " " + thisPerson.LastName;
-            //    //return RedirectToAction("Index");
-            //    //return View();
-            //    return View(parishes.ToList());
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
         }
-
         // GET: FishSeeker/Details/5
         public ActionResult Details(int id)
         {
@@ -268,7 +124,6 @@ namespace MKEFishFries.Controllers
             catch
             {
                 return RedirectToAction("Index");
-
             }
         }
 
@@ -321,7 +176,6 @@ namespace MKEFishFries.Controllers
             {
                 db.Entry(person).State = EntityState.Modified;
                 db.SaveChanges();
-
                 return RedirectToAction("Index");
             }
             catch
@@ -350,4 +204,3 @@ namespace MKEFishFries.Controllers
         }
     }
 }
->>>>>>> 5a3436309a8cd4c031d21bbf29428de0fe10b153

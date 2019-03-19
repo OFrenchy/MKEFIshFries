@@ -1,172 +1,9 @@
-<<<<<<< HEAD
 ﻿@model MKEFishFries.Models.VisitorActionsViewModel
 @{
-    ViewBag.Title = "VisitorActions";
+                /**/
+
+                ViewBag.Title = "VisitorActions";
 }
-<h2>VisitorActions</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    @Html.HiddenFor(model => model.Parishes.ID, new { id = "parishID", Value = ViewBag.ParishID })
-    
-    <br />
-    <div class="form-group">
-        @Html.Label("Sign up for notifications (enter 'Y' to sign up): ", htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.TextBox("SignUp")
-        </div>
-        <br />
-        <br />
-    </div>
-
-    <div class="form-group">
-        @Html.Label("Enter a comment for the parish administrator: ", htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.TextArea("Comment", new { rows = 4, cols = 160})
-            <p></p>
-        </div>
-        <br />
-        <br />
-    </div>
-    <div class="form-group">
-        @Html.Label("If you wish to donate to this parish, enter a dollar amount (whole dollars please) here: ", htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.TextBox("DollarAmount")
-        </div>
-        <br />
-        <br />
-    </div>
-    <p style="text-align:left">Enter Credit card number</p>
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.TextBox("CreditCardNumber")
-        </div>
-        <br />
-        <br />
-    </div>
-    <p style="text-align:left">Enter Credit card epiration date in ##/## format</p>
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.TextBox("ExpirationDate")
-        </div>
-        <br />
-        <br />
-    </div>
-    <p style="text-align:left">Enter credit card security number</p>
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.TextBox("SecurityNumber")
-        </div>
-    </div>
-    <br>
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-75">
-            <div class="container">
-                <form action="/action_page.php">
-                    <div class="row">
-                        <div class="col-50">
-                            <h3>Billing Address</h3>
-                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                            <input type="text" id="email" name="email" placeholder="john@example.com">
-                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-                            <label for="city"><i class="fa fa-institution"></i> City</label>
-                            <input type="text" id="city" name="city" placeholder="New York">
-                            <div class="row">
-                                <div class="col-50">
-                                    <label for="state">State</label>
-                                    <input type="text" id="state" name="state" placeholder="NY">
-                                </div>
-                                <div class="col-50">
-                                    <label for="zip">Zip</label>
-                                    <input type="text" id="zip" name="zip" placeholder="10001">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-50">
-                            <h3>Payment</h3>
-                            <label for="fname">Accepted Cards</label>
-                            <div class="icon-container">
-                                <i class="fa fa-cc-visa" style="color:navy;"></i>
-                                <i class="fa fa-cc-amex" style="color:blue;"></i>
-                                <i class="fa fa-cc-mastercard" style="color:red;"></i>
-                                <i class="fa fa-cc-discover" style="color:orange;"></i>
-                            </div>
-                            <label for="cname">Name on Card</label>
-                            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-                            <label for="ccnum">Credit card number</label>
-                            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-                            <label for="expmonth">Exp Month</label>
-                            <input type="text" id="expmonth" name="expmonth" placeholder="September">
-                            <div class="row">
-                                <div class="col-50">
-                                    <label for="expyear">Exp Year</label>
-                                    <input type="text" id="expyear" name="expyear" placeholder="2018">
-                                </div>
-                                <div class="col-50">
-                                    <label for="cvv">CVV</label>
-                                    <input type="text" id="cvv" name="cvv" placeholder="352">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <label>
-                        <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-                    </label>
-                    <input type="submit" value="Continue to checkout" class="btn">
-                </form>
-            </div>
-        </div>
-        <div class="col-25">
-            <div class="container">
-                <h4>
-                    Cart
-                    <span class="price" style="color:black">
-                        <i class="fa fa-shopping-cart"></i>
-                        @*<b>4</b>*@
-                    </span>
-                </h4>
-                @*<p><a href="#">Product 1</a> <span class="price">$15</span></p>
-                    <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-                    <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-                    <p><a href="#">Product 4</a> <span class="price">$2</span></p>
-                    <hr>*@
-                <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
-            </div>
-        </div>
-    </div>
-}
-<div>
-    @Html.ActionLink("Back to Parish List", "Index")
-</div>
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-=======
-﻿@model MKEFishFries.Models.VisitorActionsViewModel
-
-@{
-    ViewBag.Title = "VisitorActions";
-
-}
-
 @section stripe{
     <script src="https://js.stripe.com/v3/"></script>
     <script>
@@ -241,24 +78,17 @@
             form.submit();
         }
     </script>
-    }
+}
+
 
 <h2>VisitorActions</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
+    @Html.HiddenFor(model => model.Parishes.ID, new { id = "parishID", Value = ViewBag.ParishID })
 
-
-    @*<div class="form-group">
-            @Html.DisplayText("Sign up for Notifications")
-            <div class="col-md-10">
-                @Html.CheckBox("Sign up for Notifications", new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RecieveComments, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
     <br />
     <div class="form-group">
         @Html.Label("Sign up for notifications (enter 'Y' to sign up): ", htmlAttributes: new { @class = "control-label col-md-4" })
@@ -272,7 +102,8 @@
     <div class="form-group">
         @Html.Label("Enter a comment for the parish administrator: ", htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.TextBox("Comment")
+            @Html.TextArea("Comment", new { rows = 4, cols = 160 })
+            <p></p>
         </div>
         <br />
         <br />
@@ -285,58 +116,29 @@
         <br />
         <br />
     </div>
-    @*<p style="text-align:left">Enter Credit card number</p>
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.TextBox("CreditCardNumber")
-            </div>
-            <br />
-            <br />
-        </div>
-        <p style="text-align:left">Enter Credit card epiration date in ##/## format</p>
-        <div class="form-group">
-
-            <div class="col-md-10">
-                @Html.TextBox("ExpirationDate")
-            </div>
-            <br />
-            <br />
-        </div>
-        <p style="text-align:left">Enter credit card security number</p>
-        <div class="form-group">
-
-            <div class="col-md-10">
-                @Html.TextBox("SecurityNumber")
-            </div>
-        </div>*@
-        <br>
-        <div class="form-horizontal">
-
-            
-
-            <form action="/VisitorController/VisitorActions" method="post" id="payment-form">
-                <div class="form-row">
-                    <label for="card-element">
-                        Credit or debit card
-                    </label>
-                    <div id="card-element">
-                        <!-- A Stripe Element will be inserted here. -->
-                    </div>
-
-                    <!-- Used to display form errors. -->
-                    <div id="card-errors" role="alert"></div>
+    <br>
+    <div class="form-horizontal">
+        <form action="/VisitorController/VisitorActions" method="post" id="payment-form">
+            <div class="form-row">
+                <label for="card-element">
+                    Credit or debit card
+                </label>
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
                 </div>
 
-                <button>Donate</button>
-            </form>
-        </div>
-            }
-
-            <div>
-                @Html.ActionLink("Back to List", "Index")
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
             </div>
+            <button>Donate</button>
+        </form>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to Parish List", "Index")
+</div>
 
-            @section Scripts {
-                @Scripts.Render("~/bundles/jqueryval")
-            }
->>>>>>> 5a3436309a8cd4c031d21bbf29428de0fe10b153
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
