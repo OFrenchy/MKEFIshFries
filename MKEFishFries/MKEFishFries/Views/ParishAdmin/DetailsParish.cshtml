@@ -46,7 +46,7 @@
         <dd>
             @Html.DisplayFor(model => model.Zip)
         </dd>
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Lat)
         </dt>
         <dd>
@@ -57,7 +57,7 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Long)
-        </dd>
+        </dd>*@
         <dt>
             @Html.DisplayNameFor(model => model.WebsiteURL)
         </dt>
@@ -86,7 +86,9 @@
             @Html.DisplayNameFor(model => model.Comments)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Comments)
+            @*@Html.DisplayFor(model => model.Comments)*@
+            @Html.TextAreaFor(model => model.Comments, new { rows = 10, cols = 240 })
+
         </dd>
     </dl>
 </div>

@@ -25,7 +25,7 @@ namespace MKEFishFries.Controllers
             }
             else if (option == "Parish")
             {
-                return View(db.Events.Where(p => p.EventName == search || search == null)..ToList));
+                return View(db.Parishes.Where(p => p.Name == search || search == null).ToList());
             }
 
             return View(parishesWithEvents);

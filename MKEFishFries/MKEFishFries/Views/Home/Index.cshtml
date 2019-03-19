@@ -9,7 +9,15 @@
         
         var longitudes = @Html.Raw(Json.Encode(@ViewBag.Longitudes));
 
-        var names = @Html.Raw(Json.Encode(@ViewBag.Names))
+        var names = @Html.Raw(Json.Encode(@ViewBag.Names));
+
+        var events = @Html.Raw(Json.Encode(ViewBag.Events));
+
+        var markers = [];
+
+        var contentStrings = [];
+
+        var infoWindow = [];
      
         
     </script>
@@ -18,6 +26,7 @@
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap"></script>
     <script>
+<<<<<<< HEAD
         function initMap() {
             var milwaukee = { lat: 43.038, lng: -87.906 }
             var map = new google.maps.Map(document.getElementById('map'), { zoom: 12, center: milwaukee });
@@ -25,25 +34,54 @@
 
                 var coord = { lat: latitudes[i], lng: longitudes[i] };
                 marker = new google.maps.Marker(
+=======
+        function initMap()
+        {
+            var milwaukee = {lat: 43.038, lng: -87.906}
+            var map = new google.maps.Map(document.getElementById('map'), { zoom: 12, center: milwaukee });
+            for (i = 0; i < names.length; i++)
+            {
+               
+                
+                
+                var coord = {lat: latitudes[i], lng: longitudes[i]};
+                markers[i] = new google.maps.Marker(
+>>>>>>> 740856fb984681b29688793ae9bd0579d38e76f3
                     {
                         position: coord,
                         map: map,
                         title: names[i]
                     });
-                var contentString = '<div id="content"><h1>Church</h1><p>Church is a' +
+                markers[i].index = i;
+                contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>'+ names[i] + events[i] +'</h1><p>' + names[i] +' is a' +
                     ' church, with a specific size and has a specific date erected in the' +
-                    'area it is located. The church is located in this specific area,' +
-                    'and is a place of worship for many people in this place.' +
-                    'Learn More.</p><p>Attribution: Church <a href="https://en.wikipedia.org/wiki/Church">' +
+                    ' area it is located. The church is located in this specific area,' +
+                    ' and is a place of worship for many people in this place.' +
+                    ' Learn More.</p><p>Attribution: Church <a href="https://en.wikipedia.org/wiki/Church">' +
                     'https://en.wikipedia.org/wiki/Church</a></p></div>';
-                var infowindow = new google.maps.InfoWindow(
+                contentStrings[i].index = i;
+                infoWindow[i] = new google.maps.InfoWindow(
                     {
-                        content: contentString
+                        content: contentStrings[i],
+                        maxWidth: 300
                     });
+<<<<<<< HEAD
                 marker.addListener('click', function EventDetails() {
                     infowindow.open(map, marker);
                 });
 
+=======
+                infoWindow[i].index = i;
+                google.maps.event.addListener(markers[i], 'click', function EventDetails()
+                {
+                    console.log(this.index);
+                    console.log(i);
+                    infoWindow[this.index].open(map, markers[this.index]);
+                    map.panTo(markers[this.index].getPosition()); 
+                });
+               
+               
+>>>>>>> 740856fb984681b29688793ae9bd0579d38e76f3
             }
         }
     </script>

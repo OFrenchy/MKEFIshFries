@@ -58,8 +58,15 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Stripe.net, Version=25.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stripe.net.25.0.0\lib\net45\Stripe.net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -195,6 +202,7 @@
     </Compile>
     <Compile Include="Models\Access.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ChargeViewModel.cs" />
     <Compile Include="Models\ContactList.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\Event.cs" />
@@ -205,6 +213,7 @@
     <Compile Include="Models\Parish.cs" />
     <Compile Include="Models\People.cs" />
     <Compile Include="Models\PeopleParishViewModel.cs" />
+    <Compile Include="Models\PaymentSettings.cs" />
     <Compile Include="Models\VisitorActionsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
