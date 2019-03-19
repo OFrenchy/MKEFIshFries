@@ -26,6 +26,7 @@ namespace MKEFishFries.Controllers
         {
             var tempLatitudes = new List<double>();
             var tempLongitudes = new List<double>();
+            var names = new List<string>();
             // Get all parish addresses in the Parishes model/table
 
             //ViewBag.Key = Models.Access.apiKey;
@@ -53,14 +54,17 @@ namespace MKEFishFries.Controllers
                 
                 tempLatitudes.Add(thisParish.Lat);
                 tempLongitudes.Add(thisParish.Long);
+                names.Add(thisParish.Name);
 
               
             }
             //ViewBag.Map2URL = stringBuilder.ToString();
+            var namesToArray = names.ToArray();
             var latitudesToArray = tempLatitudes.ToArray();
             var longitudesToArray = tempLongitudes.ToArray();
             var latitudes = latitudesToArray;
             var longitudes = longitudesToArray;
+            ViewBag.Names = namesToArray;
             ViewBag.Latitudes = latitudes;
             ViewBag.Longitudes = longitudes;
             //stringBuilder.Clear();

@@ -8,6 +8,8 @@
         var latitudes = @Html.Raw(Json.Encode(@ViewBag.Latitudes));
         
         var longitudes = @Html.Raw(Json.Encode(@ViewBag.Longitudes));
+
+        var names = @Html.Raw(Json.Encode(@ViewBag.Names))
      
         
     </script>
@@ -18,14 +20,18 @@
     <script>
         function initMap() {
             var milwaukee = {lat: 43.038, lng: -87.906}
-            var map = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: milwaukee });
+            var map = new google.maps.Map(document.getElementById('map'), { zoom: 12, center: milwaukee });
             for (i = 0; i < 3; i++)
             {
 
                 var coord = {lat: latitudes[i], lng: longitudes[i]};
-                marker = new google.maps.Marker({
-                    position: coord, map: map
-                });
+                marker = new google.maps.Marker(
+                    {
+                        position: coord,
+                        map: map,
+                        title: names[i]
+                    });
+                //var contentString = 
             }
         }
     </script>
