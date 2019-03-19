@@ -27,6 +27,7 @@ namespace MKEFishFries.Controllers
             var tempLatitudes = new List<double>();
             var tempLongitudes = new List<double>();
             var names = new List<string>();
+            
             // Get all parish addresses in the Parishes model/table
 
             //ViewBag.Key = Models.Access.apiKey;
@@ -73,7 +74,7 @@ namespace MKEFishFries.Controllers
             //stringBuilder.Append(";");
             //ViewBag.Site = stringBuilder;
             //ViewBag.Key = Models.Access.apiKey;
-            return View();
+            return View(parishesWithEvents);
         }
 
 
