@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using MKEFishFries.Models;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,6 +14,8 @@ namespace MKEFishFries.Controllers
     public class VisitorController : Controller
     {
         ApplicationDbContext db;
+        
+
         public VisitorController()
         {
             db = new ApplicationDbContext();
@@ -29,9 +32,23 @@ namespace MKEFishFries.Controllers
             return View(visitorActionsViewModel);
         }
         [HttpPost]
-        public ActionResult VisitorActions(int parishID)
+        public ActionResult VisitorActions(string stripeToken)
         {
+            StripeConfiguration.SetApiKey("sk_test_mdDGBM56VRabusYFI96kpuGh00PrprigoK");
 
+            var options = new ChargeCreateOptions
+            {
+                Amount = 2500,
+                Currency = "usd",
+                Description = "Charge for jenny.rosen@example.com",
+                SourceId = "tok_mastercard" // obtained with Stripe.js,
+               
+            };
+            var service = new ChargeService();
+            Charge charge = service.Create(options);
+            //var model = new ChargeViewModel();
+            //model.ChargeId = charge.Id;
+            //return View("VisitorActions", model);
             return View();
         }
         // GET: FishSeeker
