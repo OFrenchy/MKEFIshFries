@@ -46,10 +46,10 @@ namespace MKEFishFries.Controllers
             };
             var service = new ChargeService();
             Charge charge = service.Create(options);
-            //var model = new ChargeViewModel();
-            //model.ChargeId = charge.Id;
-            //return View("VisitorActions", model);
-            return View();
+            var model = new ChargeViewModel();
+            model.ChargeId = charge.Id;
+            return View("DonationConfirmation", model);
+            //return View();
         }
         // GET: FishSeeker
 
