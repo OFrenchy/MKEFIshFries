@@ -29,7 +29,7 @@ namespace MKEFishFries.Controllers
         public ActionResult Index()
         {
             // Stjoeadmin1!@abc.com
-            
+
             string thisUserID = User.Identity.GetUserId();
             People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
             Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();

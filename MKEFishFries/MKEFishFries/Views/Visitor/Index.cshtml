@@ -29,21 +29,21 @@
         <th>
             @Html.DisplayNameFor(model => model.Zip)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Lat)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Long)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.WebsiteURL)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Phone)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.AdminPersonId)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -67,26 +67,26 @@
         <td>
             @Html.DisplayFor(modelItem => item.Zip)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Lat)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Long)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.WebsiteURL)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Phone)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.AdminPersonId)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
-            @Html.ActionLink("Visitor Actions", "VisitorActions")
+            @Html.ActionLink("Visitor Actions", "VisitorActions", new { id = item.ID })
         </td>
     </tr>
 }

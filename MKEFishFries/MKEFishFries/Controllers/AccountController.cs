@@ -106,6 +106,8 @@ namespace MKEFishFries.Controllers
                     }
                     else if (roleText == "Visitor")
                     {
+                        var appUserID = User.Identity.GetUserId();
+
                         // go to details of the person to get First & lastname
                         //return RedirectToAction("Create", "Customer");
                         return RedirectToAction("Index", roleText);

@@ -1,10 +1,9 @@
 ﻿@model MKEFishFries.Models.VisitorActionsViewModel
-
 @{
-    ViewBag.Title = "VisitorActions";
+                /**/
 
+                ViewBag.Title = "VisitorActions";
 }
-
 @section stripe{
     <script src="https://js.stripe.com/v3/"></script>
     <script>
@@ -79,24 +78,17 @@
             form.submit();
         }
     </script>
-    }
+}
+
 
 <h2>VisitorActions</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
+    @Html.HiddenFor(model => model.Parishes.ID, new { id = "parishID", Value = ViewBag.ParishID })
 
-
-    @*<div class="form-group">
-            @Html.DisplayText("Sign up for Notifications")
-            <div class="col-md-10">
-                @Html.CheckBox("Sign up for Notifications", new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RecieveComments, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
     <br />
     <div class="form-group">
         @Html.Label("Sign up for notifications (enter 'Y' to sign up): ", htmlAttributes: new { @class = "control-label col-md-4" })
@@ -110,7 +102,8 @@
     <div class="form-group">
         @Html.Label("Enter a comment for the parish administrator: ", htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.TextBox("Comment")
+            @Html.TextArea("Comment", new { rows = 4, cols = 160 })
+            <p></p>
         </div>
         <br />
         <br />
@@ -123,57 +116,29 @@
         <br />
         <br />
     </div>
-    @*<p style="text-align:left">Enter Credit card number</p>
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.TextBox("CreditCardNumber")
-            </div>
-            <br />
-            <br />
-        </div>
-        <p style="text-align:left">Enter Credit card epiration date in ##/## format</p>
-        <div class="form-group">
-
-            <div class="col-md-10">
-                @Html.TextBox("ExpirationDate")
-            </div>
-            <br />
-            <br />
-        </div>
-        <p style="text-align:left">Enter credit card security number</p>
-        <div class="form-group">
-
-            <div class="col-md-10">
-                @Html.TextBox("SecurityNumber")
-            </div>
-        </div>*@
-        <br>
-        <div class="form-horizontal">
-
-            
-
-            <form action="/VisitorController/VisitorActions" method="post" id="payment-form">
-                <div class="form-row">
-                    <label for="card-element">
-                        Credit or debit card
-                    </label>
-                    <div id="card-element">
-                        <!-- A Stripe Element will be inserted here. -->
-                    </div>
-
-                    <!-- Used to display form errors. -->
-                    <div id="card-errors" role="alert"></div>
+    <br>
+    <div class="form-horizontal">
+        <form action="/VisitorController/VisitorActions" method="post" id="payment-form">
+            <div class="form-row">
+                <label for="card-element">
+                    Credit or debit card
+                </label>
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
                 </div>
 
-                <button>Donate</button>
-            </form>
-        </div>
-            }
-
-            <div>
-                @Html.ActionLink("Back to List", "Index")
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
             </div>
+            <button>Donate</button>
+        </form>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to Parish List", "Index")
+</div>
 
-            @section Scripts {
-                @Scripts.Render("~/bundles/jqueryval")
-            }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
