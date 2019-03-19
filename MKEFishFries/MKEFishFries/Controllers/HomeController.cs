@@ -32,8 +32,23 @@ namespace MKEFishFries.Controllers
 
             // TODO - change this query to show parishes with fish fry events in the next 7 days, 
             //  so that a Friday is included. 
+            List<int> events = db.Events.Select(e=>e.ParishId).ToList();
             List<Parish> parishes = db.Parishes.ToList();
-            foreach (Parish thisParish in parishes)
+            List<Parish> parishesWithEvents = new List<Parish>();
+            //need list of parish id ints
+            List<int> parishIds = db.Parishes.Select(p => p.ID).ToList();
+            foreach (int id in parishIds)
+            {
+                foreach(int parishId in events)
+                {
+                    if (id == parishId)
+                    {
+                        parishesWithEvents.Add(parishes.Where(p=>p.ID == id).Select(p=>p).SingleOrDefault());
+                    }
+                }
+            }
+            
+            foreach (Parish thisParish in parishesWithEvents)
             {
                 
                 tempLatitudes.Add(thisParish.Lat);

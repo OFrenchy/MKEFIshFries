@@ -192,9 +192,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903191332228_AddingDb.cs" />
-    <Compile Include="Migrations\201903191332228_AddingDb.Designer.cs">
-      <DependentUpon>201903191332228_AddingDb.cs</DependentUpon>
+    <Compile Include="Migrations\201903152119532_GoganDatabase.cs" />
+    <Compile Include="Migrations\201903152119532_GoganDatabase.Designer.cs">
+      <DependentUpon>201903152119532_GoganDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Access.cs" />
@@ -311,8 +311,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903191332228_AddingDb.resx">
-      <DependentUpon>201903191332228_AddingDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903152119532_GoganDatabase.resx">
+      <DependentUpon>201903152119532_GoganDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
