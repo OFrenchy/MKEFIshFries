@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using MimeKit;
 using MKEFishFries.Models;
 using Newtonsoft.Json;
 using System;
@@ -7,8 +8,10 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Web;
+using System.Web.Mail;
 using System.Web.Mvc;
 
 namespace MKEFishFries.Controllers
@@ -356,9 +359,6 @@ namespace MKEFishFries.Controllers
         public string short_name { get; set; }
         public string[] types { get; set; }
     }
-
-
-
 
 }
 
