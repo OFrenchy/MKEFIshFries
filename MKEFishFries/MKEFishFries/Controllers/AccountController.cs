@@ -102,7 +102,7 @@ namespace MKEFishFries.Controllers
                         return RedirectToAction("Index", "Events");
 
                         // TODO - make sure there's a "My Details" link on the Index page
-                        return RedirectToAction("Index", "ParishAdmin");
+                        // return RedirectToAction("Index", "ParishAdmin");
                     }
                     else if (roleText == "Visitor")
                     {
@@ -211,9 +211,7 @@ namespace MKEFishFries.Controllers
                         return RedirectToAction("Create", "Visitor");
                     }
                     return RedirectToAction("Index", "Users");
-                    
-
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
