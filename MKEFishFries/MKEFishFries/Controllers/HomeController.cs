@@ -9,7 +9,6 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-//using GoogleMaps;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using MailKit.Net.Smtp;
@@ -25,134 +24,60 @@ namespace MKEFishFries.Controllers
         }
         public ActionResult Index()
         {
+            var tempLatitudes = new List<double>();
+            var tempLongitudes = new List<double>();
+            var names = new List<string>();
             // Get all parish addresses in the Parishes model/table
 
-            //3	St. Josaphat Basilica	2333 South 6th Street	NULL	Milwaukee	WI	53215	43.0024	-87.9191	www.TheBasilica.org	4146455623	6	NULL	True
-            //The GeocoderRequest object literal contains the following fields:
-            //{
-            //address: string,
-            //}
             //ViewBag.Key = Models.Access.apiKey;
-            StringBuilder stringBuilder = new StringBuilder();
 
             // TODO - change this query to show parishes with fish fry events in the next 7 days, 
             //  so that a Friday is included. 
+            List<int> events = db.Events.Select(e=>e.ParishId).ToList();
             List<Parish> parishes = db.Parishes.ToList();
-            foreach (Parish thisParish in parishes)
+            List<Parish> parishesWithEvents = new List<Parish>();
+            List<Event> specificEvents = new List<Event>();
+            DateTime nextSevenDays = DateTime.Today.AddDays(6);
+            //need list of parish id ints
+            List<int> parishIds = db.Parishes.Select(p => p.ID).ToList();
+            foreach (int id in parishIds)
             {
-                //    //// Moved to ParishAdminController CreateParish 
-                //    //StringBuilder stringBuilder = new StringBuilder();
-                //    //stringBuilder.Append(thisParish.Street1.Replace(" ", "+"));
-                //    //stringBuilder.Append(";");
-                //    //stringBuilder.Append(thisParish.City.Replace(" ", "+"));
-                //    //stringBuilder.Append(";");
-                //    //stringBuilder.Append(thisParish.State.Replace(" ", "+"));
-                //    //string fullAddressForAPI = stringBuilder.ToString();
-                //    //// example: string url = @"https://maps.googleapis.com/maps/api/geocode/json?address={stringBuilder.ToString()}1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY";
-
-                //    //// TODO - replace key with new class
-                //    //string key = "AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
-                //    //string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                //    //    stringBuilder.ToString() + "&key=" + key;
-
-                //    //WebRequest request = WebRequest.Create(url);
-                //    //WebResponse response = request.GetResponse();
-                //    //System.IO.Stream data = response.GetResponseStream();
-                //    //StreamReader reader = new StreamReader(data);
-                //    //// json-formatted string from maps api
-                //    //string responseFromReader = reader.ReadToEnd();
-                //    //response.Close();
-                //    //var root = JsonConvert.DeserializeObject<ParishMapAPIData>(responseFromReader);
-                //    //var location = root.results[0].geometry.location;
-                //    //var latitude = location.lat;
-                //    //var longitude = location.lng;
-                //    ////foreach (var singleResult in root.results)
-                //    ////{
-                //    ////    var location = singleResult.geometry.location;
-                //    ////    var latitude = location.lat;
-                //    ////    var longitude = location.lng;
-                //    ////    // Do whatever you want with them.
-                //    ////}
-
-
-                //    // https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Eiffel+Tower,Paris+France
-                //    // The following URL parameter is required:
-                //    // q defines the place to highlight on the map.It accepts a location as either 
-                //    // a place name, address, or place ID.The string should be URL-escaped, so an address such as "City Hall, New York, NY" should be converted to City + Hall,New + York,NY. (The Maps Embed API supports both + and % 20 when escaping spaces.) Place IDs should be prefixed with place_id:.
-
-
-                //    //var geocoder = new google.maps.Geocoder();
-                //    //var latlng = new google.maps.LatLng(thisParish.Lat, thisParish.Long);
-                //    //var mapOptions = { zoom: 8, center: latlng };
-                //    //map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-                //    //string url = @"https://maps.googleapis.com/maps/api/directions/json?origin=75+9th+Ave+New+York,+NY&destination=MetLife+Stadium+1+MetLife+Stadium+Dr+East+Rutherford,+NJ+07073&key=YOUR_API_KEY";
-
-                //    //// TODO - replace key with new class
-                //    // key AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE
-
-                //    // this is the address of St. Josaphat's Basilica
-                //    //string   url = @"https://maps.googleapis.com/maps/api/geocode/json?latlng=43.0024,-87.9191&key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
-
-                //    //string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE";
-
-                //    //WebRequest request = WebRequest.Create(url);
-                //    //WebResponse response = request.GetResponse();
-                //    //System.IO.Stream data = response.GetResponseStream();
-                //    //StreamReader reader = new StreamReader(data);
-                //    //// json-formatted string from maps api
-                //    //string responseFromServer = reader.ReadToEnd();
-                //    //response.Close();
-
-
-                //    //ValueProviderFactory valueProviderFactory = new ValueProviderFactory() { responseFromServer };
-                //    //https://www.google.com/maps/embed/v1/place?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&q=lat:43.0024+long:-87.9191q=Basilica+of+St+Josaphat
-                //    ViewBag.MapURL = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&q=lat:43.0024+long:-87.9191q=Basilica+of+St+Josaphat"
-                //        + "&callback=initMap";
-
-                //thisParish.Lat
-                //thisParish.Lng
-
-
-
-                // TODO - replace key with the new key class
-                //string sampleMap = $"www.google.com/maps/embed/v1/place?key={Models.Access.apiKey}=lat:43.0024+long:-87.9191q=Basilica+of+St+Josaphat";
-                //ViewBag.MapURL = "https://" + sampleMap + "&callback=initMap";
-
-                // TODO - generate the correct URL with the geocodes of all the churches 
-                //        with fish fries in the next 7 days
-
-
-                //ViewBag.MapURL = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&q=lat:43.0024+long:-87.9191"
-                //        + "&callback=initMap";
-                //ViewBag.MapURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap";
-
-
-                //    < script >
-                //      var map;
-                //    function initMap()
-                //    {
-                //        map = new google.maps.Map(document.getElementById('map'), {
-                //        center: { lat: 43.0391, lng: -88.0697 },
-                //        zoom: 6
-                //    });
-
-                
-                // from https://developers.google.com/maps/documentation/embed/guide#optional_parameters :
-                // https://www.google.com/maps/embed/v1/MODE?key=YOUR_API_KEY&parameters
-                stringBuilder.Clear();
-                stringBuilder.Append("https://www.google.com/maps/embed/v1/place?key=");
-                stringBuilder.Append(Models.Access.apiKey);
-                stringBuilder.Append("&q=");
-                stringBuilder.Append(thisParish.Name.Replace(" ", "+"));
-                stringBuilder.Append(";");
-                stringBuilder.Append(""); stringBuilder.Append(thisParish.Street1.Replace(" ", "+"));
-                stringBuilder.Append(";");
-                stringBuilder.Append(thisParish.City.Replace(" ", "+"));
-                stringBuilder.Append(";");
-                stringBuilder.Append(thisParish.State.Replace(" ", "+"));
+                foreach(int parishId in events)
+                {
+                    if (id == parishId)
+                    {
+                        if(db.Events.Where(e => e.ParishId == id).Select(e=>e.Date).First() >= DateTime.Today && db.Events.Where(e => e.ParishId == id).Select(e => e.Date).First() <= nextSevenDays)
+                        {
+                            parishesWithEvents.Add(parishes.Where(p => p.ID == id).Select(p => p).SingleOrDefault());
+                        }
+                    }
+                }
             }
-            ViewBag.Map2URL = stringBuilder.ToString();
+            
+            foreach (Parish thisParish in parishesWithEvents)
+            { 
+                tempLatitudes.Add(thisParish.Lat);
+                tempLongitudes.Add(thisParish.Long);
+                names.Add(thisParish.Name);
+                specificEvents.Add(db.Events.Where(e => e.ParishId == thisParish.ID).Select(e => e).First());
+            }
+            //ViewBag.Map2URL = stringBuilder.ToString();
+            var namesToArray = names.ToArray();
+            var specificEventsToArray = specificEvents.ToArray();
+            var latitudesToArray = tempLatitudes.ToArray();
+            var longitudesToArray = tempLongitudes.ToArray();
+            var latitudes = latitudesToArray;
+            var longitudes = longitudesToArray;
+            ViewBag.Names = namesToArray;
+            ViewBag.Events = specificEventsToArray;
+            ViewBag.Latitudes = latitudes;
+            ViewBag.Longitudes = longitudes;
+            //stringBuilder.Clear();
+            //stringBuilder.Append("https://www.google.com/maps/embed/v1/place?key=");
+            //stringBuilder.Append(Models.Access.apiKey);
+            //stringBuilder.Append(";");
+            //ViewBag.Site = stringBuilder;
+            //ViewBag.Key = Models.Access.apiKey;
             return View();
         }
 
