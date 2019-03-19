@@ -36,6 +36,8 @@ namespace MKEFishFries.Controllers
             List<int> events = db.Events.Select(e=>e.ParishId).ToList();
             List<Parish> parishes = db.Parishes.ToList();
             List<Parish> parishesWithEvents = new List<Parish>();
+            List<Event> specificEvents = new List<Event>();
+            DateTime nextSevenDays = DateTime.Today.AddDays(6);
             //need list of parish id ints
             List<int> parishIds = db.Parishes.Select(p => p.ID).ToList();
             foreach (int id in parishIds)
@@ -44,19 +46,20 @@ namespace MKEFishFries.Controllers
                 {
                     if (id == parishId)
                     {
-                        parishesWithEvents.Add(parishes.Where(p=>p.ID == id).Select(p=>p).SingleOrDefault());
+                        if(db.Events.Where(e => e.ParishId == id).Select(e=>e.Date).Single() >= DateTime.Today && db.Events.Where(e => e.ParishId == id).Select(e => e.StartTime).Single() <= nextSevenDays)
+                        {
+                            parishesWithEvents.Add(parishes.Where(p => p.ID == id).Select(p => p).SingleOrDefault());
+                        }
                     }
                 }
             }
             
             foreach (Parish thisParish in parishesWithEvents)
-            {
-                
+            { 
                 tempLatitudes.Add(thisParish.Lat);
                 tempLongitudes.Add(thisParish.Long);
                 names.Add(thisParish.Name);
-
-              
+                specificEvents.Add(db.Events.Where(e => e.ParishId == thisParish.ID).Select(e => e).Single());
             }
             //ViewBag.Map2URL = stringBuilder.ToString();
             var namesToArray = names.ToArray();
