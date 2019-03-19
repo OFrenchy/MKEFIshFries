@@ -12,6 +12,40 @@
     @Html.AntiForgeryToken()
 
 
+
+    @*<div class="form-group">
+            @Html.DisplayText("Sign up for Notifications")
+            <div class="col-md-10">
+                @Html.CheckBox("Sign up for Notifications", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecieveComments, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    <p> </p>
+    <p>Sign up for notifications (enter 'Y' to sign up): </p>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ContactList.ParishId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ContactList.ParishId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ContactList.ParishId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <p>Enter a comment for the parish administrator: </p>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Parishes.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Parishes.Comments, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Parishes.Comments, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <p>If you wish to donate to this parish, enter a dollar amount (whole dollars please) here: </p>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Donations.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Donations.Amount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Donations.Amount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <p></p>
     <div class="form-horizontal">
         <h4>VisitorActionsViewModel</h4>
         <hr />
@@ -20,13 +54,6 @@
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.DisplayText("Sign up for Notifications")
-        <div class="col-md-10">
-            @Html.CheckBox("Sign up for Notifications", new { htmlAttributes = new { @class = "form-control" } })
-            @*@Html.ValidationMessageFor(model => model.RecieveComments, "", new { @class = "text-danger" })*@
         </div>
     </div>
 }
