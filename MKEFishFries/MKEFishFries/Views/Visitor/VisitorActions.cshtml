@@ -1,25 +1,15 @@
 ﻿@model MKEFishFries.Models.VisitorActionsViewModel
-
 @{
     ViewBag.Title = "VisitorActions";
 }
-
 <h2>VisitorActions</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-
-
-    @*<div class="form-group">
-            @Html.DisplayText("Sign up for Notifications")
-            <div class="col-md-10">
-                @Html.CheckBox("Sign up for Notifications", new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RecieveComments, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+    @Html.HiddenFor(model => model.Parishes.ID, new { id = "parishID", Value = ViewBag.ParishID })
+    
     <br />
     <div class="form-group">
         @Html.Label("Sign up for notifications (enter 'Y' to sign up): ", htmlAttributes: new { @class = "control-label col-md-4" })
@@ -33,7 +23,8 @@
     <div class="form-group">
         @Html.Label("Enter a comment for the parish administrator: ", htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.TextBox("Comment")
+            @Html.TextArea("Comment", new { rows = 4, cols = 160})
+            <p></p>
         </div>
         <br />
         <br />
@@ -56,7 +47,6 @@
     </div>
     <p style="text-align:left">Enter Credit card epiration date in ##/## format</p>
     <div class="form-group">
-
         <div class="col-md-10">
             @Html.TextBox("ExpirationDate")
         </div>
@@ -65,14 +55,12 @@
     </div>
     <p style="text-align:left">Enter credit card security number</p>
     <div class="form-group">
-
         <div class="col-md-10">
             @Html.TextBox("SecurityNumber")
         </div>
     </div>
     <br>
     <div class="form-horizontal">
-
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -87,7 +75,6 @@
         <div class="col-75">
             <div class="container">
                 <form action="/action_page.php">
-
                     <div class="row">
                         <div class="col-50">
                             <h3>Billing Address</h3>
@@ -99,7 +86,6 @@
                             <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
                             <label for="city"><i class="fa fa-institution"></i> City</label>
                             <input type="text" id="city" name="city" placeholder="New York">
-
                             <div class="row">
                                 <div class="col-50">
                                     <label for="state">State</label>
@@ -111,7 +97,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-50">
                             <h3>Payment</h3>
                             <label for="fname">Accepted Cards</label>
@@ -127,7 +112,6 @@
                             <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
                             <label for="expmonth">Exp Month</label>
                             <input type="text" id="expmonth" name="expmonth" placeholder="September">
-
                             <div class="row">
                                 <div class="col-50">
                                     <label for="expyear">Exp Year</label>
@@ -139,7 +123,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <label>
                         <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
@@ -148,7 +131,6 @@
                 </form>
             </div>
         </div>
-
         <div class="col-25">
             <div class="container">
                 <h4>
@@ -159,21 +141,18 @@
                     </span>
                 </h4>
                 @*<p><a href="#">Product 1</a> <span class="price">$15</span></p>
-                <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-                <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-                <p><a href="#">Product 4</a> <span class="price">$2</span></p>
-                <hr>*@
+                    <p><a href="#">Product 2</a> <span class="price">$5</span></p>
+                    <p><a href="#">Product 3</a> <span class="price">$8</span></p>
+                    <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+                    <hr>*@
                 <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
             </div>
         </div>
     </div>
 }
-
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Parish List", "Index")
 </div>
-
-
 
 
 @section Scripts {
