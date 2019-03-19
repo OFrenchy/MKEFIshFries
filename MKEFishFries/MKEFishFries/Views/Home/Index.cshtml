@@ -10,6 +10,12 @@
         var longitudes = @Html.Raw(Json.Encode(@ViewBag.Longitudes));
 
         var names = @Html.Raw(Json.Encode(@ViewBag.Names))
+
+        var markers = [];
+
+        var contentStrings = [];
+
+        var infoWindow = [];
      
         
     </script>
@@ -18,33 +24,44 @@
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap"></script>
     <script>
-        function initMap() {
+        function initMap()
+        {
             var milwaukee = {lat: 43.038, lng: -87.906}
             var map = new google.maps.Map(document.getElementById('map'), { zoom: 12, center: milwaukee });
             for (i = 0; i < names.length; i++)
             {
-
+               
+                
+                
                 var coord = {lat: latitudes[i], lng: longitudes[i]};
-                marker = new google.maps.Marker(
+                markers[i] = new google.maps.Marker(
                     {
                         position: coord,
                         map: map,
                         title: names[i]
                     });
-                var contentString = '<div id="content"><h1>Church</h1><p>Church is a' +
+                markers[i].index = i;
+                contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>'+ names[i] + '</h1><p>' + names[i] +' is a' +
                     ' church, with a specific size and has a specific date erected in the' +
-                    'area it is located. The church is located in this specific area,' +
-                    'and is a place of worship for many people in this place.' +
-                    'Learn More.</p><p>Attribution: Church <a href="https://en.wikipedia.org/wiki/Church">' +
+                    ' area it is located. The church is located in this specific area,' +
+                    ' and is a place of worship for many people in this place.' +
+                    ' Learn More.</p><p>Attribution: Church <a href="https://en.wikipedia.org/wiki/Church">' +
                     'https://en.wikipedia.org/wiki/Church</a></p></div>';
-                var infowindow = new google.maps.InfoWindow(
+                contentStrings[i].index = i;
+                infoWindow[i] = new google.maps.InfoWindow(
                     {
-                        content: contentString
+                        content: contentStrings[i],
+                        maxWidth: 300
                     });
-                marker.addListener('click', function EventDetails()
+                infoWindow[i].index = i;
+                google.maps.event.addListener(markers[i], 'click', function EventDetails()
                 {
-                    infowindow.open(map, marker);
+                    console.log(this.index);
+                    console.log(i);
+                    infoWindow[this.index].open(map, markers[this.index]);
+                    map.panTo(markers[this.index].getPosition()); 
                 });
+               
                
             }
         }
