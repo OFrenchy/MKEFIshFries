@@ -1,3 +1,4 @@
+
 ﻿using Microsoft.AspNet.Identity;
 using MKEFishFries.Models;
 using Stripe;
@@ -82,9 +83,8 @@ namespace MKEFishFries.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        //public ActionResult VisitorActions(string stripeToken, string DollarAmount)
+        
+    [HttpPost]
         public ActionResult VisitorActions(string stripeToken)
         {
             StripeConfiguration.SetApiKey("sk_test_mdDGBM56VRabusYFI96kpuGh00PrprigoK");
@@ -92,19 +92,20 @@ namespace MKEFishFries.Controllers
             var options = new ChargeCreateOptions
             {
                 Amount = 2500,
-                //Amount = int.Parse( DollarAmount),
                 Currency = "usd",
                 Description = "Charge for jenny.rosen@example.com",
                 SourceId = "tok_mastercard" // obtained with Stripe.js,
-
+               
             };
             var service = new ChargeService();
             Charge charge = service.Create(options);
-            //var model = new ChargeViewModel();
-            //model.ChargeId = charge.Id;
-            //return View("VisitorActions", model);
-            return View();
+            var model = new ChargeViewModel();
+            model.ChargeId = charge.Id;
+            return View("DonationConfirmation", model);
+            //return View();
         }
+
+        
 
         // GET: FishSeeker
         public ActionResult Index()
@@ -204,3 +205,4 @@ namespace MKEFishFries.Controllers
         }
     }
 }
+
