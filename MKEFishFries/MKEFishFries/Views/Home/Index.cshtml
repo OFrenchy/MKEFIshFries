@@ -26,6 +26,7 @@
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap"></script>
     <script>
+
         function initMap()
         {
             var milwaukee = {lat: 43.038, lng: -87.906}
@@ -43,7 +44,8 @@
                         title: names[i]
                     });
                 markers[i].index = i;
-                contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>'+ names[i] + events[i] +'</h1><p>' + names[i] +' is a' +
+                contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>' + names[i] +
+                '</h1><p>'+'<a href="@Url.Action("Details", "Upcoming Events")"><span>Events</span></a></p><p>' + names[i] +' is a' +
                     ' church, with a specific size and has a specific date erected in the' +
                     ' area it is located. The church is located in this specific area,' +
                     ' and is a place of worship for many people in this place.' +
@@ -55,6 +57,7 @@
                         content: contentStrings[i],
                         maxWidth: 300
                     });
+
                 infoWindow[i].index = i;
                 google.maps.event.addListener(markers[i], 'click', function EventDetails()
                 {
@@ -63,32 +66,31 @@
                     infoWindow[this.index].open(map, markers[this.index]);
                     map.panTo(markers[this.index].getPosition()); 
                 });
-               
-               
             }
         }
     </script>
-   
-    @*<div class="row">
-        <div id="map"></div>*@
-    @*<script>
-            var map;
-            function initMap()
-            {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: 43.038902, lng: -88.0697 },
-                    zoom: 11,
-                });
-                var infowindow = new google.maps.InfoWindow();
-                var marker, i;
 
-                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                        return function () {
-                            infowindow.setContent(locations[i]);
-                            infowindow.open(map, marker);
-                        }
-                    })(marker, i));
-            }
-        </script>*@
-    @*</div>*@
-</body>
+
+        @*<div class="row">
+            <div id="map"></div>*@
+        @*<script>
+                var map;
+                function initMap()
+                {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: { lat: 43.038902, lng: -88.0697 },
+                        zoom: 11,
+                    });
+                    var infowindow = new google.maps.InfoWindow();
+                    var marker, i;
+
+                        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                            return function () {
+                                infowindow.setContent(locations[i]);
+                                infowindow.open(map, marker);
+                            }
+                        })(marker, i));
+                }
+            </script>*@
+        @*</div>*@
+    </body>
