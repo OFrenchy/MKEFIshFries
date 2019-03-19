@@ -31,7 +31,16 @@
                         map: map,
                         title: names[i]
                     });
-                //var contentString = 
+                var contentString = "This is a test";
+                var infowindow = new google.maps.InfoWindow(
+                    {
+                        content: contentString
+                    });
+                marker.addListener('click', function EventDetails()
+                {
+                    infowindow.open(map, marker);
+                });
+               
             }
         }
     </script>
