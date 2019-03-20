@@ -14,16 +14,16 @@
     @Html.TextBox("Search") <input type="submit" name="submit" value="Search" />
 }
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.People.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ParishId)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
@@ -53,12 +53,12 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.People.FirstName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ParishId)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
