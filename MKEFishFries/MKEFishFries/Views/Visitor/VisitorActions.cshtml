@@ -1,9 +1,78 @@
 ﻿@model MKEFishFries.Models.VisitorActionsViewModel
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "VisitorActions";
+    ViewBag.Title = "VisitorActions";
 }
+
+
+
+<h2>VisitorActions</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Parishes.ID, new { id = "parishID", Value = ViewBag.ParishID })
+
+    <br />
+    <div class="form-group">
+        @Html.Label("Sign up for notifications (enter 'Y' to sign up): ", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.TextBox("SignUp")
+        </div>
+        <br />
+        <br />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Enter a comment for the parish administrator: ", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.TextArea("Comment", new { rows = 4, cols = 160 })
+            <p></p>
+        </div>
+        <br />
+        <br />
+    </div>
+    <div class="form-group">
+        @Html.Label("If you wish to donate to this parish, enter a dollar amount (whole dollars please) here: ", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.TextBox("DollarAmount")
+        </div>
+        <br />
+        <br />
+    </div>
+
+    @*<br>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>*@
+    
+    <br>
+    <div class="form-horizontal">
+        <form action="/VisitorController/VisitorActions" method="post" id="payment-form">
+            <div class="form-row">
+                <label for="card-element">
+                    Credit or debit card
+                </label>
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+            </div>
+            <button>Donate</button>
+        </form>
+    </div>
+}
+
 @section stripe{
     <script src="https://js.stripe.com/v3/"></script>
     <script>
@@ -72,67 +141,13 @@
             hiddenInput.setAttribute('type', 'hidden');
             hiddenInput.setAttribute('name', 'stripeToken');
             hiddenInput.setAttribute('value', token.id);
+            //hiddenInput.setAttribute('DollarAmount', "DollarAmount");
             form.appendChild(hiddenInput);
 
             // Submit the form
             form.submit();
         }
     </script>
-}
-
-
-<h2>VisitorActions</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    @Html.HiddenFor(model => model.Parishes.ID, new { id = "parishID", Value = ViewBag.ParishID })
-
-    <br />
-    <div class="form-group">
-        @Html.Label("Sign up for notifications (enter 'Y' to sign up): ", htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.TextBox("SignUp")
-        </div>
-        <br />
-        <br />
-    </div>
-
-    <div class="form-group">
-        @Html.Label("Enter a comment for the parish administrator: ", htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.TextArea("Comment", new { rows = 4, cols = 160 })
-            <p></p>
-        </div>
-        <br />
-        <br />
-    </div>
-    <div class="form-group">
-        @Html.Label("If you wish to donate to this parish, enter a dollar amount (whole dollars please) here: ", htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.TextBox("DollarAmount")
-        </div>
-        <br />
-        <br />
-    </div>
-    <br>
-    <div class="form-horizontal">
-        <form action="/VisitorController/VisitorActions" method="post" id="payment-form">
-            <div class="form-row">
-                <label for="card-element">
-                    Credit or debit card
-                </label>
-                <div id="card-element">
-                    <!-- A Stripe Element will be inserted here. -->
-                </div>
-
-                <!-- Used to display form errors. -->
-                <div id="card-errors" role="alert"></div>
-            </div>
-            <button>Donate</button>
-        </form>
-    </div>
 }
 <div>
     @Html.ActionLink("Back to Parish List", "Index")

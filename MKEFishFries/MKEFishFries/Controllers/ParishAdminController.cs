@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mail;
 using System.Web.Mvc;
@@ -139,7 +140,7 @@ namespace MKEFishFries.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public Parish SetLatLong(Parish parish)
+        public async Task<Parish> SetLatLong(Parish parish)
         {
             // This is the geoDecoderRing 
             try
@@ -154,9 +155,12 @@ namespace MKEFishFries.Controllers
                 string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
                     stringBuilder.ToString() + "&key=" + Models.Access.apiKey;
 
+                // httpclient
+
                 WebRequest request = WebRequest.Create(url);
-                WebResponse response = request.GetResponse();
+                WebResponse response = await request.GetResponseAsync();
                 System.IO.Stream data = response.GetResponseStream();
+                // tried this System.IO.Stream data = await GetGoogleGeocodeResponse(url);
                 StreamReader reader = new StreamReader(data);
                 // json-formatted string from maps api
                 string responseFromServer = reader.ReadToEnd();
@@ -191,12 +195,12 @@ namespace MKEFishFries.Controllers
 
         //POST: ParishParish/CREATE
         [HttpPost]
-        public ActionResult CreateParish(Parish parish)
+        public async Task<ActionResult> CreateParish(Parish parish)
         {
             try
             {
                 // set lat & long from geoDecoderRing
-                parish = SetLatLong(parish);
+                parish = await SetLatLong(parish);
                 // the user that is logged in is the AdminPersonID
                 var appUserID = User.Identity.GetUserId();
                 var personID = db.Peoples.Where(w => w.ApplicationUserId == appUserID).FirstOrDefault().ID;
@@ -228,7 +232,7 @@ namespace MKEFishFries.Controllers
 
         // POST: ParishParish/Edit
         [HttpPost]
-        public ActionResult EditParish(int id, FormCollection collection, Parish parish)
+        public async Task<ActionResult> EditParish(int id, FormCollection collection, Parish parish)
         {
             try
             {
@@ -245,7 +249,7 @@ namespace MKEFishFries.Controllers
                 // if lat & long is 0, fill them in
                 if (thisParish.Lat == 0)
                 {
-                    thisParish = SetLatLong(thisParish);
+                    thisParish = await SetLatLong(thisParish);
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index", "Events");

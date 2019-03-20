@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -40,17 +41,29 @@ namespace MKEFishFries.Controllers
             // Comment:  if the Parish is Receiving comments, prepend to the Comments field
             if (Comment != "")
             {
+                // TODO - add the HiddenFor to the control based on thisParish.RecieveComments
                 thisParish = db.Parishes.Where(p => p.ID == visitorActionsViewModel.Parishes.ID).First();
                 if (thisParish.RecieveComments)
                 {
                     // Get the sender's first name:
                     string thisUserID = User.Identity.GetUserId();
                     thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
-                    thisParish.Comments =
-                        "=========================\n" +
-                        thisPerson.FirstName + " " + thisPerson.LastName + " says:\n" +
-                        Comment + "\n" +
-                        thisParish.Comments ?? "";
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.Append("=========================\n");
+                    stringBuilder.Append(thisPerson.FirstName);
+                    stringBuilder.Append(" ");
+                    stringBuilder.Append(thisPerson.LastName);
+                    stringBuilder.Append(" says:\n");
+                    stringBuilder.Append(Comment);
+                    stringBuilder.Append("\n");
+                    stringBuilder.Append(thisParish.Comments ?? "");
+                    //stringBuilder.Append(asdf);
+                    //thisParish.Comments =
+                    //    "=========================\n" +
+                    //    thisPerson.FirstName + " " + thisPerson.LastName + " says:\n" +
+                    //    Comment + "\n" +
+                    //    thisParish.Comments ?? "";
+                    thisParish.Comments = stringBuilder.ToString();
                     db.SaveChanges();
                 }
             }
@@ -92,7 +105,7 @@ namespace MKEFishFries.Controllers
             var options = new ChargeCreateOptions
             {
                 Amount = 2500,
-                //Amount = int.Parse( DollarAmount),
+                //Amount = int.Parse( DollarAmount + "00"),
                 Currency = "usd",
                 Description = "Charge for jenny.rosen@example.com",
                 SourceId = "tok_mastercard" // obtained with Stripe.js,
