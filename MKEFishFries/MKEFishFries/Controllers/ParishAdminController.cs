@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit;
 using MKEFishFries.Models;
 using Newtonsoft.Json;
 using System;
@@ -8,10 +10,9 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mail;
-using System.Text;
-using System.Web;
+//using System.Net.Mail;
 using System.Web.Mail;
+using System.Text;
 using System.Web.Mvc;
 
 namespace MKEFishFries.Controllers
@@ -303,7 +304,34 @@ namespace MKEFishFries.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public void SendMail()
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("", ""));
+            message.To.Add(new MailboxAddress("", ""));
+            message.Subject = "";
+
+            message.Body = new TextPart("plain")
+            {
+                Text = @""
+            };
+            using (var client = new SmtpClient())
+            {
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                client.Connect("smtp.friends.com", 587, false);
+
+                client.Authenticate("joey", "password");
+
+                client.Send(message);
+                client.Disconnect(true);
+            }
+        }
     }
+
+
+
 
     // /TODO - move somewhere else - where?
 

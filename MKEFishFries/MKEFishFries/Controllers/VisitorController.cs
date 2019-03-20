@@ -1,4 +1,3 @@
-
 ﻿using Microsoft.AspNet.Identity;
 using MKEFishFries.Models;
 using Stripe;
