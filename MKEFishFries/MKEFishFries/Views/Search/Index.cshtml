@@ -46,7 +46,7 @@
             @Html.DisplayNameFor(model => model.FoodDescription)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CarryOutOption)
+            Has Carryout
         </th>
         <th></th>
     </tr>
@@ -82,6 +82,8 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CarryOutOption)
+                @*@Html.CheckBoxFor(modelItem => item.CarryOutOption)*@
+                @*@Html.CheckBoxFor(model => item.CarryOutOption, new { htmlAttributes = new { @class = "form-control" } })*@
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
