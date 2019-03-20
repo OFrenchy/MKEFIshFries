@@ -48,7 +48,7 @@ namespace MKEFishFries.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                RedirectToAction("Index", "Search");
             }
             Event @event = db.Events.Find(id);
             if (@event == null)
