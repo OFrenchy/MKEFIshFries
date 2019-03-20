@@ -60,11 +60,52 @@ namespace MKEFishFries.Controllers
             return View();
         }
 
-        // GET: ParishAdmin/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// Post: ParishAdmin/Details/5
+        //[HttpPost]
+        //public ActionResult Details(int id, int parishId, string Subject, string MessageBody)  // to send emails:
+        //{
+
+        //    // TODO - Add a "Send Mail" link to DetailsParish.cshtml
+
+        //    // TODO - add "Subject" text box & "MessageBody" text box to DetailsParish.cshtml, 
+        //    // pass their values to the parameters of this method, reference them in the .Subject & .Body below 
+
+        //    // Query the db ContactsList for peopleToContact
+        //    // TODO - need to include the table with the emails, & first name;  
+        //    // might need to include more than 1 to get to the table with email addresses
+        //    var peopleToContact = db.ContactLists.Where(c => c.ParishId == parishId && c.PeopleId == id).ToList();
+
+        //    // if no records, or if Subject & MessageBody are "", return 
+
+        //    using (var client = new MailKit.Net.Smtp.SmtpClient())
+        //    {
+        //        client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+        //        // TODO - determine whose mail account we're going to use, plug in the details below
+        //        client.Connect("smtp.friends.com", 587, false);
+        //        client.Authenticate("joey", "password");
+        //        foreach (var thisRecord in peopleToContact)
+        //        {
+        //            var message = new MimeMessage();
+        //            message.From.Add(new MailboxAddress("", ""));  // TODO - determine whose mail account we're going to use
+        //            message.To.Add(new MailboxAddress("", ""));
+        //            message.Subject = "";  //"Subject" text box 
+
+        //            message.Body = new TextPart("plain")
+        //            {
+        //                Text = @""  //"MessageBody" text box ; replace "Dear <FirstName>," with "Dear Jack," from the user's FirstName field
+        //            };
+        //            client.Send(message);
+        //        }
+        //        client.Disconnect(true);
+        //    }
+        //    // TODO - return where?  Redirect?
+        //    return View();
+        //}
+        //// GET: ParishAdmin/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: ParishAdmin/Create
         [HttpPost]
