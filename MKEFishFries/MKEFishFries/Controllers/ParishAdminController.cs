@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit;
 using MKEFishFries.Models;
 using Newtonsoft.Json;
 using System;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mail;
 using System.Web.Mvc;
@@ -139,7 +142,7 @@ namespace MKEFishFries.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public Parish SetLatLong(Parish parish)
+        public async Task<Parish> SetLatLong(Parish parish)
         {
             // This is the geoDecoderRing 
             try
@@ -154,9 +157,12 @@ namespace MKEFishFries.Controllers
                 string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
                     stringBuilder.ToString() + "&key=" + Models.Access.apiKey;
 
+                // httpclient
+
                 WebRequest request = WebRequest.Create(url);
-                WebResponse response = request.GetResponse();
+                WebResponse response = await request.GetResponseAsync();
                 System.IO.Stream data = response.GetResponseStream();
+                // tried this System.IO.Stream data = await GetGoogleGeocodeResponse(url);
                 StreamReader reader = new StreamReader(data);
                 // json-formatted string from maps api
                 string responseFromServer = reader.ReadToEnd();
@@ -191,12 +197,12 @@ namespace MKEFishFries.Controllers
 
         //POST: ParishParish/CREATE
         [HttpPost]
-        public ActionResult CreateParish(Parish parish)
+        public async Task<ActionResult> CreateParish(Parish parish)
         {
             try
             {
                 // set lat & long from geoDecoderRing
-                parish = SetLatLong(parish);
+                parish = await SetLatLong(parish);
                 // the user that is logged in is the AdminPersonID
                 var appUserID = User.Identity.GetUserId();
                 var personID = db.Peoples.Where(w => w.ApplicationUserId == appUserID).FirstOrDefault().ID;
@@ -228,7 +234,7 @@ namespace MKEFishFries.Controllers
 
         // POST: ParishParish/Edit
         [HttpPost]
-        public ActionResult EditParish(int id, FormCollection collection, Parish parish)
+        public async Task<ActionResult> EditParish(int id, FormCollection collection, Parish parish)
         {
             try
             {
@@ -245,7 +251,7 @@ namespace MKEFishFries.Controllers
                 // if lat & long is 0, fill them in
                 if (thisParish.Lat == 0)
                 {
-                    thisParish = SetLatLong(thisParish);
+                    thisParish = await SetLatLong(thisParish);
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index", "Events");
@@ -303,7 +309,34 @@ namespace MKEFishFries.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public void SendMail()
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("", ""));
+            message.To.Add(new MailboxAddress("", ""));
+            message.Subject = "";
+
+            message.Body = new TextPart("plain")
+            {
+                Text = @""
+            };
+            using (var client = new SmtpClient())
+            {
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                client.Connect("smtp.friends.com", 587, false);
+
+                client.Authenticate("joey", "password");
+
+                client.Send(message);
+                client.Disconnect(true);
+            }
+        }
     }
+
+
+
 
     // /TODO - move somewhere else - where?
 
