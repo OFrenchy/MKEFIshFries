@@ -102,15 +102,16 @@ namespace MKEFishFries.Controllers
         //    return View();
         //}
         //// GET: ParishAdmin/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        public ActionResult Create()
+        {
+            return View();
+        }
 
         // POST: ParishAdmin/Create
         [HttpPost]
         public ActionResult Create(People people)
         {
+
             if (ModelState.IsValid)
             {
                 people.ApplicationUserId = User.Identity.GetUserId();
