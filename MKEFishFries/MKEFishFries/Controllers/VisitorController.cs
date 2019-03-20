@@ -83,8 +83,8 @@ namespace MKEFishFries.Controllers
             return RedirectToAction("Index");
         }
         
-    [HttpPost]
-        public ActionResult VisitorActions(string stripeToken)
+        [HttpPost]
+        public ActionResult VisitorActionsPayment(string stripeToken, string SignUp, string Comment)
         {
             StripeConfiguration.SetApiKey("sk_test_mdDGBM56VRabusYFI96kpuGh00PrprigoK");
 
@@ -93,7 +93,7 @@ namespace MKEFishFries.Controllers
                 Amount = 2500,
                 Currency = "usd",
                 Description = "Charge for jenny.rosen@example.com",
-                SourceId = "tok_mastercard" // obtained with Stripe.js,
+                SourceId = stripeToken // obtained with Stripe.js,
                
             };
             var service = new ChargeService();
