@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<MKEFishFries.Models.Event>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
-
 
 @using (Html.BeginForm("Index", "Search", FormMethod.Get))
 {
@@ -14,87 +11,88 @@
     @Html.RadioButton("option", "Location")<text>Location</text>
     @Html.RadioButton("option", "Parish")<text>Parish</text>
     //@Html.RadioButton("option", "Date")<text>Date</text>
-    @Html.TextBox("Search") <input type ="submit" name="submit" value="Search"/>
+    @Html.TextBox("Search") <input type="submit" name="submit" value="Search" />
 }
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-   <table class="table">
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.People.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParishId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FoodDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarryOutOption)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.People.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParishId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarryOutOption)
-            </th>
-            <th></th>
+            <td>
+                @Html.DisplayFor(modelItem => item.People.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParishId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarryOutOption)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.People.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParishId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FoodDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CarryOutOption)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
+</table>
+<div>
+    @Html.ActionLink("Back to Map", "Index", "Home")
+</div>
 
-
-    </table>
