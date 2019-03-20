@@ -27,6 +27,7 @@ namespace MKEFishFries.Controllers
             var tempLatitudes = new List<double>();
             var tempLongitudes = new List<double>();
             var names = new List<string>();
+            
             // Get all parish addresses in the Parishes model/table
 
             //ViewBag.Key = Models.Access.apiKey;
@@ -36,6 +37,7 @@ namespace MKEFishFries.Controllers
             List<int> events = db.Events.Select(e=>e.ParishId).ToList();
             List<Parish> parishes = db.Parishes.ToList();
             List<Parish> parishesWithEvents = new List<Parish>();
+            var listOfParishEvents = db.Parishes.Select(p => p.listOfEvents).ToList();
             List<Event> specificEvents = new List<Event>();
             DateTime nextSevenDays = DateTime.Today.AddDays(6);
             //need list of parish id ints
@@ -46,7 +48,8 @@ namespace MKEFishFries.Controllers
                 {
                     if (id == parishId)
                     {
-                        if(db.Events.Where(e => e.ParishId == id).Select(e=>e.Date).First() >= DateTime.Today && db.Events.Where(e => e.ParishId == id).Select(e => e.Date).First() <= nextSevenDays)
+                        if(db.Events.Where(e => e.ParishId == id).Select(e=>e.Date).First() >= DateTime.Today 
+                            && db.Events.Where(e => e.ParishId == id).Select(e => e.Date).First() <= nextSevenDays)
                         {
                             parishesWithEvents.Add(parishes.Where(p => p.ID == id).Select(p => p).SingleOrDefault());
                         }
@@ -59,11 +62,11 @@ namespace MKEFishFries.Controllers
                 tempLatitudes.Add(thisParish.Lat);
                 tempLongitudes.Add(thisParish.Long);
                 names.Add(thisParish.Name);
-                specificEvents.Add(db.Events.Where(e => e.ParishId == thisParish.ID).Select(e => e).First());
+                listOfParishEvents.Add(db.Events.Where(e => e.ParishId == thisParish.ID).Select(e => e).ToList());
             }
             //ViewBag.Map2URL = stringBuilder.ToString();
             var namesToArray = names.ToArray();
-            var specificEventsToArray = specificEvents.ToArray();
+            var specificEventsToArray = listOfParishEvents.ToArray();
             var latitudesToArray = tempLatitudes.ToArray();
             var longitudesToArray = tempLongitudes.ToArray();
             var latitudes = latitudesToArray;
@@ -78,7 +81,7 @@ namespace MKEFishFries.Controllers
             //stringBuilder.Append(";");
             //ViewBag.Site = stringBuilder;
             //ViewBag.Key = Models.Access.apiKey;
-            return View();
+            return View(parishesWithEvents);
         }
 
 

@@ -192,6 +192,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\VisitorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -296,6 +297,8 @@
     <Content Include="Views\Visitor\Edit.cshtml" />
     <Content Include="Views\Visitor\Index.cshtml" />
     <Content Include="Views\Visitor\VisitorActions.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Visitor\DonationConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
