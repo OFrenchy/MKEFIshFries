@@ -60,9 +60,9 @@ namespace MKEFishFries.Controllers
             return View();
         }
 
-        //// Post: ParishAdmin/Details/5
+        //// Post: ParishAdmin/DetailsParish/5
         //[HttpPost]
-        //public ActionResult Details(int id, int parishId, string Subject, string MessageBody)  // to send emails:
+        //public ActionResult DetailsParish(int id, int parishId, string Subject, string MessageBody)  // to send emails:
         //{
 
         //    // TODO - Add a "Send Mail" link to DetailsParish.cshtml
