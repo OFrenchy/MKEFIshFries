@@ -22,6 +22,7 @@ namespace MKEFishFries.Controllers
         {
             db = new ApplicationDbContext();
         }
+        [HttpGet]
         public ActionResult Index()
         {
             var tempLatitudes = new List<double>();
