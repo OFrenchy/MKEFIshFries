@@ -62,7 +62,7 @@ namespace MKEFishFries.Controllers
 
         //// Post: ParishAdmin/Details/5
         //[HttpPost]
-        //public ActionResult Details(int id, int parishId)  // to send emails:
+        //public ActionResult Details(int id, int parishId, string Subject, string MessageBody)  // to send emails:
         //{
 
         //    // TODO - Add a "Send Mail" link to DetailsParish.cshtml
