@@ -296,21 +296,17 @@ namespace MKEFishFries.Controllers
             return View(thisParish);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //public ActionResult SendMail()
+        //{
+        //    return View();
+        //}
 
-        public void SendMail()
+        public ActionResult SendMail()
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("", ""));
             message.To.Add(new MailboxAddress("", ""));
-            message.Subject = "";
+            message.Subject = "Write Your Email Subject Here";
 
             message.Body = new TextPart("plain")
             {
@@ -322,12 +318,24 @@ namespace MKEFishFries.Controllers
 
                 client.Connect("smtp.friends.com", 587, false);
 
-                client.Authenticate("joey", "password");
+                client.Authenticate("name", "password");
 
                 client.Send(message);
                 client.Disconnect(true);
             }
+            return View();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        
     }
 
 
