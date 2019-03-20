@@ -22,6 +22,7 @@ namespace MKEFishFries.Controllers
         {
             db = new ApplicationDbContext();
         }
+        [HttpGet]
         public ActionResult Index()
         {
             var tempLatitudes = new List<double>();
@@ -39,6 +40,7 @@ namespace MKEFishFries.Controllers
             List<Parish> parishesWithEvents = new List<Parish>();
             var listOfParishEvents = db.Parishes.Select(p => p.listOfEvents).ToList();
             List<Event> specificEvents = new List<Event>();
+            List<int?> filteredParishIds = new List<int?>();
             DateTime nextSevenDays = DateTime.Today.AddDays(6);
             //need list of parish id ints
             List<int> parishIds = db.Parishes.Select(p => p.ID).ToList();
@@ -63,6 +65,7 @@ namespace MKEFishFries.Controllers
                 tempLongitudes.Add(thisParish.Long);
                 names.Add(thisParish.Name);
                 listOfParishEvents.Add(db.Events.Where(e => e.ParishId == thisParish.ID).Select(e => e).ToList());
+                filteredParishIds.Add(db.Parishes.Where(p => p.ID == thisParish.ID).Select(p => p.ID).Single());
             }
             //ViewBag.Map2URL = stringBuilder.ToString();
             var namesToArray = names.ToArray();
@@ -71,10 +74,12 @@ namespace MKEFishFries.Controllers
             var longitudesToArray = tempLongitudes.ToArray();
             var latitudes = latitudesToArray;
             var longitudes = longitudesToArray;
+            var filteredParishIdsToArray = filteredParishIds.ToArray(); 
             ViewBag.Names = namesToArray;
             ViewBag.Events = specificEventsToArray;
             ViewBag.Latitudes = latitudes;
             ViewBag.Longitudes = longitudes;
+            ViewBag.ParishIds = filteredParishIdsToArray;
             //stringBuilder.Clear();
             //stringBuilder.Append("https://www.google.com/maps/embed/v1/place?key=");
             //stringBuilder.Append(Models.Access.apiKey);

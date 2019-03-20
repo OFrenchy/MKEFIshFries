@@ -22,25 +22,33 @@ namespace MKEFishFries.Controllers
             Parish thisParish;
             var events = db.Events.Include(e => e.People);
             string thisUserID = User.Identity.GetUserId();
-            string userRole = db.Users.Where(u => u.Id == thisUserID).First().UserRole;
-            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
-            
-            // If the user is a ParishAdmin, filter the view for that parish only
-            if (userRole == "ParishAdmin" )
+            try
             {
-                thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
-                ViewBag.ParishId = thisParish.ID;
-                ViewBag.ParishName = thisParish.Name;
-                events = events.Where(e => e.ParishId == thisParish.ID).Include(e => e.People);
+                string userRole = db.Users.Where(u => u.Id == thisUserID).First().UserRole;
+                People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
+
+                // If the user is a ParishAdmin, filter the view for that parish only
+                if (userRole == "ParishAdmin")
+                {
+                    thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+                    ViewBag.ParishId = thisParish.ID;
+                    ViewBag.ParishName = thisParish.Name;
+                    events = events.Where(e => e.ParishId == thisParish.ID).Include(e => e.People);
+                    return View(events.ToList());
+                }
+                else
+                {
+                    ViewBag.ParishId = 0;
+                    ViewBag.ParishName = "";
+                    ViewBag.FirstName = thisPerson.FirstName;
+                    ViewBag.LastName = thisPerson.LastName;
+                    return View(events.ToList());
+                }
             }
-            else
+            catch
             {
-                ViewBag.ParishId = 0;
-                ViewBag.ParishName = "";
+                return RedirectToAction("Index", "Home");
             }
-            ViewBag.FirstName = thisPerson.FirstName;
-            ViewBag.LastName = thisPerson.LastName;
-            return View(events.ToList());
         }
 
         // GET: Events/Details/5
@@ -48,7 +56,7 @@ namespace MKEFishFries.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                RedirectToAction("Index", "Search");
             }
             Event @event = db.Events.Find(id);
             if (@event == null)

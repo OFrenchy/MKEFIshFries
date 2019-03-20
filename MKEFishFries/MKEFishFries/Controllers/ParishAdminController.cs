@@ -10,9 +10,11 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-//using System.Net.Mail;
-using System.Web.Mail;
+using System.Net.Mail;
 using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mail;
 using System.Web.Mvc;
 
 namespace MKEFishFries.Controllers
@@ -58,11 +60,52 @@ namespace MKEFishFries.Controllers
             return View();
         }
 
-        // GET: ParishAdmin/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// Post: ParishAdmin/DetailsParish/5
+        //[HttpPost]
+        //public ActionResult DetailsParish(int id, int parishId, string Subject, string MessageBody)  // to send emails:
+        //{
+
+        //    // TODO - Add a "Send Mail" link to DetailsParish.cshtml
+
+        //    // TODO - add "Subject" text box & "MessageBody" text box to DetailsParish.cshtml, 
+        //    // pass their values to the parameters of this method, reference them in the .Subject & .Body below 
+
+        //    // Query the db ContactsList for peopleToContact
+        //    // TODO - need to include the table with the emails, & first name;  
+        //    // might need to include more than 1 to get to the table with email addresses
+        //    var peopleToContact = db.ContactLists.Where(c => c.ParishId == parishId && c.PeopleId == id).ToList();
+
+        //    // if no records, or if Subject & MessageBody are "", return 
+
+        //    using (var client = new MailKit.Net.Smtp.SmtpClient())
+        //    {
+        //        client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+        //        // TODO - determine whose mail account we're going to use, plug in the details below
+        //        client.Connect("smtp.friends.com", 587, false);
+        //        client.Authenticate("joey", "password");
+        //        foreach (var thisRecord in peopleToContact)
+        //        {
+        //            var message = new MimeMessage();
+        //            message.From.Add(new MailboxAddress("", ""));  // TODO - determine whose mail account we're going to use
+        //            message.To.Add(new MailboxAddress("", ""));
+        //            message.Subject = "";  //"Subject" text box 
+
+        //            message.Body = new TextPart("plain")
+        //            {
+        //                Text = @""  //"MessageBody" text box ; replace "Dear <FirstName>," with "Dear Jack," from the user's FirstName field
+        //            };
+        //            client.Send(message);
+        //        }
+        //        client.Disconnect(true);
+        //    }
+        //    // TODO - return where?  Redirect?
+        //    return View();
+        //}
+        //// GET: ParishAdmin/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: ParishAdmin/Create
         [HttpPost]
@@ -140,7 +183,7 @@ namespace MKEFishFries.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public Parish SetLatLong(Parish parish)
+        public async Task<Parish> SetLatLong(Parish parish)
         {
             // This is the geoDecoderRing 
             try
@@ -155,9 +198,12 @@ namespace MKEFishFries.Controllers
                 string url = @"https://maps.googleapis.com/maps/api/geocode/json?address=" +
                     stringBuilder.ToString() + "&key=" + Models.Access.apiKey;
 
+                // httpclient
+
                 WebRequest request = WebRequest.Create(url);
-                WebResponse response = request.GetResponse();
+                WebResponse response = await request.GetResponseAsync();
                 System.IO.Stream data = response.GetResponseStream();
+                // tried this System.IO.Stream data = await GetGoogleGeocodeResponse(url);
                 StreamReader reader = new StreamReader(data);
                 // json-formatted string from maps api
                 string responseFromServer = reader.ReadToEnd();
@@ -192,12 +238,12 @@ namespace MKEFishFries.Controllers
 
         //POST: ParishParish/CREATE
         [HttpPost]
-        public ActionResult CreateParish(Parish parish)
+        public async Task<ActionResult> CreateParish(Parish parish)
         {
             try
             {
                 // set lat & long from geoDecoderRing
-                parish = SetLatLong(parish);
+                parish = await SetLatLong(parish);
                 // the user that is logged in is the AdminPersonID
                 var appUserID = User.Identity.GetUserId();
                 var personID = db.Peoples.Where(w => w.ApplicationUserId == appUserID).FirstOrDefault().ID;
@@ -229,7 +275,7 @@ namespace MKEFishFries.Controllers
 
         // POST: ParishParish/Edit
         [HttpPost]
-        public ActionResult EditParish(int id, FormCollection collection, Parish parish)
+        public async Task<ActionResult> EditParish(int id, FormCollection collection, Parish parish)
         {
             try
             {
@@ -246,7 +292,7 @@ namespace MKEFishFries.Controllers
                 // if lat & long is 0, fill them in
                 if (thisParish.Lat == 0)
                 {
-                    thisParish = SetLatLong(thisParish);
+                    thisParish = await SetLatLong(thisParish);
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index", "Events");
@@ -312,7 +358,7 @@ namespace MKEFishFries.Controllers
             {
                 Text = @""
             };
-            using (var client = new SmtpClient())
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 

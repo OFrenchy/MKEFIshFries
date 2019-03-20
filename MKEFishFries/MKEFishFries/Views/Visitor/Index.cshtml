@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<MKEFishFries.Models.Parish>
-
 @{
     ViewBag.Title = "Index";
 }
 @*Index view on Visitor controller*@
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -30,11 +28,11 @@
             @Html.DisplayNameFor(model => model.Zip)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.Lat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Long)
-        </th>*@
+                @Html.DisplayNameFor(model => model.Lat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Long)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.WebsiteURL)
         </th>
@@ -42,53 +40,57 @@
             @Html.DisplayNameFor(model => model.Phone)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.AdminPersonId)
-        </th>*@
+                @Html.DisplayNameFor(model => model.AdminPersonId)
+            </th>*@
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zip)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Lat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Long)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.WebsiteURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.AdminPersonId)
-        </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
-            @Html.ActionLink("Visitor Actions", "VisitorActions", new { id = item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zip)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Lat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Long)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.WebsiteURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.AdminPersonId)
+                </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) | This puts you to editing the user's profile - not appropriate in this context *@
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+                @Html.ActionLink("Visitor Actions", "VisitorActions", new { id = item.ID })
+            </td>
+        </tr>
+    }
+    <br />
 
 </table>
+<div>
+    @Html.ActionLink("Back to Map", "Index", "Home") 
+</div>
