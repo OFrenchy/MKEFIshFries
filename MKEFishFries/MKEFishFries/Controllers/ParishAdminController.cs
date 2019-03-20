@@ -321,7 +321,7 @@ namespace MKEFishFries.Controllers
             {
                 Text = @""
             };
-            using (var client = new SmtpClient())
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
