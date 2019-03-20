@@ -13,19 +13,25 @@
 
         var events = @Html.Raw(Json.Encode(ViewBag.Events));
 
+        var parishIds = @Html.Raw(Json.Encode(ViewBag.ParishIds));
+
         var markers = [];
 
         var contentStrings = [];
 
         var infoWindow = [];
      
-        
     </script>
+    @{ var vid = 0;}
 </head>
 <body>
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqPB-xlRlEDxCQcWVRI0pZ9UJCHDhNzaE&callback=initMap"></script>
     <script>
+        //function setMyValue()
+        //{
+        //    $('#id').val(5);
+        //}
 
         function initMap()
         {
@@ -33,19 +39,20 @@
             var map = new google.maps.Map(document.getElementById('map'), { zoom: 12, center: milwaukee });
             for (i = 0; i < names.length; i++)
             {
-               
-                
-                
+                vid = i;
                 var coord = {lat: latitudes[i], lng: longitudes[i]};
                 markers[i] = new google.maps.Marker(
                     {
+                        
                         position: coord,
                         map: map,
                         title: names[i]
                     });
                 markers[i].index = i;
+                parishIds[i].index = i;
+                //(document.getElementById('parishIds').value) = i;
                 contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>' + names[i] +
-                '</h1><p>'+'<a href="@Url.Action("Details", "Upcoming Events")"><span>Events</span></a></p><p>' + names[i] +' is a' +
+                '</h1><p>'+'<a href="@Url.Action("Details","Events",new { id = @ViewBag.ParishIds[vid] })"><span>Upcoming Events</span></a></p><p>' + names[i] +' is a' +
                     ' church, with a specific size and has a specific date erected in the' +
                     ' area it is located. The church is located in this specific area,' +
                     ' and is a place of worship for many people in this place.' +
