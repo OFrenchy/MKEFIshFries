@@ -1,17 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
-using MKEFishFries.Models;
+﻿using MKEFishFries.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using MailKit.Net.Smtp;
 
 namespace MKEFishFries.Controllers
 {
