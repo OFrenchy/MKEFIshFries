@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mail;
 using System.Web.Mvc;
+using System.Web.Helpers;
 
 namespace MKEFishFries.Controllers
 {
@@ -34,8 +35,8 @@ namespace MKEFishFries.Controllers
             // Stjoeadmin1!@abc.com
 
             string thisUserID = User.Identity.GetUserId();
-            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).First();
-            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).First();
+            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).FirstOrDefault();
+            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).FirstOrDefault();
             ViewBag.FirstName = thisPerson.FirstName;
             ViewBag.LastName = thisPerson.LastName;
             ViewBag.ParishId = thisParish.ID;
@@ -187,8 +188,7 @@ namespace MKEFishFries.Controllers
         public async Task<Parish> SetLatLong(Parish parish)
         {
             // This is the geoDecoderRing 
-            try
-            {
+          
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.Append(parish.Street1.Replace(" ", "+"));
                 stringBuilder.Append(";");
@@ -224,11 +224,8 @@ namespace MKEFishFries.Controllers
                 parish.Lat = location.lat;
                 parish.Long = location.lng;
                 return parish;
-            }
-            catch
-            {
-                return null;
-            }
+            
+         
         }
 
         // GET: ParishParish/CREATE
@@ -241,8 +238,7 @@ namespace MKEFishFries.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateParish(Parish parish)
         {
-            try
-            {
+          
                 // set lat & long from geoDecoderRing
                 parish = await SetLatLong(parish);
                 // the user that is logged in is the AdminPersonID
@@ -251,12 +247,8 @@ namespace MKEFishFries.Controllers
                 parish.AdminPersonId = personID;
                 db.Parishes.Add(parish);
                 db.SaveChanges();
-                return RedirectToAction("Index", "ParishAdmin");
-            }
-            catch
-            {
-                return View();
-            }
+                return RedirectToAction("Index");
+         
         }
 
         // GET: ParishProfile/Edit
@@ -343,35 +335,37 @@ namespace MKEFishFries.Controllers
             return View(thisParish);
         }
 
-        //public ActionResult SendMail()
-        //{
-        //    return View();
-        //}
-
         public ActionResult SendMail()
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("", ""));
-            message.To.Add(new MailboxAddress("", ""));
-            message.Subject = "Write Your Email Subject Here";
+            return View();
+        }
 
-            message.Body = new TextPart("plain")
+        [HttpPost]
+        public ActionResult SendEmail(IEmailConfiguration obj)
+        {
+            try
             {
-                Text = @""
-            };
-            using (var client = new MailKit.Net.Smtp.SmtpClient())
+                WebMail.SmtpServer = "smtp.gmail.com";
+                WebMail.SmtpPort = 587;
+                WebMail.SmtpUseDefaultCredentials = true;
+                WebMail.EnableSsl = true;
+                WebMail.UserName = "fynecode@gmail.com";
+                WebMail.Password = "codemaster";
+
+                WebMail.From = "fynecode@gmail.com";
+
+                WebMail.Send(to: obj.ToEmail, subject: obj.EmailSubject, body: obj.EmailBody, cc: obj.EmailCC, bcc: obj.EmailBCC, isBodyHtml: true);
+                ViewBag.status = "Email Sent Successfully.";
+            }
+            catch
             {
-                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-
-                client.Connect("smtp.friends.com", 587, false);
-
-                client.Authenticate("name", "password");
-
-                client.Send(message);
-                client.Disconnect(true);
+                ViewBag.Status = "Problem while sending email, Please check details.";
             }
             return View();
         }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

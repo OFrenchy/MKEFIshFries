@@ -285,12 +285,10 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
-    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
     <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
     <Content Include="Views\ParishAdmin\DetailsParish.cshtml" />
     <Content Include="Views\ParishAdmin\EditParish.cshtml" />
     <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
-    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
     <Content Include="Views\Visitor\Create.cshtml" />
     <Content Include="Views\Visitor\Delete.cshtml" />
     <Content Include="Views\Visitor\Details.cshtml" />
@@ -300,6 +298,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Visitor\DonationConfirmation.cshtml" />
     <Content Include="Views\ParishAdmin\SendMail.cshtml" />
+    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
