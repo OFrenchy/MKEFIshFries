@@ -235,8 +235,43 @@ namespace MKEFishFries.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public ActionResult SignupForEmails(Parish parish)
+        {
+            var userLoggedIn = User.Identity.GetUserId();
+            var visitor = db.Peoples.Where(p => p.ApplicationUserId == userLoggedIn).FirstOrDefault();
+            var parishToGetEmailsFrom = db.Parishes.Where(p => p.ID == parish.ID).FirstOrDefault();
+            PeopleParishViewModel personToParish = new PeopleParishViewModel();
+            personToParish.PeopleId = visitor.ID;
+            personToParish.ParishId = parishToGetEmailsFrom.ID;
+            db.PeopleParishView.Add(personToParish);
+            db.SaveChanges();
+
+            return RedirectToAction("MyParish", "Visitor");
+        }
+
+        [HttpGet]
+        public ActionResult MyParish()
+        {
+            var myParishMember = new People();
+
+            var loggedInUser = User.Identity.GetUserId();
+            var visitors = db.Peoples.Where(p => p.ApplicationUserId == loggedInUser).FirstOrDefault();
+            var joinedParish = db.PeopleParishView.Where(p => p.PeopleId == visitors.ID).ToList();
+            List<Parish> signedInParish = new List<Parish>();
+            foreach (PeopleParishViewModel allMyParishes in joinedParish)
+            {
+                signedInParish.Add(db.Parishes.Where(p => p.ID == allMyParishes.ParishId).SingleOrDefault());
+            }
+
+            return View(signedInParish);
+        }
+
     }
 }
+
+
 
 
 //﻿using Microsoft.AspNet.Identity;
@@ -323,7 +358,7 @@ namespace MKEFishFries.Controllers
 //            }
 //            return RedirectToAction("Index");
 //        }
-        
+
 //        [HttpPost]
 //        public ActionResult VisitorActionsPayment(string stripeToken, string SignUp, string Comment)
 //        {
@@ -335,7 +370,7 @@ namespace MKEFishFries.Controllers
 //                Currency = "usd",
 //                Description = "Charge for jenny.rosen@example.com",
 //                SourceId = stripeToken // obtained with Stripe.js,
-               
+
 //            };
 //            var service = new ChargeService();
 //            Charge charge = service.Create(options);
@@ -345,7 +380,7 @@ namespace MKEFishFries.Controllers
 //            //return View();
 //        }
 
-        
+
 
 //        // GET: FishSeeker
 //        public ActionResult Index()
@@ -410,7 +445,7 @@ namespace MKEFishFries.Controllers
 //        [HttpPost]
 //        public ActionResult Edit(People person)
 //        {
-         
+
 //            var userId = User.Identity.GetUserId();
 //            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
 //            try

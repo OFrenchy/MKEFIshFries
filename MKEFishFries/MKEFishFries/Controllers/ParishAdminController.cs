@@ -34,15 +34,18 @@ namespace MKEFishFries.Controllers
         {
             // Stjoeadmin1!@abc.com
 
-            string thisUserID = User.Identity.GetUserId();
-            People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).FirstOrDefault();
-            Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).FirstOrDefault();
-            ViewBag.FirstName = thisPerson.FirstName;
-            ViewBag.LastName = thisPerson.LastName;
-            ViewBag.ParishId = thisParish.ID;
-            ViewBag.ParishName = thisParish.Name;
+            //string thisUserID = User.Identity.GetUserId();
+            //People thisPerson = db.Peoples.Where(w => w.ApplicationUserId == thisUserID).FirstOrDefault();
+            //Parish thisParish = db.Parishes.Where(w => w.AdminPersonId == thisPerson.ID).FirstOrDefault();
+            //ViewBag.FirstName = thisPerson.FirstName;
+            //ViewBag.LastName = thisPerson.LastName;
+            //ViewBag.ParishId = thisParish.ID;
+            //ViewBag.ParishName = thisParish.Name;
             // Redirect to EventsController!!!
-            return RedirectToAction("Index", "Events");
+            //return RedirectToAction("Index", "Events");
+
+            var adminParish = db.Parishes.ToList();
+            return View(adminParish);
         }
 
         // GET: ParishAdmin/Details/5
@@ -343,6 +346,7 @@ namespace MKEFishFries.Controllers
         [HttpPost]
         public ActionResult SendEmail(IEmailConfiguration obj)
         {
+            
             try
             {
                 WebMail.SmtpServer = "smtp.gmail.com";
@@ -364,8 +368,15 @@ namespace MKEFishFries.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult MembersOfParish(int id)
+        {
+            var parishForMembers = db.Parishes.Where(p => p.ID == id).FirstOrDefault();
+            var peopleInParish = db.PeopleParishView.Where(p => p.ParishId == parishForMembers.ID).Select(p => p.PeopleId).ToList();
+            var peopleWhoJoined = db.Peoples.Where(p => peopleInParish.Contains(p.ID)).ToList();
 
-
+            return View(peopleWhoJoined);
+        }
 
         protected override void Dispose(bool disposing)
         {
