@@ -140,11 +140,20 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: FishSeeker
+        [HttpGet]
         public ActionResult Index()
         {
             var parishes = db.Parishes;
             return View(parishes.ToList());
         }
+        [HttpPost]
+        public ActionResult Index(string parishStreet, Parish location)
+        {
+            var parishes = db.Parishes.ToList().Where(p => p.Street1.StartsWith(parishStreet));
+            return View(parishes);
+        }
+
+
         // GET: FishSeeker/Details/5
         public ActionResult Details(int id)
         {
