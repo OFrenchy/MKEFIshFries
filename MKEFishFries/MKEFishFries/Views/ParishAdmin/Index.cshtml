@@ -92,16 +92,19 @@
 
     <tr>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.ID }, null) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }, null) |
         </td>
         <td>
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
         <td>
             @Html.ActionLink("Parish Members", "MembersOfParish", "ParishAdmin", new { id = item.ID }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Join Parish", "SignUpForEmails", "Visitor", new { id = item.ID }, null)
         </td>
     </tr>
 }

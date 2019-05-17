@@ -264,7 +264,6 @@ namespace MKEFishFries.Controllers
         public ActionResult MyParish()
         {
             var myParishMember = new People();
-
             var loggedInUser = User.Identity.GetUserId();
             var visitors = db.Peoples.Where(p => p.ApplicationUserId == loggedInUser).FirstOrDefault();
             var joinedParish = db.PeopleParishView.Where(p => p.PeopleId == visitors.ID).ToList();
@@ -275,6 +274,46 @@ namespace MKEFishFries.Controllers
             }
 
             return View(signedInParish);
+        }
+
+        [HttpGet]
+        public ActionResult ConfirmInvite(EventModel upcomingEvents)
+        {
+            var userLoggedIn = User.Identity.GetUserId();
+            var attendee = db.Peoples.Where(p => p.ApplicationUserId == userLoggedIn).FirstOrDefault();
+            var eventToAttend = db.Events.Where(e => e.Id == upcomingEvents.Id).FirstOrDefault();
+            EventAttendees attendedEvents = new EventAttendees();
+            attendedEvents.PeopleId = attendee.ID;
+            attendedEvents.EventId = eventToAttend.Id;
+            db.EventAttendees.Add(attendedEvents);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Events");
+        }
+
+        [HttpGet]
+        public ActionResult MyPlusGuest(int id)
+        {
+            var attendee = db.Peoples.Find(id);
+            return View(attendee);
+        }
+
+        [HttpPost]
+        public ActionResult MyPlusGuest(People people)
+        {
+            try
+            {
+                var attendee = db.Peoples.Single(p => p.ID == people.ID);
+                attendee.AttendeeGuests = people.AttendeeGuests;
+
+                db.SaveChanges();
+                //return RedirectToAction("Index", "Events");
+                return RedirectToAction("ListOfAttendees", "Events", new { id = people.ID } );
+            }
+            catch
+            {
+                return View(people);
+            }
+           
         }
 
     }

@@ -30,7 +30,7 @@ namespace MKEFishFries.Controllers
             List<Parish> parishes = db.Parishes.ToList();
             List<Parish> parishesWithEvents = new List<Parish>();
             var listOfParishEvents = db.Parishes.Select(p => p.listOfEvents).ToList();
-            List<Event> specificEvents = new List<Event>();
+            List<EventModel> specificEvents = new List<EventModel>();
             List<int?> filteredParishIds = new List<int?>();
             DateTime nextSevenDays = DateTime.Today.AddDays(6);
             //need list of parish id ints

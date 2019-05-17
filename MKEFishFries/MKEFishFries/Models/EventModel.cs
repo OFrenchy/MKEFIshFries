@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MKEFishFries.Models
 {
-    public class Event
+    public class EventModel
     {
         [Key]
         public int Id { get; set; }

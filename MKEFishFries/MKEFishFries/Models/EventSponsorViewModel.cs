@@ -7,7 +7,7 @@ namespace MKEFishFries.Models
 {
     public class EventSponsorViewModel
     {
-        public Event events { get; set; }
+        public EventModel events { get; set; }
         public People people { get; set; }
         
     }
