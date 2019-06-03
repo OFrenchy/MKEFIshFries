@@ -51,13 +51,13 @@
                 markers[i].index = i;
                 parishIds[i].index = i;
                 //(document.getElementById('parishIds').value) = i;
-                contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>' + names[i] +
+                @*contentStrings[i] = '<div class="popup_container">' + '<div id="content"><h1>' + names[i] +
                 '</h1><p>'+'<a href="@Url.Action("Details","Events",new { id = @ViewBag.ParishIds[vid] })"><span>Upcoming Events</span></a></p><p>' + names[i] +' is a' +
                     ' church, with a specific size and has a specific date erected in the' +
                     ' area it is located. The church is located in this specific area,' +
                     ' and is a place of worship for many people in this place.' +
                     ' Learn More.</p><p>Attribution: Church <a href="https://en.wikipedia.org/wiki/Church">' +
-                    'https://en.wikipedia.org/wiki/Church</a></p></div>';
+                    '*@https://en.wikipedia.org/wiki/Church</a></p></div>';
                 contentStrings[i].index = i;
                 infoWindow[i] = new google.maps.InfoWindow(
                     {
