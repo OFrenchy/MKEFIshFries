@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MKEFishFries.Models.Event>
+﻿@model IEnumerable<MKEFishFries.Models.EventModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -7,7 +7,7 @@
 <h3>ParishId = @ViewBag.ParishId  - On Events-Index view </h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create An Event", "Create")
 </p>
 <table class="table">
     <tr>
@@ -85,7 +85,10 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
             @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+            @Html.ActionLink("RSVP", "ConfirmInvite", "Visitor", new { id = item.Id }, null) |
+            @Html.ActionLink("Modify Your Invite", "MyPlusGuest", "Visitor", new { id = item.Id }, null) |
+            @Html.ActionLink("Attendees", "ListOfAttendees", "Events", new { id = item.Id }, null)
         </td>
     </tr>
     }

@@ -14,6 +14,7 @@ namespace MKEFishFries.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string BusinessName { get; set; }
+        public int AttendeeGuests { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }

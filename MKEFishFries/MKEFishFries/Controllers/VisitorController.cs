@@ -140,11 +140,20 @@ namespace MKEFishFries.Controllers
         }
 
         // GET: FishSeeker
+        [HttpGet]
         public ActionResult Index()
         {
             var parishes = db.Parishes;
             return View(parishes.ToList());
         }
+        [HttpPost]
+        public ActionResult Index(string parishStreet, Parish location)
+        {
+            var parishes = db.Parishes.ToList().Where(p => p.Street1.StartsWith(parishStreet));
+            return View(parishes);
+        }
+
+
         // GET: FishSeeker/Details/5
         public ActionResult Details(int id)
         {
@@ -235,8 +244,82 @@ namespace MKEFishFries.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public ActionResult SignupForEmails(Parish parish)
+        {
+            var userLoggedIn = User.Identity.GetUserId();
+            var visitor = db.Peoples.Where(p => p.ApplicationUserId == userLoggedIn).FirstOrDefault();
+            var parishToGetEmailsFrom = db.Parishes.Where(p => p.ID == parish.ID).FirstOrDefault();
+            PeopleParishViewModel personToParish = new PeopleParishViewModel();
+            personToParish.PeopleId = visitor.ID;
+            personToParish.ParishId = parishToGetEmailsFrom.ID;
+            db.PeopleParishView.Add(personToParish);
+            db.SaveChanges();
+
+            return RedirectToAction("MyParish", "Visitor");
+        }
+
+        [HttpGet]
+        public ActionResult MyParish()
+        {
+            var myParishMember = new People();
+            var loggedInUser = User.Identity.GetUserId();
+            var visitors = db.Peoples.Where(p => p.ApplicationUserId == loggedInUser).FirstOrDefault();
+            var joinedParish = db.PeopleParishView.Where(p => p.PeopleId == visitors.ID).ToList();
+            List<Parish> signedInParish = new List<Parish>();
+            foreach (PeopleParishViewModel allMyParishes in joinedParish)
+            {
+                signedInParish.Add(db.Parishes.Where(p => p.ID == allMyParishes.ParishId).SingleOrDefault());
+            }
+
+            return View(signedInParish);
+        }
+
+        [HttpGet]
+        public ActionResult ConfirmInvite(EventModel upcomingEvents)
+        {
+            var userLoggedIn = User.Identity.GetUserId();
+            var attendee = db.Peoples.Where(p => p.ApplicationUserId == userLoggedIn).FirstOrDefault();
+            var eventToAttend = db.Events.Where(e => e.Id == upcomingEvents.Id).FirstOrDefault();
+            EventAttendees attendedEvents = new EventAttendees();
+            attendedEvents.PeopleId = attendee.ID;
+            attendedEvents.EventId = eventToAttend.Id;
+            db.EventAttendees.Add(attendedEvents);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Events");
+        }
+
+        [HttpGet]
+        public ActionResult MyPlusGuest(int id)
+        {
+            var attendee = db.Peoples.Find(id);
+            return View(attendee);
+        }
+
+        [HttpPost]
+        public ActionResult MyPlusGuest(People people)
+        {
+            try
+            {
+                var attendee = db.Peoples.Single(p => p.ID == people.ID);
+                attendee.AttendeeGuests = people.AttendeeGuests;
+
+                db.SaveChanges();
+                //return RedirectToAction("Index", "Events");
+                return RedirectToAction("ListOfAttendees", "Events", new { id = people.ID } );
+            }
+            catch
+            {
+                return View(people);
+            }
+           
+        }
+
     }
 }
+
+
 
 
 //﻿using Microsoft.AspNet.Identity;
@@ -323,7 +406,7 @@ namespace MKEFishFries.Controllers
 //            }
 //            return RedirectToAction("Index");
 //        }
-        
+
 //        [HttpPost]
 //        public ActionResult VisitorActionsPayment(string stripeToken, string SignUp, string Comment)
 //        {
@@ -335,7 +418,7 @@ namespace MKEFishFries.Controllers
 //                Currency = "usd",
 //                Description = "Charge for jenny.rosen@example.com",
 //                SourceId = stripeToken // obtained with Stripe.js,
-               
+
 //            };
 //            var service = new ChargeService();
 //            Charge charge = service.Create(options);
@@ -345,7 +428,7 @@ namespace MKEFishFries.Controllers
 //            //return View();
 //        }
 
-        
+
 
 //        // GET: FishSeeker
 //        public ActionResult Index()
@@ -410,7 +493,7 @@ namespace MKEFishFries.Controllers
 //        [HttpPost]
 //        public ActionResult Edit(People person)
 //        {
-         
+
 //            var userId = User.Identity.GetUserId();
 //            var user = db.Peoples.Where(c => c.ApplicationUserId == userId).Single();
 //            try

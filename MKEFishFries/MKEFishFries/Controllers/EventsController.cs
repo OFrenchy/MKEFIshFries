@@ -58,7 +58,7 @@ namespace MKEFishFries.Controllers
             {
                 RedirectToAction("Index", "Search");
             }
-            Event @event = db.Events.Find(id);
+            EventModel @event = db.Events.Find(id);
             if (@event == null)
             {
                 return HttpNotFound();
@@ -84,7 +84,7 @@ namespace MKEFishFries.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ParishId,Date,EventName,EventDescription,StartTime,EndTime,Price,FoodDescription,CarryOutOption,SponserPersonId")] Event @event)
+        public ActionResult Create([Bind(Include = "Id,ParishId,Date,EventName,EventDescription,StartTime,EndTime,Price,FoodDescription,CarryOutOption,SponserPersonId")] EventModel @event)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace MKEFishFries.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event @event = db.Events.Find(id);
+            EventModel @event = db.Events.Find(id);
             if (@event == null)
             {
                 return HttpNotFound();
@@ -119,7 +119,7 @@ namespace MKEFishFries.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ParishId,Date,EventName,EventDescription,StartTime,EndTime,Price,FoodDescription,CarryOutOption,SponserPersonId")] Event @event)
+        public ActionResult Edit([Bind(Include = "Id,ParishId,Date,EventName,EventDescription,StartTime,EndTime,Price,FoodDescription,CarryOutOption,SponserPersonId")] EventModel @event)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +138,7 @@ namespace MKEFishFries.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event @event = db.Events.Find(id);
+            EventModel @event = db.Events.Find(id);
             if (@event == null)
             {
                 return HttpNotFound();
@@ -151,10 +151,20 @@ namespace MKEFishFries.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Event @event = db.Events.Find(id);
+            EventModel @event = db.Events.Find(id);
             db.Events.Remove(@event);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult ListOfAttendees(int id)
+        {
+            var eventsToAttend = db.Events.Where(e => e.Id == id).FirstOrDefault();
+            var parishGuests = db.EventAttendees.Where(e => e.EventId == eventsToAttend.Id).Select(e => e.PeopleId).ToList();
+            var membersWhoJoined = db.Peoples.Where(m => parishGuests.Contains(m.ID)).ToList();
+
+            return View(membersWhoJoined);
         }
 
         protected override void Dispose(bool disposing)

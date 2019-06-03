@@ -200,12 +200,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905081738109_DbUpdate.cs" />
+    <Compile Include="Migrations\201905081738109_DbUpdate.Designer.cs">
+      <DependentUpon>201905081738109_DbUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905092346295_DbUpdate1.cs" />
+    <Compile Include="Migrations\201905092346295_DbUpdate1.Designer.cs">
+      <DependentUpon>201905092346295_DbUpdate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905151945074_DbUpdate2.cs" />
+    <Compile Include="Migrations\201905151945074_DbUpdate2.Designer.cs">
+      <DependentUpon>201905151945074_DbUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905152100330_DbUpdate3.cs" />
+    <Compile Include="Migrations\201905152100330_DbUpdate3.Designer.cs">
+      <DependentUpon>201905152100330_DbUpdate3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Access.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ChargeViewModel.cs" />
     <Compile Include="Models\ContactList.cs" />
     <Compile Include="Models\Donation.cs" />
-    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\EventAttendees.cs" />
     <Compile Include="Models\EventSponsorViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IEmailConfiguration.cs" />
@@ -275,7 +293,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\ParishAdmin\Index.cshtml" />
     <Content Include="Views\ParishAdmin\Details.cshtml" />
     <Content Include="Views\ParishAdmin\Create.cshtml" />
     <Content Include="Views\ParishAdmin\Edit.cshtml" />
@@ -285,12 +302,10 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
-    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
     <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
     <Content Include="Views\ParishAdmin\DetailsParish.cshtml" />
     <Content Include="Views\ParishAdmin\EditParish.cshtml" />
     <Content Include="Views\ParishAdmin\DeleteParish.cshtml" />
-    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
     <Content Include="Views\Visitor\Create.cshtml" />
     <Content Include="Views\Visitor\Delete.cshtml" />
     <Content Include="Views\Visitor\Details.cshtml" />
@@ -299,10 +314,18 @@
     <Content Include="Views\Visitor\VisitorActions.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Visitor\DonationConfirmation.cshtml" />
+    <Content Include="Views\ParishAdmin\SendMail.cshtml" />
+    <Content Include="Views\ParishAdmin\CreateParish.cshtml" />
+    <Content Include="Views\ParishAdmin\Index.cshtml" />
+    <Content Include="Views\Visitor\SignupForEmails.cshtml" />
+    <Content Include="Views\Visitor\MyParish.cshtml" />
+    <Content Include="Views\ParishAdmin\MembersOfParish.cshtml" />
+    <Content Include="Views\Visitor\MyPlusGuest.cshtml" />
+    <Content Include="Views\Events\ListOfAttendees.cshtml" />
+    <Content Include="Views\Visitor\ConfirmInvite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Views\EmailNotify\" />
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +340,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905081738109_DbUpdate.resx">
+      <DependentUpon>201905081738109_DbUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905092346295_DbUpdate1.resx">
+      <DependentUpon>201905092346295_DbUpdate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905151945074_DbUpdate2.resx">
+      <DependentUpon>201905151945074_DbUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905152100330_DbUpdate3.resx">
+      <DependentUpon>201905152100330_DbUpdate3.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

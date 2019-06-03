@@ -23,7 +23,7 @@ namespace MKEFishFries.Models
         public string Phone { get; set; }
         public string Comments { get; set; }
         public Boolean RecieveComments { get; set; }
-        public List<Event>listOfEvents { get; set; }
+        public List<EventModel>listOfEvents { get; set; }
 
         [ForeignKey("People")]
         public int? AdminPersonId { get; set; }

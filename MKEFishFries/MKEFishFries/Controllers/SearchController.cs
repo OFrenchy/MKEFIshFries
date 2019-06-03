@@ -14,7 +14,7 @@ namespace MKEFishFries.Controllers
         // GET: Search
         public ActionResult Index(string option, string search)
         {
-            List<Event> parishesWithEvents = db.Events.ToList();
+            List<EventModel> parishesWithEvents = db.Events.ToList();
             if (option == "Event")
             {
                 return View(db.Events.Where(e => e.EventName == search || search == null).ToList());
